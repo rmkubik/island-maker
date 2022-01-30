@@ -1,0 +1,10 @@
+body {
+  background-color: rgb(69, 69, 69);
+}
+
+.tile:hover {
+  /* transform-origin: center;
+  transform: scale(1.1);
+  z-index: 10000;
+  filter: contrast(0.75); */
+}
