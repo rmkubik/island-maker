@@ -16,8 +16,6 @@ const scaleToFitWindow = (node) => {
     innerHeight / clientHeight,
   ];
 
-  console.log({ scales, clientWidth, clientHeight, innerWidth, innerHeight });
-
   node.style.transformOrigin = "top left";
   node.style.transform = `scale(${Math.min(...scales)})`;
 };
