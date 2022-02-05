@@ -1,5 +1,8 @@
 body {
   background-color: rgb(69, 69, 69);
+
+  overflow: hidden;
+  margin: 0;
 }
 
 .tile:hover {

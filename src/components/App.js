@@ -9,18 +9,18 @@ import "../style.css";
 
 function App() {
   return (
-    <div className="App">
-      <DndProvider backend={HTML5Backend}>
+    <div>
+      {/* <DndProvider backend={HTML5Backend}>
         <div style={{ overflow: "hidden", clear: "both" }}>
           <Dustbin />
         </div>
         <div style={{ overflow: "hidden", clear: "both" }}>
           <Box name="Glass" />
           <Box name="Banana" />
-          <Box name="Paper" />
-        </div>
-        <Grid />
-      </DndProvider>
+          <Box name="Paper" /> */}
+      {/* </div> */}
+      <Grid />
+      {/* </DndProvider> */}
     </div>
   );
 }
