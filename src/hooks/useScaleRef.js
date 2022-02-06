@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef } from "react";
+import { useState } from "react/cjs/react.development";
 
-const scaleToFitWindow = (node) => {
+const calcScaleToFitWindow = (node) => {
   if (!node) {
-    // If no node is provided, do nothing
-    return;
+    // If no node is provided, use default scale
+    return 1;
   }
 
   const { clientWidth, clientHeight } = node;
@@ -15,17 +16,38 @@ const scaleToFitWindow = (node) => {
     // Y scale
     innerHeight / clientHeight,
   ];
+  const smallestScale = Math.min(...scales);
 
+  return smallestScale;
+};
+
+const scaleNode = (node, scale) => {
   node.style.transformOrigin = "top left";
-  node.style.transform = `scale(${Math.min(...scales)})`;
+  node.style.transform = `scale(${scale})`;
+};
+
+const scaleToFitWindow = (node) => {
+  if (!node) {
+    // If no node is provided, do nothing
+    return;
+  }
+
+  const scale = calcScaleToFitWindow(node);
+
+  scaleNode(node, scale);
 };
 
 const useScaleRef = () => {
-  // const scaleRef = useRef();
+  const [scale, setScale] = useState(1);
 
   const scaleRef = useCallback((node) => {
     if (node !== null) {
-      const scaleToFitWindowWithRef = () => scaleToFitWindow(node);
+      const scaleToFitWindowWithRef = () => {
+        const newScale = calcScaleToFitWindow(node);
+
+        scaleNode(node, newScale);
+        setScale(newScale);
+      };
 
       scaleToFitWindowWithRef();
 
@@ -33,7 +55,8 @@ const useScaleRef = () => {
 
       const resizeObserver = new ResizeObserver((entries) => {
         for (let entry of entries) {
-          scaleToFitWindow(entry.target);
+          // scaleToFitWindow(entry.target);
+          scaleToFitWindowWithRef();
         }
       });
 
@@ -46,7 +69,7 @@ const useScaleRef = () => {
     }
   }, []);
 
-  return scaleRef;
+  return [scaleRef, scale];
 };
 
 export default useScaleRef;
