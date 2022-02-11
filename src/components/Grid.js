@@ -33,6 +33,36 @@ const tilesMap = new WeightedMap({
   oceanWave: 5,
 });
 
+const locations = {
+  house: {
+    image: locationImages["locations_colored_0"],
+  },
+  town: {
+    image: locationImages["locations_colored_1"],
+  },
+  farm: {
+    image: locationImages["locations_colored_5"],
+  },
+  windmill: {
+    image: locationImages["locations_colored_6"],
+  },
+  inn: {
+    image: locationImages["locations_colored_12"],
+  },
+  church: {
+    image: locationImages["locations_colored_16"],
+  },
+};
+
+const icons = {
+  question: {
+    image: iconImages["icons_colored_0"],
+  },
+  x: {
+    image: iconImages["icons_colored_3"],
+  },
+};
+
 const TOP_MARGIN = 60;
 
 const LOCATION_SIZE = 134;
@@ -46,7 +76,7 @@ const TILE_WIDTH = 300;
 const TILE_IMAGE_WIDTH = 380;
 const LOCATION_X_OFFSET = TILE_IMAGE_WIDTH / 2 - HALF_LOCATION_SIZE;
 
-const dimensions = { width: 8, height: 8 };
+const dimensions = { width: 10, height: 10 };
 
 const getHexFromPointerEvent = (GridData, scale) => (event) => {
   const hex = GridData.pointToHex(
@@ -64,6 +94,8 @@ const Grid = () => {
   const [hovered, setHovered] = useState();
   const [deck, setDeck] = useState([]);
   const [selected, setSelected] = useState("");
+  const [points, setPoints] = useState(0);
+  const [banked, setBanked] = useState();
 
   useEffect(() => {
     const Hex = extendHex({
@@ -88,9 +120,13 @@ const Grid = () => {
       // hex.objectImage = pickRandomlyFromArray(Object.values(locationImages));
     });
 
-    const initialDeck = new Array(20)
-      .fill()
-      .map(() => pickRandomlyFromArray(Object.values(locationImages)));
+    const initialDeck = new Array(20).fill().map(() => {
+      const locationTypes = Object.values(locations);
+
+      return pickRandomlyFromArray(locationTypes).image;
+    });
+    //.map(() => locations.house.image);
+    // .map(() => pickRandomlyFromArray(Object.values(locationImages)));
 
     const initialSelected = initialDeck.shift();
 
@@ -193,6 +229,49 @@ const Grid = () => {
           </div>
         );
       })}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          position: "absolute",
+          zIndex: 10000,
+        }}
+      >
+        <p>Current: </p>
+        <img src={selected ? selected : icons.x.image} />
+        <p>Next:</p>
+        <img src={deck.length >= 1 ? deck[0] : icons.x.image} />
+        <p>Bank:</p>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+
+            switch (true) {
+              case Boolean(selected && !banked):
+                setBanked(selected);
+
+                const [newSelected, ...newDeck] = deck;
+
+                setDeck(newDeck);
+                setSelected(newSelected);
+                return;
+              case Boolean(selected && banked):
+                setBanked(selected);
+                setSelected(banked);
+                return;
+              case Boolean(!selected && banked):
+                setBanked();
+                setSelected(banked);
+                return;
+              default:
+                return;
+            }
+          }}
+        >
+          <img src={banked ? banked : icons.x.image} />
+        </button>
+        <p>Points: {points}</p>
+      </div>
     </div>
   );
 };
