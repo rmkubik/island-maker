@@ -8,6 +8,7 @@ import useDeck from "../hooks/useDeck";
 import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
 import { tilePaths, tilesMap } from "../data/tiles";
 import { dimensions, TILE_HEIGHT, TILE_IMAGE_WIDTH } from "../data/config";
+import TopBar from "./TopBar";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
@@ -40,11 +41,17 @@ function App() {
         setDeck={setDeck}
         grid={grid}
         GridDataRef={GridDataRef}
-        banked={banked}
-        setBanked={setBanked}
         scale={scale}
         selected={selected}
         setSelected={setSelected}
+      />
+      <TopBar
+        selected={selected}
+        setSelected={setSelected}
+        deck={deck}
+        setDeck={setDeck}
+        banked={banked}
+        setBanked={setBanked}
       />
     </div>
   );
