@@ -1,91 +1,21 @@
 import { defineGrid, extendHex, Point } from "honeycomb-grid";
 import React, { useEffect, useRef, useState } from "react";
 
-import WeightedMap from "../utils/WeightedMap";
+import { tilePaths, tileBorders, tilesMap } from "../data/tiles";
+import { locations, icons } from "../data/locations";
+import {
+  TILE_WIDTH,
+  TILE_HEIGHT,
+  dimensions,
+  TILE_IMAGE_WIDTH,
+  TOP_MARGIN,
+  LOCATION_Y_OFFSET,
+  LOCATION_X_OFFSET,
+} from "../data/config";
 
-import * as grassLandTiles from "../../assets/Tiles Grasslands/*.png";
-import * as forestTiles from "../../assets/Tiles Forests/*.png";
-import * as mountainTiles from "../../assets/Tiles Mountains/*.png";
-import * as oceanTiles from "../../assets/Tiles Oceans/*.png";
-import * as oceanWaveTiles from "../../assets/Tiles Oceans with Waves/*.png";
-import * as locationImages from "../../assets/Locations 134x134/*.png";
-import * as iconImages from "../../assets/Icons 134x134/*.png";
-import tileCorners from "../../assets/Overlays Hex Corners/hex_corner_overlay.png";
-import tileBorders from "../../assets/Overlays Hex Borders/hex_border_overlay.png";
 import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
 import useScaleRef from "../hooks/useScaleRef";
-
-// console.log({ locationImages, iconImages });
-
-const tilePaths = {
-  grassland: Object.values(grassLandTiles),
-  forest: Object.values(forestTiles),
-  mountain: Object.values(mountainTiles),
-  ocean: Object.values(oceanTiles),
-  oceanWave: Object.values(oceanWaveTiles),
-};
-
-const tilesMap = new WeightedMap({
-  grassland: 50,
-  forest: 15,
-  mountain: 5,
-  ocean: 25,
-  oceanWave: 5,
-});
-
-const locations = {
-  house: {
-    image: locationImages["locations_colored_0"],
-  },
-  town: {
-    image: locationImages["locations_colored_1"],
-  },
-  farm: {
-    image: locationImages["locations_colored_5"],
-  },
-  windmill: {
-    image: locationImages["locations_colored_6"],
-  },
-  inn: {
-    image: locationImages["locations_colored_12"],
-  },
-  church: {
-    image: locationImages["locations_colored_16"],
-  },
-};
-
-const icons = {
-  question: {
-    image: iconImages["icons_colored_0"],
-  },
-  x: {
-    image: iconImages["icons_colored_3"],
-  },
-};
-
-const TOP_MARGIN = 60;
-
-const LOCATION_SIZE = 134;
-const HALF_LOCATION_SIZE = LOCATION_SIZE / 2;
-
-const TILE_HEIGHT = 135;
-const TILE_IMAGE_HEIGHT = 380;
-const LOCATION_Y_OFFSET = TILE_IMAGE_HEIGHT - TILE_HEIGHT - HALF_LOCATION_SIZE;
-
-const TILE_WIDTH = 300;
-const TILE_IMAGE_WIDTH = 380;
-const LOCATION_X_OFFSET = TILE_IMAGE_WIDTH / 2 - HALF_LOCATION_SIZE;
-
-const dimensions = { width: 10, height: 10 };
-
-const getHexFromPointerEvent = (GridData, scale) => (event) => {
-  const hex = GridData.pointToHex(
-    event.clientX / scale,
-    event.clientY / scale - TILE_HEIGHT
-  );
-
-  return hex;
-};
+import getHexFromPointerEvent from "../utils/getHexFromPointerEvent";
 
 const Grid = () => {
   const [scaleRef, scale] = useScaleRef();
