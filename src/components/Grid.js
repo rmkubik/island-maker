@@ -1,46 +1,24 @@
-import { defineGrid, extendHex, Point } from "honeycomb-grid";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { tilePaths, tileBorders, tilesMap } from "../data/tiles";
+import { tilePaths, tilesMap } from "../data/tiles";
 import { locations, icons } from "../data/locations";
-import {
-  TILE_WIDTH,
-  TILE_HEIGHT,
-  dimensions,
-  TILE_IMAGE_WIDTH,
-  TOP_MARGIN,
-  LOCATION_Y_OFFSET,
-  LOCATION_X_OFFSET,
-} from "../data/config";
+import { TILE_HEIGHT, dimensions, TILE_IMAGE_WIDTH } from "../data/config";
 
 import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
 import useScaleRef from "../hooks/useScaleRef";
 import getHexFromPointerEvent from "../utils/getHexFromPointerEvent";
+import useHexGrid from "../hooks/useHexGrid";
+import Tile from "../components/Tile";
 
 const Grid = () => {
   const [scaleRef, scale] = useScaleRef();
-  const [grid, setGrid] = useState();
-  const GridDataRef = useRef();
   const [hovered, setHovered] = useState();
   const [deck, setDeck] = useState([]);
   const [selected, setSelected] = useState("");
   const [points, setPoints] = useState(0);
   const [banked, setBanked] = useState();
-
-  useEffect(() => {
-    const Hex = extendHex({
-      orientation: "flat",
-      size: { width: TILE_WIDTH, height: TILE_HEIGHT },
-      tileType: undefined,
-      tileImage: undefined,
-      objetType: undefined,
-      objectImage: undefined,
-    });
-    GridDataRef.current = defineGrid(Hex);
-
-    const initialGrid = GridDataRef.current.rectangle(dimensions);
-
-    initialGrid.forEach((hex) => {
+  const { GridDataRef, grid, setGrid } = useHexGrid({
+    initializeHex: (hex) => {
       const tileType = tilesMap.pickRandom();
       const tileTypeImages = tilePaths[tileType];
       const tileImage = pickRandomlyFromArray(tileTypeImages);
@@ -48,8 +26,10 @@ const Grid = () => {
       hex.tileType = tileType;
       hex.tileImage = tileImage;
       // hex.objectImage = pickRandomlyFromArray(Object.values(locationImages));
-    });
+    },
+  });
 
+  useEffect(() => {
     const initialDeck = new Array(20).fill().map(() => {
       const locationTypes = Object.values(locations);
 
@@ -61,7 +41,6 @@ const Grid = () => {
     const initialSelected = initialDeck.shift();
 
     setDeck(initialDeck);
-    setGrid(initialGrid);
     setSelected(initialSelected);
   }, []);
 
@@ -107,58 +86,14 @@ const Grid = () => {
         setSelected(newSelected);
       }}
     >
-      {grid.map((hex) => {
-        const { x, y } = hex.toPoint();
-
-        const isHovered = hovered && hex.equals(hovered);
-
-        let objectImageSrc = hex.objectImage;
-
-        if (!objectImageSrc) {
-          if (isHovered) {
-            if (selected) {
-              objectImageSrc = selected;
-            }
-          }
-        }
-
-        return (
-          <div
-            key={`x:${x},y:${y}`}
-            style={{
-              position: "absolute",
-              left: x,
-              top: y - TOP_MARGIN,
-              zIndex: Math.floor(y),
-            }}
-            className="tile"
-          >
-            <img
-              style={{
-                position: "absolute",
-              }}
-              src={hex.tileImage}
-            />
-            {isHovered && (
-              <img
-                style={{
-                  position: "absolute",
-                  zIndex: 100000,
-                }}
-                src={tileBorders}
-              />
-            )}
-            <img
-              style={{
-                position: "absolute",
-                top: `${LOCATION_Y_OFFSET}px`,
-                left: `${LOCATION_X_OFFSET}px`,
-              }}
-              src={objectImageSrc}
-            />
-          </div>
-        );
-      })}
+      {grid.map((hex) => (
+        <Tile
+          key={JSON.stringify(hex.toPoint())}
+          hex={hex}
+          selected={selected}
+          hovered={hovered}
+        />
+      ))}
       <div
         style={{
           display: "flex",
