@@ -16,7 +16,7 @@ const Tile = ({ hex, hovered, selected }) => {
   if (!objectImageSrc) {
     if (isHovered) {
       if (selected) {
-        objectImageSrc = selected;
+        objectImageSrc = selected.image;
       }
     }
   }

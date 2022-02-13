@@ -10,7 +10,7 @@ const useDeck = () => {
     const initialDeck = new Array(20).fill().map(() => {
       const locationTypes = Object.values(locations);
 
-      return pickRandomlyFromArray(locationTypes).image;
+      return pickRandomlyFromArray(locationTypes);
     });
     //.map(() => locations.house.image);
     // .map(() => pickRandomlyFromArray(Object.values(locationImages)));

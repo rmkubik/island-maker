@@ -41,7 +41,7 @@ const Grid = ({
         const hexCoordinates = getHexFromPointerEventWithGridData(e);
 
         const hex = grid.get(hexCoordinates);
-        hex.objectImage = selected;
+        hex.objectImage = selected.image;
         grid.set(hexCoordinates, hex);
 
         const [newSelected, ...newDeck] = deck;

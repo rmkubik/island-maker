@@ -14,7 +14,7 @@ function App() {
   const [scaleRef, scale] = useScaleRef();
 
   const [banked, setBanked] = useState();
-  const { GridDataRef, grid, setGrid } = useHexGrid({
+  const { GridDataRef, grid } = useHexGrid({
     initializeHex: (hex) => {
       const tileType = tilesMap.pickRandom();
       const tileTypeImages = tilePaths[tileType];
@@ -22,7 +22,6 @@ function App() {
 
       hex.tileType = tileType;
       hex.tileImage = tileImage;
-      // hex.objectImage = pickRandomlyFromArray(Object.values(locationImages));
     },
   });
   const { deck, setDeck, selected, setSelected } = useDeck();

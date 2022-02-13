@@ -19,9 +19,9 @@ const TopBar = ({
       }}
     >
       <p>Current: </p>
-      <img src={selected ? selected : icons.x.image} />
+      <img src={selected.image ? selected.image : icons.x.image} />
       <p>Next:</p>
-      <img src={deck.length >= 1 ? deck[0] : icons.x.image} />
+      <img src={deck.length >= 1 ? deck[0].image : icons.x.image} />
       <p>Bank:</p>
       <button
         onClick={(e) => {
@@ -49,7 +49,7 @@ const TopBar = ({
           }
         }}
       >
-        <img src={banked ? banked : icons.x.image} />
+        <img src={banked ? banked.image : icons.x.image} />
       </button>
     </div>
   );
