@@ -23,8 +23,6 @@ function App() {
 
       const resource = getResource(tileType);
 
-      console.log({ resource, tileType });
-
       if (resource) {
         hex.objectType = resource.key;
         hex.objectImage = resource.image;

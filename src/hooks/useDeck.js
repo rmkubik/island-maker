@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { locations } from "../data/locations";
+import { objects } from "../data/locations";
 import shuffle from "../utils/shuffle";
 
 const useDeck = () => {
@@ -8,12 +8,12 @@ const useDeck = () => {
 
   useEffect(() => {
     const unShuffledDeck = [
-      locations.camp,
-      locations.camp,
-      locations.mine,
-      locations.mine,
-      locations.farm,
-      locations.farm,
+      objects.camp,
+      objects.camp,
+      objects.mine,
+      objects.mine,
+      objects.farm,
+      objects.farm,
     ];
     const initialDeck = shuffle(unShuffledDeck);
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { icons } from "../data/locations";
+import { objects } from "../data/locations";
 
 const TopBar = ({
   selected,
@@ -20,9 +20,9 @@ const TopBar = ({
       }}
     >
       <p>Current: </p>
-      <img src={selected ? selected.image : icons.x.image} />
+      <img src={selected ? selected.image : objects.x.image} />
       <p>Next:</p>
-      <img src={deck.length >= 1 ? deck[0].image : icons.x.image} />
+      <img src={deck.length >= 1 ? deck[0].image : objects.x.image} />
       <p>Deck: {deck.length}</p>
       <p>Bank:</p>
       <button
@@ -51,7 +51,7 @@ const TopBar = ({
           }
         }}
       >
-        <img src={banked ? banked.image : icons.x.image} />
+        <img src={banked ? banked.image : objects.x.image} />
       </button>
     </div>
   );
