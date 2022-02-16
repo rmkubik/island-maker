@@ -41,6 +41,13 @@ const Grid = ({
         const hexCoordinates = getHexFromPointerEventWithGridData(e);
 
         const hex = grid.get(hexCoordinates);
+
+        if (!selected.validTileTypes.includes(hex.tileType)) {
+          // Do not place object if the clicked
+          // hex is not a valid tile type
+          return;
+        }
+
         hex.objectImage = selected.image;
         grid.set(hexCoordinates, hex);
 

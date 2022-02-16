@@ -7,15 +7,19 @@ const locations = combineEntriesWithKeys(
   Object.entries({
     camp: {
       image: locationImages["locations_colored_8"],
+      validTileTypes: ["forest"],
     },
     farm: {
       image: locationImages["locations_colored_5"],
+      validTileTypes: ["grassland"],
     },
     mine: {
       image: locationImages["locations_colored_19"],
+      validTileTypes: ["grassland", "forest"],
     },
     house: {
       image: locationImages["locations_colored_0"],
+      validTileTypes: ["grassland"],
     },
     town: {
       image: locationImages["locations_colored_1"],
