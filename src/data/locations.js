@@ -5,14 +5,20 @@ import * as iconImages from "../../assets/Icons 134x134/*.png";
 
 const locations = combineEntriesWithKeys(
   Object.entries({
+    camp: {
+      image: locationImages["locations_colored_8"],
+    },
+    farm: {
+      image: locationImages["locations_colored_5"],
+    },
+    mine: {
+      image: locationImages["locations_colored_19"],
+    },
     house: {
       image: locationImages["locations_colored_0"],
     },
     town: {
       image: locationImages["locations_colored_1"],
-    },
-    farm: {
-      image: locationImages["locations_colored_5"],
     },
     windmill: {
       image: locationImages["locations_colored_6"],
