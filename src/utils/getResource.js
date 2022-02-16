@@ -2,9 +2,9 @@ import { icons } from "../data/locations";
 import randInt from "../utils/randInt";
 
 const getResource = (tileType) => {
-  const turnipChance = 10;
-  const fishChance = 7;
-  const tracksChance = 5;
+  const turnipChance = 8;
+  const fishChance = 6;
+  const tracksChance = 3;
 
   switch (tileType) {
     case "grassland":
