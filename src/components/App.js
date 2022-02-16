@@ -9,6 +9,7 @@ import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
 import { tilePaths, tilesMap } from "../data/tiles";
 import { dimensions, TILE_HEIGHT, TILE_IMAGE_WIDTH } from "../data/config";
 import TopBar from "./TopBar";
+import getResource from "../utils/getResource";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
@@ -19,6 +20,15 @@ function App() {
       const tileType = tilesMap.pickRandom();
       const tileTypeImages = tilePaths[tileType];
       const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+      const resource = getResource(tileType);
+
+      console.log({ resource, tileType });
+
+      if (resource) {
+        hex.objectType = resource.key;
+        hex.objectImage = resource.image;
+      }
 
       hex.tileType = tileType;
       hex.tileImage = tileImage;

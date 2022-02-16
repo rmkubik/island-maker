@@ -2,6 +2,7 @@ import combineEntriesWithKeys from "../utils/combineEntriesWithKeys";
 
 import * as locationImages from "../../assets/Locations 134x134/*.png";
 import * as iconImages from "../../assets/Icons 134x134/*.png";
+import * as resourceImages from "../../assets/resources/*.png";
 
 const locations = combineEntriesWithKeys(
   Object.entries({
@@ -43,6 +44,27 @@ const icons = combineEntriesWithKeys(
     },
     x: {
       image: iconImages["icons_colored_3"],
+    },
+    tracks: {
+      image: iconImages["icons_colored_11"],
+    },
+    fish1: {
+      image: resourceImages["fish_1"],
+    },
+    fish2: {
+      image: resourceImages["fish_2"],
+    },
+    fish3: {
+      image: resourceImages["fish_3"],
+    },
+    turnip1: {
+      image: resourceImages["turnip_1"],
+    },
+    turnip2: {
+      image: resourceImages["turnip_2"],
+    },
+    turnip3: {
+      image: resourceImages["turnip_3"],
     },
   })
 );
