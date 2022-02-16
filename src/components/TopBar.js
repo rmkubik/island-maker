@@ -11,6 +11,7 @@ const TopBar = ({
 }) => {
   return (
     <div
+      className="topbar"
       style={{
         display: "flex",
         flexDirection: "row",
@@ -19,9 +20,10 @@ const TopBar = ({
       }}
     >
       <p>Current: </p>
-      <img src={selected.image ? selected.image : icons.x.image} />
+      <img src={selected ? selected.image : icons.x.image} />
       <p>Next:</p>
       <img src={deck.length >= 1 ? deck[0].image : icons.x.image} />
+      <p>Deck: {deck.length}</p>
       <p>Bank:</p>
       <button
         onClick={(e) => {
