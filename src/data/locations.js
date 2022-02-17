@@ -107,7 +107,7 @@ const objects = combineEntriesWithKeys(
           grid.set(turnip, turnip);
         });
 
-        return new Array(turnips.length).fill("house");
+        return new Array(turnips.length).fill("house1");
       },
     },
     mine: {
@@ -127,12 +127,48 @@ const objects = combineEntriesWithKeys(
         return newObjects;
       },
     },
-    house: {
-      image: locationImages["locations_colored_0"],
+    // TODO: houses need special logic that lets them
+    // override other tiles (houses)
+    // This way they can upgrade each other.
+    // The Skull will need this functionality too.
+    // The Skull will need a special object override
+    // type that corresponds to any building though?
+    house1: {
+      image: resourceImages["house_1"],
+      validTileTypes: ["grassland"],
+      validObjectOverrides: ["house1", "house2"],
+      onOverride: ({ hex, neighbors, grid }) => {
+        let houseLevel = parseInt(hex.objectType[hex.objectType.length - 1]);
+
+        houseLevel += 1;
+
+        switch (houseLevel) {
+          case 3:
+            hex.objectType = objects.house3.key;
+            hex.objectImage = objects.house3.image;
+            break;
+          case 2:
+            hex.objectType = objects.house2.key;
+            hex.objectImage = objects.house2.image;
+            break;
+          default:
+            break;
+        }
+
+        grid.set(hex, hex);
+      },
+    },
+    house2: {
+      image: resourceImages["house_2"],
       validTileTypes: ["grassland"],
     },
-    town: {
-      image: locationImages["locations_colored_1"],
+    house3: {
+      image: resourceImages["house_3"],
+      validTileTypes: ["grassland"],
+    },
+    house4: {
+      image: resourceImages["house_4"],
+      validTileTypes: ["grassland"],
     },
     mill: {
       image: locationImages["locations_colored_6"],
@@ -163,11 +199,44 @@ const objects = combineEntriesWithKeys(
     lighthouse: {
       image: locationImages["locations_colored_13"],
       validTileTypes: ["grassland"],
-      onPlace: ({ hex, neighbors, grid }) => {},
+      onPlace: ({ hex, neighbors, grid }) => {
+        return ["ship", "ship"];
+      },
     },
     ship: {
       image: locationImages["locations_colored_28"],
       validTileTypes: ["ocean", "oceanWave"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        const fishes = neighbors.filter((neighbor) =>
+          neighbor.objectType?.includes("fish")
+        );
+
+        fishes.forEach((fish) => {
+          let fishLevel = parseInt(fish.objectType[fish.objectType.length - 1]);
+
+          fishLevel -= 1;
+
+          switch (fishLevel) {
+            case 2:
+              fish.objectType = objects.fish2.key;
+              fish.objectImage = objects.fish2.image;
+              break;
+            case 1:
+              fish.objectType = objects.fish1.key;
+              fish.objectImage = objects.fish1.image;
+              break;
+            case 0:
+            default:
+              fish.objectType = undefined;
+              fish.objectImage = undefined;
+              break;
+          }
+
+          grid.set(fish, fish);
+        });
+
+        return new Array(fishes.length).fill("house1");
+      },
     },
     shipwreck: {
       image: locationImages["locations_colored_29"],
