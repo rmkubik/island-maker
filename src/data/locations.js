@@ -42,6 +42,7 @@ const objects = combineEntriesWithKeys(
     },
     plant: {
       image: iconImages["icons_colored_12"],
+      validObjectOverrides: ["house1"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
         const tileTypeImages = tilePaths.forest;
@@ -49,8 +50,17 @@ const objects = combineEntriesWithKeys(
 
         hex.tileType = "forest";
         hex.tileImage = tileImage;
-        hex.objectImage = undefined;
-        hex.objectType = undefined;
+
+        switch (hex.objectType) {
+          case "house1":
+            hex.objectImage = objects.witchHut.image;
+            hex.objectType = "witchHut";
+            break;
+          default:
+            hex.objectImage = undefined;
+            hex.objectType = undefined;
+            break;
+        }
 
         grid.set(hex, hex);
       },
@@ -232,6 +242,28 @@ const objects = combineEntriesWithKeys(
 
           grid.set(house, house);
         });
+
+        const graves = neighbors.filter(
+          (neighbor) => neighbor.objectType === "grave"
+        );
+
+        graves.forEach((grave) => {
+          switch (grave.tileType) {
+            case "forest":
+              grave.objectType = "witchHut";
+              grave.objectImage = objects.witchHut.image;
+              break;
+            case "grassland":
+            default:
+              grave.objectType = "house1";
+              grave.objectImage = objects.house1.image;
+              break;
+          }
+
+          grid.set(grave, grave);
+        });
+
+        return newCards;
       },
     },
     nest: {
@@ -368,6 +400,10 @@ const objects = combineEntriesWithKeys(
 
         grid.set(hex, hex);
       },
+    },
+    witchHut: {
+      image: locationImages["locations_colored_7"],
+      validTileTypes: ["forest"],
     },
   })
 );
