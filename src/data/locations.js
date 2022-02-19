@@ -6,6 +6,7 @@ import * as resourceImages from "../../assets/resources/*.png";
 import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
 import constructArray from "../utils/constructArray";
 import { tilePaths } from "./tiles";
+import getHouseLevel from "../utils/getHouseLevel";
 
 const HOUSE_3_OPTIONS = ["inn", "church"];
 
@@ -190,8 +191,8 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_12"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const houses = neighbors.filter((neighbor) =>
-          neighbor.objectType?.includes("house")
+        const houses = neighbors.filter(
+          (neighbor) => getHouseLevel(neighbor) > 0
         );
 
         return new Array(houses.length).fill("house1");
@@ -201,16 +202,14 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_16"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const houses = neighbors.filter((neighbor) =>
-          neighbor.objectType?.includes("house")
+        const houses = neighbors.filter(
+          (neighbor) => getHouseLevel(neighbor) > 0
         );
 
         let newCards = [];
 
         houses.forEach((house) => {
-          let houseLevel = parseInt(
-            house.objectType[house.objectType.length - 1]
-          );
+          let houseLevel = getHouseLevel(house);
 
           houseLevel += 1;
 

@@ -6,7 +6,7 @@ import {
 } from "../data/config";
 import { tileBorders } from "../data/tiles";
 
-const Tile = ({ hex, hovered, selected }) => {
+const Tile = ({ hex, hovered, selected, newCards }) => {
   const { x, y } = hex.toPoint();
 
   const isHovered = hovered && hex.equals(hovered);
@@ -54,6 +54,20 @@ const Tile = ({ hex, hovered, selected }) => {
         }}
         src={objectImageSrc}
       />
+      {newCards.length > 0
+        ? newCards.map((card, index) => (
+            <img
+              key={index}
+              className="fadeOutUp"
+              style={{
+                position: "absolute",
+                top: `${LOCATION_Y_OFFSET - (index + 1) * 80}px`,
+                left: `${LOCATION_X_OFFSET}px`,
+              }}
+              src={card.image}
+            />
+          ))
+        : null}
     </div>
   );
 };

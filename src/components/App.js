@@ -59,6 +59,7 @@ function App() {
         setDeck={setDeck}
         banked={banked}
         setBanked={setBanked}
+        grid={grid}
       />
     </div>
   );

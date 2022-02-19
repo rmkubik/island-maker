@@ -14,6 +14,8 @@ const Grid = ({
   setSelected,
 }) => {
   const [hovered, setHovered] = useState();
+  const [newCards, setNewCards] = useState();
+  const [originHex, setOriginHex] = useState();
 
   if (!grid) {
     return null;
@@ -106,16 +108,20 @@ const Grid = ({
         // the neighbors and grid contents.
         // The function can also return new cards to be added
         // to the deck.
-        // TODO: newCards should be:
-        // - key of the new card
-        // - origin of the card as a hex
         const newCardKeys = selected.onPlace?.({ hex, neighbors, grid }) ?? [];
         const newCards = newCardKeys.map((key) => objects[key]);
+
+        // TODO:
+        // We need to perform an animation here before we update
+        // the deck's contents?
+
         const deckWithNewCards = [...deck, ...newCards];
 
         // Draw next card
         const [newSelected, ...newDeck] = deckWithNewCards;
 
+        setOriginHex(hex);
+        setNewCards(newCards);
         setDeck(newDeck);
         setSelected(newSelected);
       }}
@@ -126,6 +132,7 @@ const Grid = ({
           hex={hex}
           selected={selected}
           hovered={hovered}
+          newCards={hex.equals(originHex) ? newCards : []}
         />
       ))}
     </div>

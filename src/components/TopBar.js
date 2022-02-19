@@ -1,5 +1,6 @@
 import React from "react";
 import { objects } from "../data/locations";
+import countPopulation from "../utils/countPopulation";
 
 const TopBar = ({
   selected,
@@ -8,6 +9,7 @@ const TopBar = ({
   setDeck,
   banked,
   setBanked,
+  grid,
 }) => {
   return (
     <div
@@ -53,6 +55,7 @@ const TopBar = ({
       >
         <img src={banked ? banked.image : objects.x.image} />
       </button>
+      <p>Population: {grid ? countPopulation(grid) : 0}</p>
     </div>
   );
 };
