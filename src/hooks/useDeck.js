@@ -8,12 +8,14 @@ const useDeck = () => {
 
   useEffect(() => {
     const unShuffledDeck = [
-      objects.camp,
-      objects.camp,
-      objects.mine,
-      objects.mine,
-      objects.farm,
-      objects.farm,
+      objects.grave,
+      objects.skull,
+      // objects.camp,
+      // objects.camp,
+      // objects.mine,
+      // objects.mine,
+      // objects.farm,
+      // objects.farm,
     ];
     const initialDeck = shuffle(unShuffledDeck);
 

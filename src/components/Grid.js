@@ -43,12 +43,39 @@ const Grid = ({
         const hex = grid.get(hexCoordinates);
 
         // Objects can specify other objects that they can override
-        const isOverridingObject = selected.validObjectOverrides?.includes(
+        let isOverridingObject = selected.validObjectOverrides?.includes(
           hex.objectType
         );
 
-        // We only do this check if we're not overriding this object
+        // If the valid object override contains the special keyword "all"
+        // we will set overriding to true as there are no invalid
+        // targets
+        isOverridingObject = selected.validObjectOverrides?.includes("all")
+          ? true
+          : isOverridingObject;
+
+        // If an object has NOT valid object types, we allow these
+        // to override the previous logic and set overriding to
+        // false if so.
+        const isNotValidObjectOverride =
+          selected.notValidObjectOverrides?.includes(hex.objectType);
+
+        isOverridingObject = isNotValidObjectOverride
+          ? false
+          : isOverridingObject;
+
+        if (
+          selected.requireOverride &&
+          (!hex.objectType || isNotValidObjectOverride)
+        ) {
+          // If selected type requires override and we're not overriding
+          // anything, this placement fails.
+          // Check for NOT valid object types as well.
+          return;
+        }
+
         if (!isOverridingObject && hex.objectType) {
+          // We only do this check if we're not overriding this object
           // If there is already an object on this tile
           // can't place here.
           return;
@@ -79,6 +106,9 @@ const Grid = ({
         // the neighbors and grid contents.
         // The function can also return new cards to be added
         // to the deck.
+        // TODO: newCards should be:
+        // - key of the new card
+        // - origin of the card as a hex
         const newCardKeys = selected.onPlace?.({ hex, neighbors, grid }) ?? [];
         const newCards = newCardKeys.map((key) => objects[key]);
         const deckWithNewCards = [...deck, ...newCards];

@@ -4,7 +4,10 @@ import * as locationImages from "../../assets/Locations 134x134/*.png";
 import * as iconImages from "../../assets/Icons 134x134/*.png";
 import * as resourceImages from "../../assets/resources/*.png";
 import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
+import constructArray from "../utils/constructArray";
 import { tilePaths } from "./tiles";
+
+const HOUSE_3_OPTIONS = ["inn", "church"];
 
 const objects = combineEntriesWithKeys(
   Object.entries({
@@ -34,6 +37,7 @@ const objects = combineEntriesWithKeys(
     },
     turnip3: {
       image: resourceImages["turnip_3"],
+      validTileTypes: ["grassland"],
     },
     plant: {
       image: iconImages["icons_colored_12"],
@@ -54,7 +58,7 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_8"],
       validTileTypes: ["forest"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const options = ["plant", "mill"];
+        const options = ["turnip3", "mill"];
 
         const tracks = neighbors.filter(
           (neighbor) => neighbor.objectType === "tracks"
@@ -127,12 +131,6 @@ const objects = combineEntriesWithKeys(
         return newObjects;
       },
     },
-    // TODO: houses need special logic that lets them
-    // override other tiles (houses)
-    // This way they can upgrade each other.
-    // The Skull will need this functionality too.
-    // The Skull will need a special object override
-    // type that corresponds to any building though?
     house1: {
       image: resourceImages["house_1"],
       validTileTypes: ["grassland"],
@@ -156,6 +154,13 @@ const objects = combineEntriesWithKeys(
         }
 
         grid.set(hex, hex);
+      },
+      onPlace: ({ hex, neighbors, grid }) => {
+        const houseLevel = parseInt(hex.objectType[hex.objectType.length - 1]);
+
+        if (houseLevel === 3) {
+          return [pickRandomlyFromArray(HOUSE_3_OPTIONS)];
+        }
       },
     },
     house2: {
@@ -183,9 +188,52 @@ const objects = combineEntriesWithKeys(
     },
     inn: {
       image: locationImages["locations_colored_12"],
+      validTileTypes: ["grassland"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        const houses = neighbors.filter((neighbor) =>
+          neighbor.objectType?.includes("house")
+        );
+
+        return new Array(houses.length).fill("house1");
+      },
     },
     church: {
       image: locationImages["locations_colored_16"],
+      validTileTypes: ["grassland"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        const houses = neighbors.filter((neighbor) =>
+          neighbor.objectType?.includes("house")
+        );
+
+        let newCards = [];
+
+        houses.forEach((house) => {
+          let houseLevel = parseInt(
+            house.objectType[house.objectType.length - 1]
+          );
+
+          houseLevel += 1;
+
+          switch (houseLevel) {
+            default:
+            case 4:
+              house.objectType = objects.house4.key;
+              house.objectImage = objects.house4.image;
+              break;
+            case 3:
+              house.objectType = objects.house3.key;
+              house.objectImage = objects.house3.image;
+              newCards.push(pickRandomlyFromArray(HOUSE_3_OPTIONS));
+              break;
+            case 2:
+              house.objectType = objects.house2.key;
+              house.objectImage = objects.house2.image;
+              break;
+          }
+
+          grid.set(house, house);
+        });
+      },
     },
     nest: {
       image: locationImages["locations_colored_20"],
@@ -194,7 +242,11 @@ const objects = combineEntriesWithKeys(
     quarry: {
       image: locationImages["locations_colored_4"],
       validTileTypes: ["grassland"],
-      onPlace: ({ hex, neighbors, grid }) => {},
+      onPlace: ({ hex, neighbors, grid }) => {
+        const options = ["mine", "cave", "dungeon"];
+
+        return [pickRandomlyFromArray(options)];
+      },
     },
     lighthouse: {
       image: locationImages["locations_colored_13"],
@@ -207,6 +259,16 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_28"],
       validTileTypes: ["ocean", "oceanWave"],
       onPlace: ({ hex, neighbors, grid }) => {
+        // If a ship is placed on a wave, turn it into a
+        // shipwreck and don't generate any other tiles.
+        if (hex.tileType === "oceanWave") {
+          hex.objectType = objects.shipwreck.key;
+          hex.objectImage = objects.shipwreck.image;
+
+          grid.set(hex, hex);
+          return;
+        }
+
         const fishes = neighbors.filter((neighbor) =>
           neighbor.objectType?.includes("fish")
         );
@@ -235,12 +297,78 @@ const objects = combineEntriesWithKeys(
           grid.set(fish, fish);
         });
 
-        return new Array(fishes.length).fill("house1");
+        // Add a house for each adjacent fish
+        let newCards = new Array(fishes.length).fill("house1");
+
+        // Add a random card for each adjacent lighthouse
+        const lighthouses = neighbors.filter((neighbor) =>
+          neighbor.objectType?.includes("lighthouse")
+        );
+
+        const lightHouseOptions = ["plant", "camp"];
+
+        lighthouses.forEach(() => {
+          newCards.push(pickRandomlyFromArray(lightHouseOptions));
+        });
+
+        return newCards;
       },
     },
     shipwreck: {
       image: locationImages["locations_colored_29"],
       validTileTypes: ["ocean", "oceanWave"],
+    },
+    cave: {
+      image: locationImages["locations_colored_17"],
+      validTileTypes: ["grassland", "forest"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        const tileTypeImages = tilePaths.mountain;
+        const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+        hex.tileType = "mountain";
+        hex.tileImage = tileImage;
+        hex.objectImage = undefined;
+        hex.objectType = undefined;
+
+        grid.set(hex, hex);
+      },
+    },
+    dungeon: {
+      image: locationImages["locations_colored_18"],
+      validTileTypes: ["grassland", "forest"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        const options = ["grave", "skull"];
+
+        const mountains = neighbors.filter(
+          (neighbor) => neighbor.tileType === "mountain"
+        );
+
+        const newObjects = constructArray(
+          () => constructArray(() => pickRandomlyFromArray(options), 3),
+          mountains.length
+        ).flat();
+
+        console.log({ newObjects, constructArray });
+
+        return newObjects;
+      },
+    },
+    grave: {
+      image: locationImages["locations_colored_27"],
+      validTileTypes: ["grassland", "forest"],
+    },
+    skull: {
+      image: iconImages["icons_colored_4"],
+      validTileTypes: ["grassland", "forest"],
+      validObjectOverrides: ["all"],
+      notValidObjectOverrides: ["grave"],
+      requireOverride: true,
+      onOverride: ({ hex, neighbors, grid }) => {
+        hex.objectImage = objects.grave.image;
+        hex.objectType = "grave";
+
+        grid.set(hex, hex);
+      },
     },
   })
 );
