@@ -269,6 +269,10 @@ const objects = combineEntriesWithKeys(
     nest: {
       image: locationImages["locations_colored_20"],
       validTileTypes: ["grassland", "forest"],
+      onPlace: ({ hex, neighbors, grid, game }) => {
+        //  forest -> add a preview slot
+        //  grassland -> add a new bank slot
+      },
     },
     quarry: {
       image: locationImages["locations_colored_4"],

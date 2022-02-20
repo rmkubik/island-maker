@@ -10,11 +10,13 @@ import { tilePaths, tilesMap } from "../data/tiles";
 import { dimensions, TILE_HEIGHT, TILE_IMAGE_WIDTH } from "../data/config";
 import TopBar from "./TopBar";
 import getResource from "../utils/getResource";
+import { objects } from "../data/locations";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
 
-  const [banked, setBanked] = useState();
+  const [previewCount, setPreviewCount] = useState(1);
+  const [banked, setBanked] = useState([objects.x]);
   const { GridDataRef, grid } = useHexGrid({
     initializeHex: (hex) => {
       const tileType = tilesMap.pickRandom();
@@ -51,6 +53,7 @@ function App() {
         scale={scale}
         selected={selected}
         setSelected={setSelected}
+        setPreviewCount={setPreviewCount}
       />
       <TopBar
         selected={selected}
@@ -59,6 +62,7 @@ function App() {
         setDeck={setDeck}
         banked={banked}
         setBanked={setBanked}
+        previewCount={previewCount}
         grid={grid}
       />
     </div>

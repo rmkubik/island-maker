@@ -71,7 +71,16 @@ const Grid = ({
         // the neighbors and grid contents.
         // The function can also return new cards to be added
         // to the deck.
-        const newCardKeys = selected.onPlace?.({ hex, neighbors, grid }) ?? [];
+        const newCardKeys =
+          selected.onPlace?.({
+            hex,
+            neighbors,
+            grid,
+            game: {
+              addBank: () => {},
+              addPreview: () => {},
+            },
+          }) ?? [];
         const newCards = newCardKeys.map((key) => objects[key]);
         const deckWithNewCards = [...deck, ...newCards];
 
