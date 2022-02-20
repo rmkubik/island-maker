@@ -5,16 +5,20 @@
   "description": "",
   "dependencies": {
     "honeycomb-grid": "^3.1.8",
-    "parcel": "^2.2.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.13.1"
+    "parcel": "^2.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@parcel/resolver-glob": "^2.2.1"
+    "@parcel/resolver-glob": "^2.2.1",
+    "http-server": "^14.1.0"
   },
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "prebuild": "npm run clear-cache",
+    "build": "parcel build src/index.html",
+    "serve": "cd dist && http-server -so -c-1",
+    "clear-cache": "rm -rf dist .parcel-cache"
   },
   "author": "",
   "license": "ISC"

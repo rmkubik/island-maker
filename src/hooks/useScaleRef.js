@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
-import { useState } from "react/cjs/react.development";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const calcScaleToFitWindow = (node) => {
   if (!node) {
