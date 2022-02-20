@@ -5,6 +5,10 @@ function countPopulation(grid) {
 
   grid.forEach((hex) => {
     count += getHouseLevel(hex);
+
+    if (hex.objectType === "witchHut") {
+      count += 1;
+    }
   });
 
   return count;

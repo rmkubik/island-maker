@@ -48,6 +48,7 @@ const Grid = ({
         const hex = grid.get(hexCoordinates);
 
         if (!isValidPlacement({ hex, selected })) {
+          // TODO: Apply shake CSS className to clicked Tile
           return;
         }
 
