@@ -36,6 +36,15 @@ function App() {
   });
   const { deck, setDeck, selected, setSelected } = useDeck();
 
+  const addBankSlot = () => {
+    const newBanked = [...banked, objects.x];
+    setBanked(newBanked);
+  };
+
+  const addPreviewSlot = () => {
+    setPreviewCount(previewCount + 1);
+  };
+
   return (
     <div
       ref={scaleRef}
@@ -54,6 +63,10 @@ function App() {
         selected={selected}
         setSelected={setSelected}
         setPreviewCount={setPreviewCount}
+        game={{
+          addBankSlot,
+          addPreviewSlot,
+        }}
       />
       <TopBar
         selected={selected}

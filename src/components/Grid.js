@@ -14,6 +14,7 @@ const Grid = ({
   scale,
   selected,
   setSelected,
+  game,
 }) => {
   const [hovered, setHovered] = useState();
   const [newCards, setNewCards] = useState();
@@ -76,10 +77,7 @@ const Grid = ({
             hex,
             neighbors,
             grid,
-            game: {
-              addBank: () => {},
-              addPreview: () => {},
-            },
+            game,
           }) ?? [];
         const newCards = newCardKeys.map((key) => objects[key]);
         const deckWithNewCards = [...deck, ...newCards];

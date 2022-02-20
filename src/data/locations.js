@@ -270,8 +270,16 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_20"],
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid, game }) => {
-        //  forest -> add a preview slot
-        //  grassland -> add a new bank slot
+        switch (hex.tileType) {
+          case "grassland":
+            game.addPreviewSlot();
+            break;
+          case "forest":
+            game.addBankSlot();
+            break;
+          default:
+            break;
+        }
       },
     },
     quarry: {
@@ -382,8 +390,6 @@ const objects = combineEntriesWithKeys(
           () => constructArray(() => pickRandomlyFromArray(options), 3),
           mountains.length
         ).flat();
-
-        console.log({ newObjects, constructArray });
 
         return newObjects;
       },

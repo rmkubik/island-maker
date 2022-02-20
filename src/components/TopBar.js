@@ -1,5 +1,6 @@
 import React from "react";
 import { objects } from "../data/locations";
+import constructArray from "../utils/constructArray";
 import countPopulation from "../utils/countPopulation";
 import update from "../utils/update";
 
@@ -13,6 +14,16 @@ const TopBar = ({
   grid,
   previewCount,
 }) => {
+  let preview = deck.slice(0, previewCount);
+  const missingPreviewCount = previewCount - preview.length;
+
+  if (missingPreviewCount > 0) {
+    preview = [
+      ...preview,
+      ...constructArray(() => objects.x, missingPreviewCount),
+    ];
+  }
+
   return (
     <div
       className="topbar"
@@ -23,64 +34,73 @@ const TopBar = ({
         zIndex: 10000,
       }}
     >
-      <p>Current: </p>
-      <img src={selected ? selected.image : objects.x.image} />
-      <p>Next:</p>
-      {deck
-        .slice(0, previewCount)
-        .map((item) => {
-          if (!item) {
-            return objects.x;
-          }
-
-          return item;
-        })
-        .map((item) => (
-          <img src={item.image} />
+      <div>
+        <p>Current: </p>
+        <img src={selected ? selected.image : objects.x.image} />
+      </div>
+      <div>
+        <p>Next:</p>
+        {preview.map((item, index) => (
+          <img key={index} src={item.image} />
         ))}
+      </div>
+      <div>
+        <p>Deck:</p>
+        <p>{deck.length}</p>
+      </div>
+      <div>
+        <p>Bank:</p>
+        {banked.map((bankedObject, index) => (
+          <button
+            style={{
+              background: "none",
+              border: "6px solid white",
+              borderRadius: "6px",
+              padding: 0,
+              margin: 0,
+            }}
+            key={index}
+            onClick={(e) => {
+              e.stopPropagation();
 
-      <p>Deck: {deck.length}</p>
-      <p>Bank:</p>
-      {banked.map((bankedObject, index) => (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
+              switch (true) {
+                case Boolean(selected && bankedObject.key === "x"): {
+                  const newBanked = update(banked, index, selected);
+                  setBanked(newBanked);
 
-            switch (true) {
-              case Boolean(selected && bankedObject.key === "x"): {
-                const newBanked = update(banked, index, selected);
-                setBanked(newBanked);
+                  const [newSelected, ...newDeck] = deck;
 
-                const [newSelected, ...newDeck] = deck;
+                  setDeck(newDeck);
+                  setSelected(newSelected);
+                  return;
+                }
+                case Boolean(selected && bankedObject.key !== "x"): {
+                  const newBanked = update(banked, index, selected);
+                  setBanked(newBanked);
 
-                setDeck(newDeck);
-                setSelected(newSelected);
-                return;
+                  setSelected(banked[index]);
+                  return;
+                }
+                case Boolean(!selected && bankedObject.key !== "x"): {
+                  const newBanked = update(banked, index, objects.x);
+                  setBanked(newBanked);
+
+                  setSelected(banked[index]);
+                  return;
+                }
+                default:
+                  return;
               }
-              case Boolean(selected && bankedObject.key !== "x"): {
-                const newBanked = update(banked, index, selected);
-                setBanked(newBanked);
-
-                setSelected(banked[index]);
-                return;
-              }
-              case Boolean(!selected && bankedObject.key !== "x"): {
-                const newBanked = update(banked, index, objects.x);
-                setBanked(newBanked);
-
-                setSelected(banked[index]);
-                return;
-              }
-              default:
-                return;
-            }
-          }}
-        >
-          <img src={bankedObject.image} />
-        </button>
-      ))}
-
-      <p>Population: {grid ? countPopulation(grid) : 0}</p>
+            }}
+          >
+            <img src={bankedObject.image} />
+          </button>
+        ))}
+      </div>
+      <div>
+        <p>Population:</p>
+        <p>{grid ? countPopulation(grid) : 0}</p>
+      </div>
     </div>
   );
 };
