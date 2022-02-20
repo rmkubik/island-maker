@@ -7,7 +7,12 @@ import useHexGrid from "../hooks/useHexGrid";
 import useDeck from "../hooks/useDeck";
 import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
 import { tilePaths, tilesMap } from "../data/tiles";
-import { dimensions, TILE_HEIGHT, TILE_IMAGE_WIDTH } from "../data/config";
+import {
+  dimensions,
+  TILE_HEIGHT,
+  TILE_IMAGE_WIDTH,
+  VISUAL_Y_OFFSET,
+} from "../data/config";
 import TopBar from "./TopBar";
 import getResource from "../utils/getResource";
 import { objects } from "../data/locations";
@@ -50,7 +55,9 @@ function App() {
       ref={scaleRef}
       style={{
         width: `${dimensions.width * TILE_IMAGE_WIDTH * (2 / 3)}px`,
-        height: `${dimensions.height * TILE_HEIGHT + 2 * TILE_HEIGHT}px`,
+        height: `${
+          dimensions.height * TILE_HEIGHT + 2 * TILE_HEIGHT + VISUAL_Y_OFFSET
+        }px`,
         cursor: "pointer",
       }}
     >
