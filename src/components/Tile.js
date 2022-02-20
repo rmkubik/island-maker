@@ -6,7 +6,14 @@ import {
 } from "../data/config";
 import { tileBorders } from "../data/tiles";
 
-const Tile = ({ hex, hovered, selected, newCards }) => {
+const Tile = ({
+  hex,
+  hovered,
+  selected,
+  newCards,
+  className,
+  onAnimationEnd,
+}) => {
   const { x, y } = hex.toPoint();
 
   const isHovered = hovered && hex.equals(hovered);
@@ -29,7 +36,8 @@ const Tile = ({ hex, hovered, selected, newCards }) => {
         top: y - TOP_MARGIN,
         zIndex: Math.floor(y),
       }}
-      className="tile"
+      className={`tile ${className}`}
+      onAnimationEnd={onAnimationEnd}
     >
       <img
         style={{

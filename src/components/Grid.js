@@ -20,6 +20,7 @@ const Grid = ({
   const [hovered, setHovered] = useState();
   const [newCards, setNewCards] = useState();
   const [originHex, setOriginHex] = useState();
+  const [shakeHex, setShakeHex] = useState();
 
   if (!grid) {
     return null;
@@ -53,8 +54,10 @@ const Grid = ({
         const hex = grid.get(hexCoordinates);
 
         if (!isValidPlacement({ hex, selected })) {
-          // TODO: Apply shake CSS className to clicked Tile
+          setShakeHex(hex);
           return;
+        } else {
+          setShakeHex();
         }
 
         const isOverridingObject = shouldOverrideObject({ hex, selected });
@@ -99,6 +102,8 @@ const Grid = ({
     >
       {grid.map((hex) => (
         <Tile
+          className={shakeHex && hex.equals(shakeHex) ? "shake" : ""}
+          onAnimationEnd={() => setShakeHex()}
           key={JSON.stringify(hex.toPoint())}
           hex={hex}
           selected={selected}
