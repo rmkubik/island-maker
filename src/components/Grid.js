@@ -5,6 +5,7 @@ import Tile from "../components/Tile";
 import { objects } from "../data/locations";
 import shouldOverrideObject from "../utils/shouldOverrideObject";
 import isValidPlacement from "../utils/isValidPlacement";
+import { VISUAL_Y_OFFSET } from "../data/config";
 
 const Grid = ({
   deck,
@@ -31,6 +32,10 @@ const Grid = ({
 
   return (
     <div
+      style={{
+        position: "absolute",
+        top: VISUAL_Y_OFFSET,
+      }}
       onMouseMove={(e) => {
         const hex = getHexFromPointerEventWithGridData(e);
 
