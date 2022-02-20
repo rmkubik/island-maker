@@ -2,7 +2,7 @@ const VISUAL_Y_OFFSET = 120;
 
 // This is an offset needed to get honeycomb
 // toPoint function to line up better.
-const TOP_MARGIN = 60;
+const TOP_MARGIN = 51;
 
 const LOCATION_SIZE = 134;
 const HALF_LOCATION_SIZE = LOCATION_SIZE / 2;
