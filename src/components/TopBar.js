@@ -44,7 +44,7 @@ const TopBar = ({
           <img key={index} src={item.image} />
         ))}
       </div>
-      <div>
+      <div className="deck">
         <p>Deck:</p>
         <p>{deck.length}</p>
       </div>
