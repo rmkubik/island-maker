@@ -1,4 +1,10 @@
 import React from "react";
+import {
+  DECK_STACK_INCREMENT,
+  LOCATION_SIZE,
+  LOCATION_TEXT_X_OFFSET,
+  LOCATION_TEXT_Y_OFFSET,
+} from "../data/config";
 import { objects } from "../data/locations";
 import constructArray from "../utils/constructArray";
 import countPopulation from "../utils/countPopulation";
@@ -44,9 +50,35 @@ const TopBar = ({
           <img key={index} src={item.image} />
         ))}
       </div>
-      <div className="deck">
+      <div
+        style={{
+          width: `${LOCATION_SIZE + DECK_STACK_INCREMENT * deck.length}px`,
+        }}
+        className="deck"
+      >
         <p>Deck:</p>
-        <p>{deck.length}</p>
+        {constructArray(
+          (index) => (
+            <img
+              key={index}
+              style={{
+                position: "absolute",
+                zIndex: -1,
+                left: DECK_STACK_INCREMENT * index,
+              }}
+              src={objects.circle.image}
+            />
+          ),
+          deck.length
+        )}
+        <p
+          style={{
+            marginTop: `${LOCATION_TEXT_Y_OFFSET}px`,
+            marginLeft: `${LOCATION_TEXT_X_OFFSET}px`,
+          }}
+        >
+          {deck.length}
+        </p>
       </div>
       <div>
         <p>Bank:</p>

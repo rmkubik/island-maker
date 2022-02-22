@@ -74,7 +74,16 @@ body {
   animation-fill-mode: both;
 }
 
-.topbar p:nth-child(2) {
+.deck {
+  position: relative;
+}
+
+.topbar p:last-child {
   font-size: xxx-large;
   text-align: center;
+}
+
+.deck p:last-child {
+  color: rgb(69, 69, 69);
+  text-align: left;
 }

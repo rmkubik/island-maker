@@ -12,8 +12,11 @@ const HOUSE_3_OPTIONS = ["inn", "church"];
 
 const objects = combineEntriesWithKeys(
   Object.entries({
-    question: {
+    circle: {
       image: iconImages["icons_colored_0"],
+    },
+    question: {
+      image: iconImages["icons_colored_1"],
     },
     x: {
       image: iconImages["icons_colored_3"],
