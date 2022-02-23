@@ -69,7 +69,9 @@ const Tile = ({
               className="fadeOutUp"
               style={{
                 position: "absolute",
-                top: `${LOCATION_Y_OFFSET - (index + 1) * 80}px`,
+                animationDelay: `${index * 1000}ms`,
+                opacity: 0,
+                top: `${LOCATION_Y_OFFSET - 80}px`,
                 left: `${LOCATION_X_OFFSET}px`,
               }}
               src={card.image}
