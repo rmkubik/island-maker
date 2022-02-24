@@ -23,7 +23,7 @@ body {
 }
 
 .topbar > * {
-  margin-left: 24px;
+  margin-left: 64px;
 }
 
 .topbar p {
@@ -78,12 +78,12 @@ body {
   position: relative;
 }
 
-.topbar p:last-child {
+.topbar p.textNumber {
   font-size: xxx-large;
   text-align: center;
 }
 
-.deck p:last-child {
+.deck p.deckNumber {
   color: rgb(69, 69, 69);
   text-align: left;
 }

@@ -42,6 +42,7 @@ const TopBar = ({
       <div>
         <p>Current: </p>
         <img src={selected ? selected.image : objects.x.image} />
+        <p>{selected ? `${selected.name} - ${selected.desc}` : undefined}</p>
       </div>
       <div
         style={{
@@ -49,7 +50,7 @@ const TopBar = ({
         }}
         className="deck"
       >
-        <p>Deck: {deck.length - 1}</p>
+        <p>{`Remaining: ${Math.max(deck.length - 1, 0)}`}</p>
         {deck.slice(1).map((card, index) => {
           return (
             <img
@@ -65,6 +66,7 @@ const TopBar = ({
           );
         })}
         {/* <p
+          className="deckNumber"
           style={{
             marginTop: `${LOCATION_TEXT_Y_OFFSET}px`,
             marginLeft: `${LOCATION_TEXT_X_OFFSET}px`,
@@ -125,7 +127,7 @@ const TopBar = ({
       </div>
       <div>
         <p>Population:</p>
-        <p>{grid ? countPopulation(grid) : 0}</p>
+        <p className="textNumber">{grid ? countPopulation(grid) : 0}</p>
       </div>
     </div>
   );
