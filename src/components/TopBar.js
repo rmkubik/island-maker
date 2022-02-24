@@ -42,11 +42,13 @@ const TopBar = ({
       <div>
         <p>Current: </p>
         <img src={selected ? selected.image : objects.x.image} />
-        <p>{selected ? `${selected.name} - ${selected.desc}` : undefined}</p>
+        <p className="cardInfo">
+          {selected ? `${selected.name} - ${selected.desc}` : undefined}
+        </p>
       </div>
       <div
         style={{
-          width: `${LOCATION_SIZE + DECK_STACK_INCREMENT * deck.length}px`,
+          width: `${DECK_STACK_INCREMENT * deck.length}px`,
         }}
         className="deck"
       >

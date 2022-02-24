@@ -87,3 +87,7 @@ body {
   color: rgb(69, 69, 69);
   text-align: left;
 }
+
+.topbar p.cardInfo {
+  position: absolute;
+}
