@@ -7,16 +7,7 @@ import shouldOverrideObject from "../utils/shouldOverrideObject";
 import isValidPlacement from "../utils/isValidPlacement";
 import { VISUAL_Y_OFFSET } from "../data/config";
 
-const Grid = ({
-  deck,
-  setDeck,
-  grid,
-  GridDataRef,
-  scale,
-  selected,
-  setSelected,
-  game,
-}) => {
+const Grid = ({ deck, setDeck, grid, GridDataRef, scale, selected, game }) => {
   const [hovered, setHovered] = useState();
   const [newCards, setNewCards] = useState();
   const [originHex, setOriginHex] = useState();
@@ -89,15 +80,22 @@ const Grid = ({
             game,
           }) ?? [];
         const newCards = newCardKeys.map((key) => objects[key]);
-        const deckWithNewCards = [...deck, ...newCards];
+        const newCardsWithIds = newCards.map((card, index) => {
+          return {
+            ...card,
+            id: index,
+          };
+        });
+        const deckWithNewCards = [...deck, ...newCardsWithIds];
 
         // Draw next card
-        const [newSelected, ...newDeck] = deckWithNewCards;
+        // const [newSelected, ...newDeck] = deckWithNewCards;
+
+        const [playedCard, ...newDeck] = deck;
 
         setOriginHex(hex);
-        setNewCards(newCards);
+        setNewCards(newCardsWithIds);
         setDeck(newDeck);
-        setSelected(newSelected);
       }}
     >
       {grid.map((hex) => (
@@ -109,6 +107,15 @@ const Grid = ({
           selected={selected}
           hovered={hovered}
           newCards={hex.equals(originHex) ? newCards : []}
+          newCard={hex.equals(originHex) ? newCards[0] : undefined}
+          onNewCardAnimationEnd={() => {
+            const [nextCard, ...remainingCards] = newCards;
+
+            if (nextCard) {
+              setDeck([...deck, nextCard]);
+              setNewCards(remainingCards);
+            }
+          }}
         />
       ))}
     </div>

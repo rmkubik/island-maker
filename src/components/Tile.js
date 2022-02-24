@@ -11,8 +11,10 @@ const Tile = ({
   hovered,
   selected,
   newCards,
+  newCard,
   className,
   onAnimationEnd,
+  onNewCardAnimationEnd,
 }) => {
   const { x, y } = hex.toPoint();
 
@@ -62,7 +64,7 @@ const Tile = ({
         }}
         src={objectImageSrc}
       />
-      {newCards.length > 0
+      {/* {newCards.length > 0
         ? newCards.map((card, index) => (
             <img
               key={index}
@@ -75,9 +77,26 @@ const Tile = ({
                 left: `${LOCATION_X_OFFSET}px`,
               }}
               src={card.image}
+              onAnimationEnd={onNewCardAnimationEnd}
             />
           ))
-        : null}
+        : null} */}
+      {newCard ? (
+        <img
+          key={newCard.id}
+          // key={index}
+          // animationDelay: `${index * 1000}ms`,
+          className="fadeOutUp"
+          style={{
+            position: "absolute",
+            opacity: 0,
+            top: `${LOCATION_Y_OFFSET - 80}px`,
+            left: `${LOCATION_X_OFFSET}px`,
+          }}
+          src={newCard.image}
+          onAnimationEnd={onNewCardAnimationEnd}
+        />
+      ) : null}
     </div>
   );
 };

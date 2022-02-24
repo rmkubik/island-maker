@@ -39,7 +39,7 @@ function App() {
       hex.tileImage = tileImage;
     },
   });
-  const { deck, setDeck, selected, setSelected } = useDeck();
+  const { deck, setDeck } = useDeck();
 
   const addBankSlot = () => {
     const newBanked = [...banked, objects.x];
@@ -63,12 +63,11 @@ function App() {
     >
       <Grid
         deck={deck}
+        selected={deck[0]}
         setDeck={setDeck}
         grid={grid}
         GridDataRef={GridDataRef}
         scale={scale}
-        selected={selected}
-        setSelected={setSelected}
         setPreviewCount={setPreviewCount}
         game={{
           addBankSlot,
@@ -76,9 +75,8 @@ function App() {
         }}
       />
       <TopBar
-        selected={selected}
-        setSelected={setSelected}
         deck={deck}
+        selected={deck[0]}
         setDeck={setDeck}
         banked={banked}
         setBanked={setBanked}

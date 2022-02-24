@@ -12,7 +12,6 @@ import update from "../utils/update";
 
 const TopBar = ({
   selected,
-  setSelected,
   deck,
   setDeck,
   banked,
@@ -44,41 +43,35 @@ const TopBar = ({
         <p>Current: </p>
         <img src={selected ? selected.image : objects.x.image} />
       </div>
-      <div>
-        <p>Next:</p>
-        {preview.map((item, index) => (
-          <img key={index} src={item.image} />
-        ))}
-      </div>
       <div
         style={{
           width: `${LOCATION_SIZE + DECK_STACK_INCREMENT * deck.length}px`,
         }}
         className="deck"
       >
-        <p>Deck:</p>
-        {constructArray(
-          (index) => (
+        <p>Deck: {deck.length - 1}</p>
+        {deck.slice(1).map((card, index) => {
+          return (
             <img
               key={index}
               style={{
                 position: "absolute",
-                zIndex: -1,
+                zIndex: -1 * (index + 1),
                 left: DECK_STACK_INCREMENT * index,
               }}
-              src={objects.circle.image}
+              // src={index < previewCount ? card.image : objects.circle.image}
+              src={card.image}
             />
-          ),
-          deck.length
-        )}
-        <p
+          );
+        })}
+        {/* <p
           style={{
             marginTop: `${LOCATION_TEXT_Y_OFFSET}px`,
             marginLeft: `${LOCATION_TEXT_X_OFFSET}px`,
           }}
         >
           {deck.length}
-        </p>
+        </p> */}
       </div>
       <div>
         <p>Bank:</p>
@@ -103,21 +96,22 @@ const TopBar = ({
                   const [newSelected, ...newDeck] = deck;
 
                   setDeck(newDeck);
-                  setSelected(newSelected);
                   return;
                 }
                 case Boolean(selected && bankedObject.key !== "x"): {
                   const newBanked = update(banked, index, selected);
                   setBanked(newBanked);
 
-                  setSelected(banked[index]);
+                  // setSelected(banked[index]);
+                  setDeck([banked[index], ...deck]);
                   return;
                 }
                 case Boolean(!selected && bankedObject.key !== "x"): {
                   const newBanked = update(banked, index, objects.x);
                   setBanked(newBanked);
 
-                  setSelected(banked[index]);
+                  // setSelected(banked[index]);
+                  setDeck([banked[index], ...deck]);
                   return;
                 }
                 default:

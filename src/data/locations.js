@@ -17,6 +17,10 @@ const objects = combineEntriesWithKeys(
     },
     question: {
       image: iconImages["icons_colored_1"],
+      validTileTypes: ["grassland"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        return ["house1", "house2", "house3"];
+      },
     },
     x: {
       image: iconImages["icons_colored_3"],

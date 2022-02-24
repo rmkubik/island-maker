@@ -41,12 +41,12 @@ body {
 
   to {
     opacity: 0;
-    transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -50%, 0);
   }
 }
 
 .fadeOutUp {
-  animation-duration: 2000ms;
+  animation-duration: 1000ms;
   animation-name: fadeOutUp;
   animation-fill-mode: both;
 }
