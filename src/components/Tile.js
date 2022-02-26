@@ -15,6 +15,7 @@ const Tile = ({
   className,
   onAnimationEnd,
   onNewCardAnimationEnd,
+  onNewCardAnimationStart,
   shouldShowSelected,
 }) => {
   const { x, y } = hex.toPoint();
@@ -112,6 +113,7 @@ const Tile = ({
           }}
           src={newCard.image}
           onAnimationEnd={onNewCardAnimationEnd}
+          onAnimationStart={onNewCardAnimationStart}
         />
       ) : null}
     </div>

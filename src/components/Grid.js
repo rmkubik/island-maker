@@ -6,6 +6,7 @@ import { objects } from "../data/locations";
 import shouldOverrideObject from "../utils/shouldOverrideObject";
 import isValidPlacement from "../utils/isValidPlacement";
 import { VISUAL_Y_OFFSET } from "../data/config";
+import getNextId from "../utils/getNextId";
 
 const Grid = ({
   deck,
@@ -90,10 +91,10 @@ const Grid = ({
             game,
           }) ?? [];
         const newCards = newCardKeys.map((key) => objects[key]);
-        const newCardsWithIds = newCards.map((card, index) => {
+        const newCardsWithIds = newCards.map((card) => {
           return {
             ...card,
-            id: index,
+            id: getNextId(),
           };
         });
         const deckWithNewCards = [...deck, ...newCardsWithIds];

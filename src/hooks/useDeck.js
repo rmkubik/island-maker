@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { objects } from "../data/locations";
+import getNextId from "../utils/getNextId";
 import shuffle from "../utils/shuffle";
 
 const useDeck = () => {
@@ -16,8 +17,11 @@ const useDeck = () => {
       objects.farm,
     ];
     const initialDeck = shuffle(unShuffledDeck);
+    const initialDeckWithIds = initialDeck.map((card) => {
+      return { ...card, id: getNextId() };
+    });
 
-    setDeck(initialDeck);
+    setDeck(initialDeckWithIds);
   }, []);
 
   return { deck, setDeck };

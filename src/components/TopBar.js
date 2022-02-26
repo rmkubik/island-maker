@@ -42,7 +42,11 @@ const TopBar = ({
     >
       <div>
         <p>Current: </p>
-        <img src={selected ? selected.image : objects.x.image} />
+        <img
+          key={selected && selected.id}
+          className="slideInRight"
+          src={selected ? selected.image : undefined}
+        />
         <p className="cardInfo">
           {selected ? `${selected.name} - ${selected.desc}` : undefined}
         </p>
@@ -63,7 +67,7 @@ const TopBar = ({
         {deck.slice(shouldShowSelected ? 1 : 0).map((card, index) => {
           return (
             <img
-              key={index}
+              key={card.id}
               style={{
                 position: "absolute",
                 zIndex: -1 * (index + 1),
