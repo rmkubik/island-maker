@@ -1,6 +1,6 @@
 import SeedRandom from "seedrandom";
 
-let rng = new SeedRandom("test");
+let rng = new SeedRandom();
 
 function random() {
   return rng();
