@@ -7,7 +7,17 @@ import shouldOverrideObject from "../utils/shouldOverrideObject";
 import isValidPlacement from "../utils/isValidPlacement";
 import { VISUAL_Y_OFFSET } from "../data/config";
 
-const Grid = ({ deck, setDeck, grid, GridDataRef, scale, selected, game }) => {
+const Grid = ({
+  deck,
+  setDeck,
+  grid,
+  GridDataRef,
+  scale,
+  selected,
+  game,
+  setShouldShowSelected,
+  shouldShowSelected,
+}) => {
   const [hovered, setHovered] = useState();
   const [newCards, setNewCards] = useState();
   const [originHex, setOriginHex] = useState();
@@ -93,6 +103,12 @@ const Grid = ({ deck, setDeck, grid, GridDataRef, scale, selected, game }) => {
 
         const [playedCard, ...newDeck] = deck;
 
+        if (newCardsWithIds.length === 0) {
+          setShouldShowSelected(true);
+        } else {
+          setShouldShowSelected(false);
+        }
+
         setOriginHex(hex);
         setNewCards(newCardsWithIds);
         setDeck(newDeck);
@@ -106,10 +122,15 @@ const Grid = ({ deck, setDeck, grid, GridDataRef, scale, selected, game }) => {
           hex={hex}
           selected={selected}
           hovered={hovered}
+          shouldShowSelected={shouldShowSelected}
           newCards={hex.equals(originHex) ? newCards : []}
           newCard={hex.equals(originHex) ? newCards[0] : undefined}
           onNewCardAnimationEnd={() => {
             const [nextCard, ...remainingCards] = newCards;
+
+            if (remainingCards.length === 0) {
+              setShouldShowSelected(true);
+            }
 
             if (nextCard) {
               setDeck([...deck, nextCard]);

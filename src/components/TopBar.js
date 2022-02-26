@@ -18,6 +18,7 @@ const TopBar = ({
   setBanked,
   grid,
   previewCount,
+  shouldShowSelected,
 }) => {
   let preview = deck.slice(0, previewCount);
   const missingPreviewCount = previewCount - preview.length;
@@ -48,12 +49,18 @@ const TopBar = ({
       </div>
       <div
         style={{
-          width: `${DECK_STACK_INCREMENT * deck.length}px`,
+          width: `${Math.max(
+            DECK_STACK_INCREMENT * deck.length,
+            DECK_STACK_INCREMENT * 3
+          )}px`,
         }}
         className="deck"
       >
-        <p>{`Remaining: ${Math.max(deck.length - 1, 0)}`}</p>
-        {deck.slice(1).map((card, index) => {
+        <p>{`Remaining: ${Math.max(
+          deck.length - (shouldShowSelected ? 1 : 0),
+          0
+        )}`}</p>
+        {deck.slice(shouldShowSelected ? 1 : 0).map((card, index) => {
           return (
             <img
               key={index}

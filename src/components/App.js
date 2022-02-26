@@ -40,6 +40,7 @@ function App() {
     },
   });
   const { deck, setDeck } = useDeck();
+  const [shouldShowSelected, setShouldShowSelected] = useState(true);
 
   const addBankSlot = () => {
     const newBanked = [...banked, objects.x];
@@ -63,7 +64,9 @@ function App() {
     >
       <Grid
         deck={deck}
-        selected={deck[0]}
+        shouldShowSelected={shouldShowSelected}
+        setShouldShowSelected={setShouldShowSelected}
+        selected={shouldShowSelected && deck[0]}
         setDeck={setDeck}
         grid={grid}
         GridDataRef={GridDataRef}
@@ -76,7 +79,8 @@ function App() {
       />
       <TopBar
         deck={deck}
-        selected={deck[0]}
+        shouldShowSelected={shouldShowSelected}
+        selected={shouldShowSelected && deck[0]}
         setDeck={setDeck}
         banked={banked}
         setBanked={setBanked}

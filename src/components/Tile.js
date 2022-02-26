@@ -15,6 +15,7 @@ const Tile = ({
   className,
   onAnimationEnd,
   onNewCardAnimationEnd,
+  shouldShowSelected,
 }) => {
   const { x, y } = hex.toPoint();
 
@@ -22,13 +23,13 @@ const Tile = ({
 
   let objectImageSrc = hex.objectImage;
 
-  if (!objectImageSrc) {
-    if (isHovered) {
-      if (selected) {
-        objectImageSrc = selected.image;
-      }
-    }
-  }
+  // if (!objectImageSrc) {
+  //   if (isHovered) {
+  //     if (selected) {
+  //       objectImageSrc = selected.image;
+  //     }
+  //   }
+  // }
 
   return (
     <div
@@ -56,14 +57,30 @@ const Tile = ({
           src={tileBorders}
         />
       )}
-      <img
-        style={{
-          position: "absolute",
-          top: `${LOCATION_Y_OFFSET}px`,
-          left: `${LOCATION_X_OFFSET}px`,
-        }}
-        src={objectImageSrc}
-      />
+      {objectImageSrc ? (
+        <img
+          className="pulse"
+          style={{
+            position: "absolute",
+            top: `${LOCATION_Y_OFFSET}px`,
+            left: `${LOCATION_X_OFFSET}px`,
+            opacity: shouldShowSelected && isHovered ? 0.65 : 1,
+          }}
+          src={objectImageSrc}
+        />
+      ) : null}
+      {isHovered && selected ? (
+        <img
+          className="pulse"
+          style={{
+            position: "absolute",
+            top: `${LOCATION_Y_OFFSET - (objectImageSrc ? 50 : 0)}px`,
+            left: `${LOCATION_X_OFFSET + (objectImageSrc ? 40 : 0)}px`,
+            zIndex: 999999,
+          }}
+          src={selected.image}
+        />
+      ) : null}
       {/* {newCards.length > 0
         ? newCards.map((card, index) => (
             <img
