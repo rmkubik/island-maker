@@ -1,3 +1,5 @@
+import rng from "./rng";
+
 /**
  * Pulled this implementation of the "Fisher-Yates (aka Knuth) Shuffle"
  * https://stackoverflow.com/a/2450976
@@ -11,7 +13,7 @@ function shuffle(array) {
   // While there remain elements to shuffle...
   while (currentIndex != 0) {
     // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
+    randomIndex = Math.floor(rng.random() * currentIndex);
     currentIndex -= 1;
 
     // And swap it with the current element.

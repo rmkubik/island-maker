@@ -7,7 +7,8 @@
     "honeycomb-grid": "^3.1.8",
     "parcel": "^2.3.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "seedrandom": "^3.0.5"
   },
   "devDependencies": {
     "@parcel/resolver-glob": "^2.2.1",
