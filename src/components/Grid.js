@@ -20,6 +20,7 @@ const Grid = ({
   setNewCards,
   setShouldShowSelected,
   shouldShowSelected,
+  isGameOver,
 }) => {
   const [hovered, setHovered] = useState();
   const [originHex, setOriginHex] = useState();
@@ -64,6 +65,10 @@ const Grid = ({
         setHovered();
       }}
       onClick={(e) => {
+        if (isGameOver) {
+          return;
+        }
+
         if (!selected) {
           return;
         }

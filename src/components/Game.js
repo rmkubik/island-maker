@@ -33,6 +33,7 @@ function Game({ scale, setView, showGameOver }) {
   });
   const { deck, setDeck } = useDeck();
   const [shouldShowSelected, setShouldShowSelected] = useState(true);
+  const [isForcedGameOver, setIsForcedGameOver] = useState(false);
 
   const addBankSlot = () => {
     const newBanked = [...banked, objects.x];
@@ -44,9 +45,10 @@ function Game({ scale, setView, showGameOver }) {
   };
 
   const isGameOver =
-    deck.length === 0 &&
-    newCards.length === 0 &&
-    banked.every((bankedItem) => bankedItem.key === "x");
+    isForcedGameOver ||
+    (deck.length === 0 &&
+      newCards.length === 0 &&
+      banked.every((bankedItem) => bankedItem.key === "x"));
 
   return (
     <>
@@ -62,6 +64,7 @@ function Game({ scale, setView, showGameOver }) {
         setPreviewCount={setPreviewCount}
         newCards={newCards}
         setNewCards={setNewCards}
+        isGameOver={isGameOver}
         game={{
           addBankSlot,
           addPreviewSlot,
@@ -78,6 +81,7 @@ function Game({ scale, setView, showGameOver }) {
         previewCount={previewCount}
         grid={grid}
         isGameOver={isGameOver}
+        setIsForcedGameOver={setIsForcedGameOver}
         showGameOverMenu={() => {
           showGameOver(grid);
         }}

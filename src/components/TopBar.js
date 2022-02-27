@@ -22,6 +22,7 @@ const TopBar = ({
   shouldShowSelected,
   isGameOver,
   showGameOverMenu,
+  setIsForcedGameOver,
 }) => {
   let preview = deck.slice(0, previewCount);
   const missingPreviewCount = previewCount - preview.length;
@@ -110,6 +111,10 @@ const TopBar = ({
             }}
             key={index}
             onClick={(e) => {
+              if (isGameOver) {
+                return;
+              }
+
               e.stopPropagation();
 
               switch (true) {
@@ -151,6 +156,34 @@ const TopBar = ({
         <p>Population:</p>
         <p className="textNumber">{grid ? countPopulation(grid) : 0}</p>
       </div>
+      {!isGameOver ? (
+        <div
+          className="slideInRight"
+          style={{
+            fontSize: "2em",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            flex: 1,
+            justifyContent: "end",
+            marginRight: "64px",
+          }}
+        >
+          <button
+            style={{
+              padding: "0.25em 0.5em",
+              borderRadius: "8px",
+              fontSize: "0.7em",
+              cursor: "pointer",
+              height: "fit-content",
+              width: "fit-content",
+            }}
+            onClick={() => setIsForcedGameOver(true)}
+          >
+            End Run
+          </button>
+        </div>
+      ) : null}
       {isGameOver ? (
         <div
           className="slideInRight"
