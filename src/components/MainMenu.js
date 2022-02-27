@@ -1,9 +1,7 @@
-import React, { useReducer, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import createRandomString from "../utils/createRandomString";
 import debounceTrailingEdge from "../utils/debounceTrailingEdge";
 import rng from "../utils/rng";
-
-// TODO: add a "re-seed the map" button
 
 const MainMenu = ({ setView, reGenerateGame }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.seed);

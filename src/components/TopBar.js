@@ -38,6 +38,7 @@ const TopBar = ({
         flexDirection: "row",
         position: "absolute",
         zIndex: 10000,
+        cursor: "auto",
       }}
     >
       <div>
@@ -93,11 +94,15 @@ const TopBar = ({
         {banked.map((bankedObject, index) => (
           <button
             style={{
-              background: "none",
+              backgroundColor: "rgba(32,32,32,0.5)",
               border: "6px solid white",
               borderRadius: "6px",
               padding: 0,
               margin: 0,
+              width: `${LOCATION_SIZE}px`,
+              height: `${LOCATION_SIZE}px`,
+              boxSizing: "content-box",
+              cursor: "pointer",
             }}
             key={index}
             onClick={(e) => {
@@ -134,7 +139,7 @@ const TopBar = ({
               }
             }}
           >
-            <img src={bankedObject.image} />
+            {bankedObject.key !== "x" ? <img src={bankedObject.image} /> : null}
           </button>
         ))}
       </div>
