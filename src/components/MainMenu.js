@@ -8,7 +8,14 @@ const MainMenu = ({ setView, reGenerateGame }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
 
-  const suggestedSeeds = ["LziPqT6r", "oKdS5H6H"];
+  const suggestedSeeds = [
+    "8FZRNG2E",
+    "FA6F7Z77",
+    "ORD1WRHF",
+    "KLBA15ZJ",
+    "SC0KIRFC",
+    "GGXEAB7F",
+  ];
 
   const setSeed = (newSeed) => {
     // Our font only has upper case letters, players
@@ -16,10 +23,10 @@ const MainMenu = ({ setView, reGenerateGame }) => {
     // case letters.
     const upperCaseSeed = newSeed.toUpperCase();
 
-    setCurrentSeed(newSeed);
+    setCurrentSeed(upperCaseSeed);
 
     debounceRef.current(() => {
-      rng.setSeed(newSeed);
+      rng.setSeed(upperCaseSeed);
       reGenerateGame();
     });
   };
@@ -81,13 +88,15 @@ const MainMenu = ({ setView, reGenerateGame }) => {
           marginBottom: "64px",
         }}
       >
-        <p>Suggested Seeds</p>
+        <p style={{ marginBottom: 0 }}>Interesting Seeds:</p>
         <ul
           style={{
             padding: 0,
             listStyle: "none",
             display: "flex",
             flexWrap: "wrap",
+            marginTop: 0,
+            justifyContent: "center",
           }}
         >
           {suggestedSeeds.map((suggestedSeed) => (
