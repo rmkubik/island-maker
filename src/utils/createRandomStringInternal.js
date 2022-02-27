@@ -1,7 +1,6 @@
 import pickRandomlyFromArrayInternal from "./pickRandomlyFromArrayInternal";
 
-const characters =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 const createRandomStringInternal = (generatorFunction) => (length) => {
   let result = "";

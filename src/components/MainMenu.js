@@ -8,9 +8,14 @@ const MainMenu = ({ setView, reGenerateGame }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
 
-  const suggestedSeeds = ["LziPqT6r"];
+  const suggestedSeeds = ["LziPqT6r", "oKdS5H6H"];
 
   const setSeed = (newSeed) => {
+    // Our font only has upper case letters, players
+    // will not be able to visually see lower
+    // case letters.
+    const upperCaseSeed = newSeed.toUpperCase();
+
     setCurrentSeed(newSeed);
 
     debounceRef.current(() => {
@@ -45,7 +50,7 @@ const MainMenu = ({ setView, reGenerateGame }) => {
             name="seed"
             value={currentSeed}
             onChange={(event) => {
-              const newSeed = event.target.value;
+              const newSeed = event.target.value.toUpperCase();
 
               setSeed(newSeed);
             }}
