@@ -1,7 +1,8 @@
 import rng from "./rng";
+import pickRandomlyFromArrayInternal from "./pickRandomlyFromArrayInternal";
 
-function pickRandomlyFromArray(array) {
-  return array[Math.floor(rng.random() * array.length)];
-}
+const pickRandomlyFromArrayWithSeededRng = pickRandomlyFromArrayInternal(
+  rng.random
+);
 
-export default pickRandomlyFromArray;
+export default pickRandomlyFromArrayWithSeededRng;

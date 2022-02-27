@@ -1,54 +1,29 @@
 import React, { useState } from "react";
-import Grid from "./Grid";
 
 import "../style.css";
 import useScaleRef from "../hooks/useScaleRef";
-import useHexGrid from "../hooks/useHexGrid";
-import useDeck from "../hooks/useDeck";
-import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
-import { tilePaths, tilesMap } from "../data/tiles";
 import {
   dimensions,
   TILE_HEIGHT,
   TILE_IMAGE_WIDTH,
   VISUAL_Y_OFFSET,
 } from "../data/config";
-import TopBar from "./TopBar";
-import getResource from "../utils/getResource";
-import { objects } from "../data/locations";
+import Game from "./Game";
+import MainMenu from "./MainMenu";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
+  const [view, setView] = useState("mainMenu");
+  const [gameId, setGameId] = useState(0);
 
-  const [previewCount, setPreviewCount] = useState(1);
-  const [banked, setBanked] = useState([objects.x]);
-  const { GridDataRef, grid } = useHexGrid({
-    initializeHex: (hex) => {
-      const tileType = tilesMap.pickRandom();
-      const tileTypeImages = tilePaths[tileType];
-      const tileImage = pickRandomlyFromArray(tileTypeImages);
-
-      const resource = getResource(tileType);
-
-      if (resource) {
-        hex.objectType = resource.key;
-        hex.objectImage = resource.image;
-      }
-
-      hex.tileType = tileType;
-      hex.tileImage = tileImage;
-    },
-  });
-  const { deck, setDeck } = useDeck();
-  const [shouldShowSelected, setShouldShowSelected] = useState(true);
-
-  const addBankSlot = () => {
-    const newBanked = [...banked, objects.x];
-    setBanked(newBanked);
-  };
-
-  const addPreviewSlot = () => {
-    setPreviewCount(previewCount + 1);
+  const views = {
+    mainMenu: (
+      <MainMenu
+        setView={setView}
+        reGenerateGame={() => setGameId(gameId + 1)}
+      />
+    ),
+    none: null,
   };
 
   return (
@@ -62,31 +37,8 @@ function App() {
         cursor: "pointer",
       }}
     >
-      <Grid
-        deck={deck}
-        shouldShowSelected={shouldShowSelected}
-        setShouldShowSelected={setShouldShowSelected}
-        selected={shouldShowSelected && deck[0]}
-        setDeck={setDeck}
-        grid={grid}
-        GridDataRef={GridDataRef}
-        scale={scale}
-        setPreviewCount={setPreviewCount}
-        game={{
-          addBankSlot,
-          addPreviewSlot,
-        }}
-      />
-      <TopBar
-        deck={deck}
-        shouldShowSelected={shouldShowSelected}
-        selected={shouldShowSelected && deck[0]}
-        setDeck={setDeck}
-        banked={banked}
-        setBanked={setBanked}
-        previewCount={previewCount}
-        grid={grid}
-      />
+      {views[view]}
+      <Game key={gameId} scale={scale} />
     </div>
   );
 }

@@ -15,6 +15,20 @@ body {
     sans-serif;
 }
 
+input,
+button {
+  color: rgb(69, 69, 69);
+  font-family: "Honeyblot Caps", "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+}
+
+.menu button:hover {
+  transform: scale(1.1);
+  transform-origin: center;
+  transition-duration: 100ms;
+  transition-timing-function: ease-in-out;
+}
+
 .tile:hover {
   /* transform-origin: center;
   transform: scale(1.1);
@@ -112,6 +126,10 @@ body {
 
 .topbar p.cardInfo {
   position: absolute;
+
+  background-color: rgba(69, 69, 69, 0.4);
+  padding: 2px;
+  padding-top: 8px;
 }
 
 @keyframes slideInRight {
