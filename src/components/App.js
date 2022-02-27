@@ -10,18 +10,19 @@ import {
 } from "../data/config";
 import Game from "./Game";
 import MainMenu from "./MainMenu";
+import GameOverMenu from "./GameOverMenu";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
   const [view, setView] = useState("mainMenu");
   const [gameId, setGameId] = useState(0);
 
+  const reGenerateGame = () => setGameId(gameId + 1);
+
   const views = {
-    mainMenu: (
-      <MainMenu
-        setView={setView}
-        reGenerateGame={() => setGameId(gameId + 1)}
-      />
+    mainMenu: <MainMenu setView={setView} reGenerateGame={reGenerateGame} />,
+    gameOver: (
+      <GameOverMenu setView={setView} reGenerateGame={reGenerateGame} />
     ),
     none: null,
   };
@@ -38,7 +39,19 @@ function App() {
       }}
     >
       {views[view]}
-      <Game key={gameId} scale={scale} />
+      <Game
+        key={gameId}
+        scale={scale}
+        setView={(newView) => {
+          if (view !== "none") {
+            // Game only has authority to set the view if no
+            // other view is already showing.
+            return;
+          }
+
+          setView(newView);
+        }}
+      />
     </div>
   );
 }

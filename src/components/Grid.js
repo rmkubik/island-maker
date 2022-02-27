@@ -16,11 +16,12 @@ const Grid = ({
   scale,
   selected,
   game,
+  newCards,
+  setNewCards,
   setShouldShowSelected,
   shouldShowSelected,
 }) => {
   const [hovered, setHovered] = useState();
-  const [newCards, setNewCards] = useState();
   const [originHex, setOriginHex] = useState();
   const [shakeHex, setShakeHex] = useState();
 

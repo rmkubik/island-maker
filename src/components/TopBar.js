@@ -16,9 +16,12 @@ const TopBar = ({
   setDeck,
   banked,
   setBanked,
+  newCards,
   grid,
   previewCount,
   shouldShowSelected,
+  isGameOver,
+  showGameOverMenu,
 }) => {
   let preview = deck.slice(0, previewCount);
   const missingPreviewCount = previewCount - preview.length;
@@ -39,6 +42,7 @@ const TopBar = ({
         position: "absolute",
         zIndex: 10000,
         cursor: "auto",
+        width: "100%",
       }}
     >
       <div>
@@ -55,7 +59,7 @@ const TopBar = ({
       <div
         style={{
           width: `${Math.max(
-            DECK_STACK_INCREMENT * deck.length,
+            DECK_STACK_INCREMENT * (deck.length + newCards.length),
             DECK_STACK_INCREMENT * 3
           )}px`,
         }}
@@ -147,6 +151,35 @@ const TopBar = ({
         <p>Population:</p>
         <p className="textNumber">{grid ? countPopulation(grid) : 0}</p>
       </div>
+      {isGameOver ? (
+        <div
+          className="slideInRight"
+          style={{
+            fontSize: "2em",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            flex: 1,
+            justifyContent: "end",
+            marginRight: "64px",
+          }}
+        >
+          <p style={{ margin: 0, marginRight: "0.5em" }}>Game Over!</p>
+          <button
+            style={{
+              padding: "0.25em 0.5em",
+              borderRadius: "8px",
+              fontSize: "0.7em",
+              cursor: "pointer",
+              height: "fit-content",
+              width: "fit-content",
+            }}
+            onClick={showGameOverMenu}
+          >
+            See Details
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };

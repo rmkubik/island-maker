@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 
 import "../style.css";
@@ -10,9 +10,10 @@ import TopBar from "./TopBar";
 import getResource from "../utils/getResource";
 import { objects } from "../data/locations";
 
-function Game({ scale }) {
+function Game({ scale, setView }) {
   const [previewCount, setPreviewCount] = useState(1);
   const [banked, setBanked] = useState([objects.x]);
+  const [newCards, setNewCards] = useState([]);
   const { GridDataRef, grid } = useHexGrid({
     initializeHex: (hex) => {
       const tileType = tilesMap.pickRandom();
@@ -42,6 +43,11 @@ function Game({ scale }) {
     setPreviewCount(previewCount + 1);
   };
 
+  const isGameOver =
+    deck.length === 0 &&
+    newCards.length === 0 &&
+    banked.every((bankedItem) => bankedItem.key === "x");
+
   return (
     <>
       <Grid
@@ -54,6 +60,8 @@ function Game({ scale }) {
         GridDataRef={GridDataRef}
         scale={scale}
         setPreviewCount={setPreviewCount}
+        newCards={newCards}
+        setNewCards={setNewCards}
         game={{
           addBankSlot,
           addPreviewSlot,
@@ -61,6 +69,7 @@ function Game({ scale }) {
       />
       <TopBar
         deck={deck}
+        newCards={newCards}
         shouldShowSelected={shouldShowSelected}
         selected={shouldShowSelected && deck[0]}
         setDeck={setDeck}
@@ -68,6 +77,10 @@ function Game({ scale }) {
         setBanked={setBanked}
         previewCount={previewCount}
         grid={grid}
+        isGameOver={isGameOver}
+        showGameOverMenu={() => {
+          setView("gameOver");
+        }}
       />
     </>
   );

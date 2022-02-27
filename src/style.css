@@ -22,6 +22,13 @@ button {
     sans-serif;
 }
 
+button:hover {
+  transform: scale(1.1);
+  transform-origin: center;
+  transition-duration: 100ms;
+  transition-timing-function: ease-in-out;
+}
+
 .menu button:hover {
   transform: scale(1.1);
   transform-origin: center;
