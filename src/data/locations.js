@@ -21,7 +21,11 @@ const objects = combineEntriesWithKeys(
       image: iconImages["icons_colored_1"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
-        return ["house1", "house2", "house3"];
+        return [
+          ["house1", hex],
+          ["house2", hex],
+          ["house3", hex],
+        ];
       },
     },
     x: {
@@ -112,7 +116,7 @@ const objects = combineEntriesWithKeys(
           return ["nest", track];
         });
 
-        return [...nests, [pickRandomlyFromArray(options), undefined]];
+        return [...nests, [pickRandomlyFromArray(options), hex]];
       },
     },
     farm: {
@@ -206,7 +210,7 @@ const objects = combineEntriesWithKeys(
         const houseLevel = parseInt(hex.objectType[hex.objectType.length - 1]);
 
         if (houseLevel === 3) {
-          return [pickRandomlyFromArray(HOUSE_3_OPTIONS)];
+          return [[pickRandomlyFromArray(HOUSE_3_OPTIONS), hex]];
         }
       },
     },
@@ -347,7 +351,7 @@ const objects = combineEntriesWithKeys(
       onPlace: ({ hex, neighbors, grid }) => {
         const options = ["mine", "cave", "dungeon"];
 
-        return [pickRandomlyFromArray(options)];
+        return [pickRandomlyFromArray(options), hex];
       },
     },
     lighthouse: {
@@ -356,7 +360,10 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_13"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
-        return ["ship", "ship"];
+        return [
+          ["ship", hex],
+          ["ship", hex],
+        ];
       },
     },
     ship: {

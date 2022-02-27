@@ -8,7 +8,9 @@ const useDeck = () => {
 
   useEffect(() => {
     const unShuffledDeck = [
-      // objects.dungeon,
+      // objects.house1,
+      // objects.house1,
+      // objects.church,
       objects.camp,
       objects.camp,
       objects.mine,
