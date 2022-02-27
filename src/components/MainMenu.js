@@ -5,7 +5,7 @@ import rng from "../utils/rng";
 import Menu from "./Menu";
 
 const MainMenu = ({ setView, reGenerateGame }) => {
-  const [currentSeed, setCurrentSeed] = useState(rng.seed);
+  const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
 
   const setSeed = (newSeed) => {

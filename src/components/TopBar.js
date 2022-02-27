@@ -164,7 +164,7 @@ const TopBar = ({
             marginRight: "64px",
           }}
         >
-          <p style={{ margin: 0, marginRight: "0.5em" }}>Game Over!</p>
+          <p style={{ margin: 0, marginRight: "0.5em" }}>Run Complete!</p>
           <button
             style={{
               padding: "0.25em 0.5em",

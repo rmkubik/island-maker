@@ -11,18 +11,27 @@ import {
 import Game from "./Game";
 import MainMenu from "./MainMenu";
 import GameOverMenu from "./GameOverMenu";
+import rng from "../utils/rng";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
   const [view, setView] = useState("mainMenu");
   const [gameId, setGameId] = useState(0);
+  const [lastGrid, setLastGrid] = useState();
 
-  const reGenerateGame = () => setGameId(gameId + 1);
+  const reGenerateGame = () => {
+    rng.resetCurrentSeed();
+    setGameId(gameId + 1);
+  };
 
   const views = {
     mainMenu: <MainMenu setView={setView} reGenerateGame={reGenerateGame} />,
     gameOver: (
-      <GameOverMenu setView={setView} reGenerateGame={reGenerateGame} />
+      <GameOverMenu
+        setView={setView}
+        reGenerateGame={reGenerateGame}
+        lastGrid={lastGrid}
+      />
     ),
     none: null,
   };
@@ -42,6 +51,16 @@ function App() {
       <Game
         key={gameId}
         scale={scale}
+        showGameOver={(grid) => {
+          if (view !== "none") {
+            // Game only has authority to set the view if no
+            // other view is already showing.
+            return;
+          }
+
+          setLastGrid(grid);
+          setView("gameOver");
+        }}
         setView={(newView) => {
           if (view !== "none") {
             // Game only has authority to set the view if no

@@ -13,4 +13,12 @@ function setSeed(newSeed) {
   rng = new SeedRandom(newSeed);
 }
 
-export default { random, setSeed, seed };
+function getSeed() {
+  return seed;
+}
+
+function resetCurrentSeed() {
+  setSeed(getSeed());
+}
+
+export default { random, setSeed, getSeed, resetCurrentSeed };

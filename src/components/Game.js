@@ -10,7 +10,7 @@ import TopBar from "./TopBar";
 import getResource from "../utils/getResource";
 import { objects } from "../data/locations";
 
-function Game({ scale, setView }) {
+function Game({ scale, setView, showGameOver }) {
   const [previewCount, setPreviewCount] = useState(1);
   const [banked, setBanked] = useState([objects.x]);
   const [newCards, setNewCards] = useState([]);
@@ -79,7 +79,7 @@ function Game({ scale, setView }) {
         grid={grid}
         isGameOver={isGameOver}
         showGameOverMenu={() => {
-          setView("gameOver");
+          showGameOver(grid);
         }}
       />
     </>
