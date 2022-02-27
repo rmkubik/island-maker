@@ -505,6 +505,9 @@ const objects = combineEntriesWithKeys(
       desc: "Not so friendly",
       image: locationImages["locations_colored_7"],
       validTileTypes: ["forest"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        return ["skull", hex];
+      },
     },
   })
 );
