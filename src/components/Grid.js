@@ -24,6 +24,7 @@ const Grid = ({
   const [hovered, setHovered] = useState();
   const [originHex, setOriginHex] = useState();
   const [shakeHex, setShakeHex] = useState();
+  const [newCardLocations, setNewCardLocations] = useState([]);
 
   if (!grid) {
     return null;
@@ -33,6 +34,20 @@ const Grid = ({
     GridDataRef.current,
     scale
   );
+
+  const getTileClassName = (hex) => {
+    let className = "";
+
+    if (shakeHex && hex.equals(shakeHex)) {
+      className += " shake";
+    }
+
+    if (hex.equals(newCardLocations[0])) {
+      className += " bounce";
+    }
+
+    return className;
+  };
 
   return (
     <div
@@ -91,7 +106,17 @@ const Grid = ({
             grid,
             game,
           }) ?? [];
-        const newCards = newCardKeys.map((key) => objects[key]);
+        const cardLocations = [];
+        const newCards = newCardKeys.map((keyOrTuple) => {
+          if (Array.isArray(keyOrTuple)) {
+            const [key, hex] = keyOrTuple;
+
+            cardLocations.push(hex);
+            return objects[key];
+          }
+
+          return objects[keyOrTuple];
+        });
         const newCardsWithIds = newCards.map((card) => {
           return {
             ...card,
@@ -112,13 +137,14 @@ const Grid = ({
         }
 
         setOriginHex(hex);
+        setNewCardLocations(cardLocations);
         setNewCards(newCardsWithIds);
         setDeck(newDeck);
       }}
     >
       {grid.map((hex) => (
         <Tile
-          className={shakeHex && hex.equals(shakeHex) ? "shake" : ""}
+          className={getTileClassName(hex)}
           onAnimationEnd={() => setShakeHex()}
           key={JSON.stringify(hex.toPoint())}
           hex={hex}
@@ -129,6 +155,7 @@ const Grid = ({
           newCard={hex.equals(originHex) ? newCards[0] : undefined}
           onNewCardAnimationEnd={() => {
             const [nextCard, ...remainingCards] = newCards;
+            const [newLocation, ...remainingLocations] = newCardLocations;
 
             if (remainingCards.length === 0) {
               setShouldShowSelected(true);
@@ -137,6 +164,7 @@ const Grid = ({
             if (nextCard) {
               setDeck([...deck, nextCard]);
               setNewCards(remainingCards);
+              setNewCardLocations(remainingLocations);
             }
           }}
         />

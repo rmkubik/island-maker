@@ -155,3 +155,47 @@ button:hover {
   animation-duration: 250ms;
   animation-fill-mode: both;
 }
+
+@keyframes pulseSmall {
+  from {
+    transform: translate(0px, 0px);
+  }
+
+  25% {
+    transform: scale(1.05) translate(-2px, -2px);
+  }
+
+  75% {
+    transform: scale(1.05) translate(2px, 2px);
+  }
+
+  to {
+    transform: translate(0px, 0px);
+  }
+}
+
+.pulseSmall {
+  animation-name: pulseSmall;
+  animation-timing-function: ease-in-out;
+  animation-duration: 250ms;
+  animation-fill-mode: both;
+  transform-origin: bottom center;
+}
+
+@keyframes bounce {
+  from,
+  to {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(0, -6px);
+  }
+}
+
+.bounce {
+  animation-name: bounce;
+  transform-origin: center bottom;
+  animation-duration: 250ms;
+  animation-fill-mode: both;
+}

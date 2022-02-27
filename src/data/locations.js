@@ -103,17 +103,16 @@ const objects = combineEntriesWithKeys(
           (neighbor) => neighbor.objectType === "tracks"
         );
 
-        tracks.forEach((track) => {
+        const nests = tracks.map((track) => {
           track.objectType = undefined;
           track.objectImage = undefined;
 
           grid.set(track, track);
+
+          return ["nest", track];
         });
 
-        return [
-          pickRandomlyFromArray(options),
-          ...new Array(tracks.length).fill("nest"),
-        ];
+        return [...nests, [pickRandomlyFromArray(options), undefined]];
       },
     },
     farm: {
@@ -152,7 +151,9 @@ const objects = combineEntriesWithKeys(
           grid.set(turnip, turnip);
         });
 
-        return new Array(turnips.length).fill("house1");
+        const houses = turnips.map((turnip) => ["house1", turnip]);
+
+        return houses;
       },
     },
     mine: {
@@ -167,9 +168,10 @@ const objects = combineEntriesWithKeys(
           (neighbor) => neighbor.tileType === "mountain"
         );
 
-        const newObjects = new Array(mountains.length)
-          .fill("farm")
-          .map(() => pickRandomlyFromArray(options));
+        const newObjects = mountains.map((mountain) => [
+          pickRandomlyFromArray(options),
+          mountain,
+        ]);
 
         return newObjects;
       },
@@ -236,7 +238,9 @@ const objects = combineEntriesWithKeys(
           (neighbor) => neighbor.objectType === "farm"
         );
 
-        return new Array(farms.length).fill("farm");
+        const newFarms = farms.map((farm) => ["farm", farm]);
+
+        return newFarms;
       },
     },
     inn: {
@@ -249,7 +253,9 @@ const objects = combineEntriesWithKeys(
           (neighbor) => getHouseLevel(neighbor) > 0
         );
 
-        return new Array(houses.length).fill("house1");
+        const newHouses = houses.map((house) => ["house1", house]);
+
+        return newHouses;
       },
     },
     church: {
@@ -278,7 +284,7 @@ const objects = combineEntriesWithKeys(
             case 3:
               house.objectType = objects.house3.key;
               house.objectImage = objects.house3.image;
-              newCards.push(pickRandomlyFromArray(HOUSE_3_OPTIONS));
+              newCards.push([pickRandomlyFromArray(HOUSE_3_OPTIONS), house]);
               break;
             case 2:
               house.objectType = objects.house2.key;
@@ -320,7 +326,10 @@ const objects = combineEntriesWithKeys(
       onPlace: ({ hex, neighbors, grid, game }) => {
         switch (hex.tileType) {
           case "grassland":
-            game.addPreviewSlot();
+            // TODO: This needs a new reward since
+            // all previews are open now.
+            // game.addPreviewSlot();
+            game.addBankSlot();
             break;
           case "forest":
             game.addBankSlot();
@@ -395,7 +404,7 @@ const objects = combineEntriesWithKeys(
         });
 
         // Add a house for each adjacent fish
-        let newCards = new Array(fishes.length).fill("house1");
+        let newCards = fishes.map((fish) => ["house1", fish]);
 
         // Add a random card for each adjacent lighthouse
         const lighthouses = neighbors.filter((neighbor) =>
@@ -404,8 +413,8 @@ const objects = combineEntriesWithKeys(
 
         const lightHouseOptions = ["plant", "camp"];
 
-        lighthouses.forEach(() => {
-          newCards.push(pickRandomlyFromArray(lightHouseOptions));
+        lighthouses.forEach((lighthouse) => {
+          newCards.push([pickRandomlyFromArray(lightHouseOptions), lighthouse]);
         });
 
         return newCards;
@@ -446,10 +455,14 @@ const objects = combineEntriesWithKeys(
           (neighbor) => neighbor.tileType === "mountain"
         );
 
-        const newObjects = constructArray(
-          () => constructArray(() => pickRandomlyFromArray(options), 3),
-          mountains.length
-        ).flat();
+        const newObjects = mountains
+          .map((mountain) => {
+            return constructArray(
+              () => [pickRandomlyFromArray(options), mountain],
+              3
+            );
+          })
+          .flat();
 
         return newObjects;
       },
