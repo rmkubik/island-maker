@@ -39,44 +39,46 @@ const objects = combineEntriesWithKeys(
     },
     fish1: {
       name: "Fish",
-      desc: "Swim in the ocean",
+      desc: "Swims in the sea",
       image: resourceImages["fish_1"],
     },
     fish2: {
       name: "Fish",
-      desc: "Swim in the ocean",
+      desc: "Swims in the sea",
       image: resourceImages["fish_2"],
     },
     fish3: {
       name: "Fish",
-      desc: "Swim in the ocean",
+      desc: "Swims in the sea",
       image: resourceImages["fish_3"],
     },
     turnip1: {
       name: "Turnip",
-      desc: "Grow in the ground",
+      desc: "Grows in the ground",
       image: resourceImages["turnip_1"],
     },
     turnip2: {
       name: "Turnip",
-      desc: "Grow in the ground",
+      desc: "Grows in the ground",
       image: resourceImages["turnip_2"],
     },
     turnip3: {
       name: "Turnip",
-      desc: "Grow in the ground",
+      desc: "Grows in the ground",
       image: resourceImages["turnip_3"],
       validTileTypes: ["grassland"],
     },
     plant: {
-      name: "Plant",
-      desc: "Create a forest",
+      name: "Grow",
+      desc: "The trees will rise",
       image: iconImages["icons_colored_12"],
       validObjectOverrides: ["house1"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
         const tileTypeImages = tilePaths.forest;
         const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+        const newCards = [];
 
         hex.tileType = "forest";
         hex.tileImage = tileImage;
@@ -85,6 +87,7 @@ const objects = combineEntriesWithKeys(
           case "house1":
             hex.objectImage = objects.witchHut.image;
             hex.objectType = "witchHut";
+            newCards.push(["skull", hex]);
             break;
           default:
             hex.objectImage = undefined;
@@ -93,11 +96,12 @@ const objects = combineEntriesWithKeys(
         }
 
         grid.set(hex, hex);
+        return newCards;
       },
     },
     camp: {
       name: "Camp",
-      desc: "Hunt in the forest",
+      desc: "Hunts in the woods",
       image: locationImages["locations_colored_8"],
       validTileTypes: ["forest"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -121,7 +125,7 @@ const objects = combineEntriesWithKeys(
     },
     farm: {
       name: "Farm",
-      desc: "Harvest turnips",
+      desc: "Harvests turnips",
       image: locationImages["locations_colored_5"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -162,7 +166,7 @@ const objects = combineEntriesWithKeys(
     },
     mine: {
       name: "Mine",
-      desc: "Break the mountains",
+      desc: "Extracts from mountains",
       image: locationImages["locations_colored_19"],
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -249,7 +253,7 @@ const objects = combineEntriesWithKeys(
     },
     inn: {
       name: "Inn",
-      desc: "Serve the town",
+      desc: "Gives the people happiness",
       image: locationImages["locations_colored_12"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -264,7 +268,7 @@ const objects = combineEntriesWithKeys(
     },
     church: {
       name: "Church",
-      desc: "Serve the town",
+      desc: "Brings the people faith",
       image: locationImages["locations_colored_16"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -308,6 +312,7 @@ const objects = combineEntriesWithKeys(
             case "forest":
               grave.objectType = "witchHut";
               grave.objectImage = objects.witchHut.image;
+              newCards.push(["skull", grave]);
               break;
             case "grassland":
             default:
@@ -324,7 +329,7 @@ const objects = combineEntriesWithKeys(
     },
     nest: {
       name: "Nest",
-      desc: "What's inside?",
+      desc: "Room for one more?",
       image: locationImages["locations_colored_20"],
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid, game }) => {
@@ -356,7 +361,7 @@ const objects = combineEntriesWithKeys(
     },
     lighthouse: {
       name: "Lighthouse",
-      desc: "Light the way",
+      desc: "Lights the way",
       image: locationImages["locations_colored_13"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -435,7 +440,7 @@ const objects = combineEntriesWithKeys(
     },
     cave: {
       name: "Seed",
-      desc: "A rocky seed",
+      desc: "A rocky spore",
       image: locationImages["locations_colored_17"],
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -481,8 +486,8 @@ const objects = combineEntriesWithKeys(
       validTileTypes: ["grassland", "forest"],
     },
     skull: {
-      name: "Skull",
-      desc: "A curse",
+      name: "Curse",
+      desc: "All things must pass",
       image: iconImages["icons_colored_4"],
       validTileTypes: ["grassland", "forest"],
       validObjectOverrides: ["all"],
