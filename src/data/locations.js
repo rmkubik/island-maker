@@ -356,7 +356,7 @@ const objects = combineEntriesWithKeys(
       onPlace: ({ hex, neighbors, grid }) => {
         const options = ["mine", "cave", "dungeon"];
 
-        return [pickRandomlyFromArray(options), hex];
+        return [[pickRandomlyFromArray(options), hex]];
       },
     },
     lighthouse: {

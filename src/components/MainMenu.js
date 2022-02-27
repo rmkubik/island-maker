@@ -8,6 +8,8 @@ const MainMenu = ({ setView, reGenerateGame }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
 
+  const suggestedSeeds = ["LziPqT6r"];
+
   const setSeed = (newSeed) => {
     setCurrentSeed(newSeed);
 
@@ -67,6 +69,44 @@ const MainMenu = ({ setView, reGenerateGame }) => {
             Random
           </button>
         </div>
+      </div>
+      <div
+        style={{
+          marginTop: "64px",
+          marginBottom: "64px",
+        }}
+      >
+        <p>Suggested Seeds</p>
+        <ul
+          style={{
+            padding: 0,
+            listStyle: "none",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          {suggestedSeeds.map((suggestedSeed) => (
+            <li key={suggestedSeed}>
+              <button
+                style={{
+                  width: "fit-content",
+                  fontSize: "1em",
+                  borderRadius: "4px",
+                  border: "none",
+                  padding: "8px 12px",
+                  background: "white",
+                  cursor: "pointer",
+                  margin: "8px",
+                }}
+                onClick={() => {
+                  setSeed(suggestedSeed);
+                }}
+              >
+                {suggestedSeed}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
       <button
         style={{

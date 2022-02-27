@@ -25,6 +25,7 @@ const Menu = ({ children }) => {
           backgroundColor: "rgb(69, 69, 69)",
           padding: "64px",
           border: "6px solid white",
+          maxWidth: "900px",
         }}
       >
         {children}

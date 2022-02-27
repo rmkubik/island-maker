@@ -132,7 +132,7 @@ const TopBar = ({
                   setBanked(newBanked);
 
                   // setSelected(banked[index]);
-                  setDeck([banked[index], ...deck]);
+                  setDeck([banked[index], ...deck.slice(1)]);
                   return;
                 }
                 case Boolean(!selected && bankedObject.key !== "x"): {
