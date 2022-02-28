@@ -136,6 +136,7 @@ const TopBar = ({
               borderRadius: "6px",
               padding: 0,
               margin: 0,
+              marginRight: "8px",
               width: `${LOCATION_SIZE}px`,
               height: `${LOCATION_SIZE}px`,
               boxSizing: "content-box",
