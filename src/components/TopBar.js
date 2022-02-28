@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   DECK_STACK_INCREMENT,
   LOCATION_SIZE,
@@ -24,6 +24,38 @@ const TopBar = ({
   showGameOverMenu,
   setIsForcedGameOver,
 }) => {
+  const population = grid ? countPopulation(grid) : 0;
+  const [prevPopulation, setPrevPopulation] = useState(population);
+  // waiting, animating, finished
+  const [populationAnimationState, setPopulationAnimationState] =
+    useState("waiting");
+
+  useEffect(() => {
+    switch (populationAnimationState) {
+      case "waiting":
+        if (population !== prevPopulation) {
+          // Population has changed
+          setPopulationAnimationState("animating");
+        }
+        break;
+      case "animating":
+        // Do nothing while we're animating
+        break;
+      case "finished":
+        // Save new population once we're animating
+        setPrevPopulation(population);
+        setPopulationAnimationState("waiting");
+        break;
+    }
+  }, [
+    grid,
+    population,
+    prevPopulation,
+    setPrevPopulation,
+    populationAnimationState,
+    setPopulationAnimationState,
+  ]);
+
   let preview = deck.slice(0, previewCount);
   const missingPreviewCount = previewCount - preview.length;
 
@@ -154,7 +186,14 @@ const TopBar = ({
       </div>
       <div>
         <p>Population:</p>
-        <p className="textNumber">{grid ? countPopulation(grid) : 0}</p>
+        <p
+          className={`textNumber ${
+            populationAnimationState === "animating" ? "pulse" : null
+          }`}
+          onAnimationEnd={() => setPopulationAnimationState("finished")}
+        >
+          {population}
+        </p>
       </div>
       {!isGameOver ? (
         <div

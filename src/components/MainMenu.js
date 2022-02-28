@@ -12,6 +12,7 @@ const MainMenu = ({ setView, reGenerateGame }) => {
     "8FZRNG2E",
     "FA6F7Z77",
     "ORD1WRHF",
+    "GKEE7QUN",
     "KLBA15ZJ",
     "SC0KIRFC",
     "GGXEAB7F",
