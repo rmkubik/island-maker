@@ -19,7 +19,9 @@
     "prebuild": "npm run clear-cache",
     "build": "parcel build src/index.html",
     "serve": "cd dist && http-server -so -c-1",
-    "clear-cache": "rm -rf dist .parcel-cache"
+    "clear-cache": "rm -rf dist .parcel-cache",
+    "deploy": "npm run build && npm run deploy:itch",
+    "deploy:itch": "butler push dist rmkubik/island-maker:html"
   },
   "author": "",
   "license": "ISC"
