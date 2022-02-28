@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import createRandomString from "../utils/createRandomString";
 import debounceTrailingEdge from "../utils/debounceTrailingEdge";
+import getDailySeed from "../utils/getDailySeed";
+import getTodayString from "../utils/getTodayString";
 import rng from "../utils/rng";
 import Menu from "./Menu";
 
@@ -97,6 +99,26 @@ const MainMenu = ({
         }}
       >
         <p style={{ marginBottom: 0 }}>Interesting Seeds:</p>
+        <button
+          style={{
+            width: "fit-content",
+            fontSize: "1em",
+            borderRadius: "4px",
+            border: "none",
+            padding: "8px 12px",
+            background: "white",
+            cursor: "pointer",
+            margin: "8px",
+            marginBottom: "24px",
+          }}
+          onClick={() => {
+            const dailySeed = getDailySeed();
+
+            setSeed({ seed: dailySeed, label: `Daily ${getTodayString()}` });
+          }}
+        >
+          Daily
+        </button>
         <ul
           style={{
             padding: 0,
