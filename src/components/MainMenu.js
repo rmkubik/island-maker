@@ -9,13 +9,13 @@ const MainMenu = ({ setView, reGenerateGame }) => {
   const debounceRef = useRef(debounceTrailingEdge(500));
 
   const suggestedSeeds = [
-    "8FZRNG2E",
-    "FA6F7Z77",
-    "ORD1WRHF",
-    "GKEE7QUN",
-    "KLBA15ZJ",
-    "SC0KIRFC",
-    "GGXEAB7F",
+    { seed: "8FZRNG2E", label: "Fields" },
+    { seed: "FA6F7Z77", label: "Lakes" },
+    { seed: "ORD1WRHF", label: "Peaks" },
+    { seed: "GKEE7QUN", label: "Fish" },
+    { seed: "KLBA15ZJ", label: "Fragmented" },
+    { seed: "SC0KIRFC", label: "Islands" },
+    { seed: "GGXEAB7F", label: "Tracks" },
   ];
 
   const setSeed = (newSeed) => {
@@ -101,7 +101,7 @@ const MainMenu = ({ setView, reGenerateGame }) => {
           }}
         >
           {suggestedSeeds.map((suggestedSeed) => (
-            <li key={suggestedSeed}>
+            <li key={suggestedSeed.seed}>
               <button
                 style={{
                   width: "fit-content",
@@ -114,10 +114,10 @@ const MainMenu = ({ setView, reGenerateGame }) => {
                   margin: "8px",
                 }}
                 onClick={() => {
-                  setSeed(suggestedSeed);
+                  setSeed(suggestedSeed.seed);
                 }}
               >
-                {suggestedSeed}
+                {suggestedSeed.label}
               </button>
             </li>
           ))}
