@@ -3,7 +3,12 @@ import Menu from "./Menu";
 import countPopulation from "../utils/countPopulation";
 import rng from "../utils/rng";
 
-const GameOverMenu = ({ setView, reGenerateGame, lastGrid }) => {
+const GameOverMenu = ({
+  setView,
+  reGenerateGame,
+  lastGrid,
+  currentSeedLabel,
+}) => {
   return (
     <Menu>
       <h1 style={{ marginBottom: "64px" }}>Run Complete!</h1>
@@ -41,6 +46,7 @@ const GameOverMenu = ({ setView, reGenerateGame, lastGrid }) => {
           value={rng.getSeed()}
           readOnly
         />
+        <p>{`"${currentSeedLabel}"`}</p>
       </div>
       <button
         style={{

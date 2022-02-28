@@ -18,6 +18,7 @@ function App() {
   const [view, setView] = useState("mainMenu");
   const [gameId, setGameId] = useState(0);
   const [lastGrid, setLastGrid] = useState();
+  const [currentSeedLabel, setCurrentSeedLabel] = useState("Random");
 
   const reGenerateGame = () => {
     rng.resetCurrentSeed();
@@ -25,12 +26,20 @@ function App() {
   };
 
   const views = {
-    mainMenu: <MainMenu setView={setView} reGenerateGame={reGenerateGame} />,
+    mainMenu: (
+      <MainMenu
+        setView={setView}
+        reGenerateGame={reGenerateGame}
+        currentSeedLabel={currentSeedLabel}
+        setCurrentSeedLabel={setCurrentSeedLabel}
+      />
+    ),
     gameOver: (
       <GameOverMenu
         setView={setView}
         reGenerateGame={reGenerateGame}
         lastGrid={lastGrid}
+        currentSeedLabel={currentSeedLabel}
       />
     ),
     none: null,

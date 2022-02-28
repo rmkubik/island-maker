@@ -4,7 +4,12 @@ import debounceTrailingEdge from "../utils/debounceTrailingEdge";
 import rng from "../utils/rng";
 import Menu from "./Menu";
 
-const MainMenu = ({ setView, reGenerateGame }) => {
+const MainMenu = ({
+  setView,
+  reGenerateGame,
+  currentSeedLabel,
+  setCurrentSeedLabel,
+}) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
 
@@ -22,9 +27,10 @@ const MainMenu = ({ setView, reGenerateGame }) => {
     // Our font only has upper case letters, players
     // will not be able to visually see lower
     // case letters.
-    const upperCaseSeed = newSeed.toUpperCase();
+    const upperCaseSeed = newSeed.seed.toUpperCase();
 
     setCurrentSeed(upperCaseSeed);
+    setCurrentSeedLabel(newSeed.label);
 
     debounceRef.current(() => {
       rng.setSeed(upperCaseSeed);
@@ -60,7 +66,7 @@ const MainMenu = ({ setView, reGenerateGame }) => {
             onChange={(event) => {
               const newSeed = event.target.value.toUpperCase();
 
-              setSeed(newSeed);
+              setSeed({ seed: newSeed, label: "Random" });
             }}
           />
           <button
@@ -76,12 +82,13 @@ const MainMenu = ({ setView, reGenerateGame }) => {
             onClick={() => {
               const newSeed = createRandomString(8);
 
-              setSeed(newSeed);
+              setSeed({ seed: newSeed, label: "Random" });
             }}
           >
             Random
           </button>
         </div>
+        <p>{`"${currentSeedLabel}"`}</p>
       </div>
       <div
         style={{
@@ -114,7 +121,7 @@ const MainMenu = ({ setView, reGenerateGame }) => {
                   margin: "8px",
                 }}
                 onClick={() => {
-                  setSeed(suggestedSeed.seed);
+                  setSeed(suggestedSeed);
                 }}
               >
                 {suggestedSeed.label}
