@@ -22,14 +22,12 @@ button {
     sans-serif;
 }
 
-button:hover {
-  transform: scale(1.1);
-  transform-origin: center;
-  transition-duration: 100ms;
-  transition-timing-function: ease-in-out;
+img {
+  /* -webkit-user-drag: none; */
+  user-select: none;
 }
 
-.menu button:hover {
+button:hover {
   transform: scale(1.1);
   transform-origin: center;
   transition-duration: 100ms;

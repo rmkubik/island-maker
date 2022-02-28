@@ -81,6 +81,7 @@ const TopBar = ({
       <div>
         <p>Current: </p>
         <img
+          draggable={false}
           key={selected && selected.id}
           className="slideInRight"
           src={selected ? selected.image : undefined}
@@ -105,6 +106,7 @@ const TopBar = ({
         {deck.slice(shouldShowSelected ? 1 : 0).map((card, index) => {
           return (
             <img
+              draggable={false}
               key={card.id}
               style={{
                 position: "absolute",
@@ -181,7 +183,9 @@ const TopBar = ({
               }
             }}
           >
-            {bankedObject.key !== "x" ? <img src={bankedObject.image} /> : null}
+            {bankedObject.key !== "x" ? (
+              <img draggable={false} src={bankedObject.image} />
+            ) : null}
           </button>
         ))}
       </div>

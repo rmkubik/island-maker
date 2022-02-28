@@ -44,6 +44,7 @@ const Tile = ({
       onAnimationEnd={onAnimationEnd}
     >
       <img
+        draggable={false}
         style={{
           position: "absolute",
         }}
@@ -51,6 +52,7 @@ const Tile = ({
       />
       {isHovered && (
         <img
+          draggable={false}
           style={{
             position: "absolute",
             zIndex: 100000,
@@ -60,6 +62,7 @@ const Tile = ({
       )}
       {objectImageSrc ? (
         <img
+          draggable={false}
           className="pulse"
           style={{
             position: "absolute",
@@ -72,6 +75,7 @@ const Tile = ({
       ) : null}
       {isHovered && selected ? (
         <img
+          draggable={false}
           className="pulse"
           style={{
             position: "absolute",
@@ -85,6 +89,7 @@ const Tile = ({
       {/* {newCards.length > 0
         ? newCards.map((card, index) => (
             <img
+              draggable={false}
               key={index}
               className="fadeOutUp"
               style={{
@@ -101,6 +106,7 @@ const Tile = ({
         : null} */}
       {newCard ? (
         <img
+          draggable={false}
           key={newCard.id}
           // key={index}
           // animationDelay: `${index * 1000}ms`,
