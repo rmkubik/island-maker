@@ -350,7 +350,7 @@ const objects = combineEntriesWithKeys(
     },
     quarry: {
       name: "Quarry",
-      desc: "What's under the ground?",
+      desc: "We have to go deeper",
       image: locationImages["locations_colored_4"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -469,19 +469,20 @@ const objects = combineEntriesWithKeys(
 
         const newObjects = mountains
           .map((mountain) => {
-            return constructArray(
-              () => [pickRandomlyFromArray(options), mountain],
-              3
-            );
+            return [
+              [pickRandomlyFromArray(options), mountain],
+              [pickRandomlyFromArray(options), mountain],
+              [pickRandomlyFromArray(options), mountain],
+            ];
           })
           .flat();
 
-        return newObjects;
+        return [["church", hex], ...newObjects];
       },
     },
     grave: {
       name: "Grave",
-      desc: "Rest in piece",
+      desc: "Rest in peace",
       image: locationImages["locations_colored_27"],
       validTileTypes: ["grassland", "forest"],
     },
