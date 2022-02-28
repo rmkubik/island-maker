@@ -17,7 +17,7 @@
   "scripts": {
     "start": "parcel src/index.html",
     "prebuild": "npm run clear-cache",
-    "build": "parcel build src/index.html",
+    "build": "parcel build src/index.html --public-url='.'",
     "serve": "cd dist && http-server -so -c-1",
     "clear-cache": "rm -rf dist .parcel-cache",
     "deploy": "npm run build && npm run deploy:itch",
