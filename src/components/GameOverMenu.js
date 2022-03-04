@@ -2,6 +2,9 @@ import React from "react";
 import Menu from "./Menu";
 import countPopulation from "../utils/countPopulation";
 import rng from "../utils/rng";
+import convertPopulationToStars from "../utils/convertPopulationToStars";
+import constructArray from "../utils/constructArray";
+import { objects } from "../data/locations";
 
 const GameOverMenu = ({
   setView,
@@ -9,6 +12,9 @@ const GameOverMenu = ({
   lastGrid,
   currentSeedLabel,
 }) => {
+  const population = countPopulation(lastGrid);
+  const stars = convertPopulationToStars(population);
+
   return (
     <Menu>
       <h1 style={{ marginBottom: "64px" }}>Run Complete!</h1>
@@ -18,17 +24,45 @@ const GameOverMenu = ({
           style={{
             fontSize: "2em",
             margin: 0,
-            marginBottom: "0.75em",
+            marginBottom: "0.85em",
           }}
         >
-          {countPopulation(lastGrid)}
+          {population}
         </p>
+      </div>
+      <div style={{ marginBottom: "64px" }}>
+        <p style={{ margin: 0, marginBottom: "-12px" }}>Rating:</p>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          {constructArray((index) => {
+            let image;
+
+            if (stars < index + 1) {
+              // No star
+              image = objects.x.image;
+            } else if (index + 1 + 5 <= stars) {
+              // This is a golden star
+              image = objects.brickHouse1.image;
+            } else {
+              image = objects.house1.image;
+            }
+
+            return (
+              <img
+                style={{ marginRight: "-20px" }}
+                draggable={false}
+                key={index}
+                src={image}
+              />
+            );
+          }, 5)}
+        </div>
       </div>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           marginBottom: "2.5em",
+          alignItems: "center",
         }}
       >
         <label htmlFor="seed">Seed:</label>

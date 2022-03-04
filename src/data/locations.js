@@ -184,6 +184,11 @@ const objects = combineEntriesWithKeys(
         return newObjects;
       },
     },
+    brickHouse1: {
+      name: "Brick House",
+      desc: "Kind of snooty",
+      image: locationImages["locations_colored_2"],
+    },
     house1: {
       name: "House",
       desc: "A nice place to live",
