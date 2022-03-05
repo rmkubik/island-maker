@@ -12,6 +12,8 @@ import Game from "./Game";
 import MainMenu from "./MainMenu";
 import GameOverMenu from "./GameOverMenu";
 import rng from "../utils/rng";
+import JournalMenu from "./JournalMenu";
+import useJournal from "../hooks/useJournal";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
@@ -19,6 +21,7 @@ function App() {
   const [gameId, setGameId] = useState(0);
   const [lastGrid, setLastGrid] = useState();
   const [currentSeedLabel, setCurrentSeedLabel] = useState("Random");
+  const { isUnlocked, unlockItem, commitUnlocks } = useJournal();
 
   const reGenerateGame = () => {
     rng.resetCurrentSeed();
@@ -42,6 +45,7 @@ function App() {
         currentSeedLabel={currentSeedLabel}
       />
     ),
+    journal: <JournalMenu setView={setView} isUnlocked={isUnlocked} />,
     none: null,
   };
 
@@ -79,6 +83,8 @@ function App() {
 
           setView(newView);
         }}
+        unlockItem={unlockItem}
+        commitUnlocks={commitUnlocks}
       />
     </div>
   );

@@ -10,7 +10,7 @@ import TopBar from "./TopBar";
 import getResource from "../utils/getResource";
 import { objects } from "../data/locations";
 
-function Game({ scale, setView, showGameOver }) {
+function Game({ scale, setView, showGameOver, unlockItem, commitUnlocks }) {
   const [previewCount, setPreviewCount] = useState(1);
   const [banked, setBanked] = useState([objects.x]);
   const [newCards, setNewCards] = useState([]);
@@ -68,6 +68,8 @@ function Game({ scale, setView, showGameOver }) {
         game={{
           addBankSlot,
           addPreviewSlot,
+          unlockItem,
+          commitUnlocks,
         }}
       />
       <TopBar
@@ -85,6 +87,7 @@ function Game({ scale, setView, showGameOver }) {
         showGameOverMenu={() => {
           showGameOver(grid);
         }}
+        showJournal={() => setView("journal")}
       />
     </>
   );

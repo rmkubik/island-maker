@@ -22,6 +22,7 @@ const TopBar = ({
   shouldShowSelected,
   isGameOver,
   showGameOverMenu,
+  showJournal,
   setIsForcedGameOver,
 }) => {
   const population = grid ? countPopulation(grid) : 0;
@@ -199,6 +200,15 @@ const TopBar = ({
         >
           {population}
         </p>
+      </div>
+      <div>
+        <p>Journal:</p>
+        <button
+          onClick={showJournal}
+          style={{ background: "none", border: "none", cursor: "pointer" }}
+        >
+          <img draggable={false} src={objects.question.image} />
+        </button>
       </div>
       {!isGameOver ? (
         <div

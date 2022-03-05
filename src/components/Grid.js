@@ -91,7 +91,7 @@ const Grid = ({
 
         // Allow for object overriding
         if (isOverridingObject) {
-          selected.onOverride?.({ hex, neighbors, grid });
+          selected.onOverride?.({ hex, neighbors, grid, game });
         } else {
           // Place object
           hex.objectType = selected.key;
@@ -99,6 +99,9 @@ const Grid = ({
 
           grid.set(hexCoordinates, hex);
         }
+
+        // When you place an object, unlock it in the journal
+        game.unlockItem(selected.key);
 
         // onPlace, an object can modify the grid based on
         // the neighbors and grid contents.
@@ -134,6 +137,8 @@ const Grid = ({
         // const [newSelected, ...newDeck] = deckWithNewCards;
 
         const [playedCard, ...newDeck] = deck;
+
+        game.commitUnlocks();
 
         if (newCardsWithIds.length === 0) {
           setShouldShowSelected(true);
