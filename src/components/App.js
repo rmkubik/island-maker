@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "../style.css";
 import useScaleRef from "../hooks/useScaleRef";
@@ -14,14 +14,30 @@ import GameOverMenu from "./GameOverMenu";
 import rng from "../utils/rng";
 import JournalMenu from "./JournalMenu";
 import useJournal from "../hooks/useJournal";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
+  const [saveData, setSaveData] = useLocalStorage(
+    "com.ryankubik.island-maker",
+    {}
+  );
   const [view, setView] = useState("mainMenu");
   const [gameId, setGameId] = useState(0);
   const [lastGrid, setLastGrid] = useState();
   const [currentSeedLabel, setCurrentSeedLabel] = useState("Random");
-  const { isUnlocked, unlockItem, commitUnlocks } = useJournal();
+  const { journal, setJournal, isUnlocked, unlockItem, commitUnlocks } =
+    useJournal();
+
+  useEffect(() => {
+    setJournal(saveData.journal ?? {});
+  }, []);
+
+  useEffect(() => {
+    const newSaveData = { ...saveData, journal };
+
+    setSaveData(newSaveData);
+  }, [journal]);
 
   const reGenerateGame = () => {
     rng.resetCurrentSeed();

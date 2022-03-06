@@ -26,7 +26,7 @@ const useJournal = () => {
     setJournal(newJournal);
   };
 
-  return { isUnlocked, unlockItem, commitUnlocks };
+  return { journal, setJournal, isUnlocked, unlockItem, commitUnlocks };
 };
 
 export default useJournal;
