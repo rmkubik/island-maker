@@ -392,9 +392,24 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_4"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const options = ["mine", "cave", "dungeon"];
+        const options = [];
 
-        return [[pickRandomlyFromArray(options), hex]];
+        const mountains = neighbors.filter((neighbor) =>
+          neighbor.tileType?.includes("mountain")
+        );
+        mountains.forEach((mountain) => {
+          options.push(["cave", mountain]);
+        });
+
+        const mines = neighbors.filter((neighbor) =>
+          neighbor.objectType?.includes("mine")
+        );
+        mines.forEach((mine) => {
+          options.push(["mine", mine]);
+          options.push(["dungeon", mine]);
+        });
+
+        return [pickRandomlyFromArray(options)];
       },
     },
     lighthouse: {
