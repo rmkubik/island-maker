@@ -404,10 +404,13 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_13"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
-        return [
-          ["ship", hex],
-          ["ship", hex],
-        ];
+        const oceans = neighbors.filter((neighbor) =>
+          neighbor.tileType?.includes("ocean")
+        );
+
+        const ships = oceans.map((ocean) => ["ship", ocean]);
+
+        return ships;
       },
     },
     ship: {
