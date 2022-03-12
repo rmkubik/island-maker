@@ -488,6 +488,7 @@ const objects = combineEntriesWithKeys(
     cave: {
       name: "Seed",
       desc: "A rocky spore",
+      isInJournal: true,
       image: locationImages["locations_colored_17"],
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
