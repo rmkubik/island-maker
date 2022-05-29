@@ -7,6 +7,7 @@ import shouldOverrideObject from "../utils/shouldOverrideObject";
 import isValidPlacement from "../utils/isValidPlacement";
 import { VISUAL_Y_OFFSET } from "../data/config";
 import getNextId from "../utils/getNextId";
+import isValidCard from "../utils/isValidCard";
 
 const Grid = ({
   deck,
@@ -114,6 +115,7 @@ const Grid = ({
             grid,
             game,
           }) ?? [];
+
         const cardLocations = [];
         const newCards = newCardKeys.map((keyOrTuple) => {
           if (Array.isArray(keyOrTuple)) {
@@ -125,7 +127,11 @@ const Grid = ({
 
           return objects[keyOrTuple];
         });
-        const newCardsWithIds = newCards.map((card) => {
+
+        // Check if any invalid cards were added
+        const validNewCards = newCards.filter(isValidCard);
+
+        const newCardsWithIds = validNewCards.map((card) => {
           return {
             ...card,
             id: getNextId(),
