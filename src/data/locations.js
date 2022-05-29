@@ -409,6 +409,10 @@ const objects = combineEntriesWithKeys(
           options.push(["dungeon", mine]);
         });
 
+        if (options.length === 0) {
+          return;
+        }
+
         return [pickRandomlyFromArray(options)];
       },
     },
