@@ -577,7 +577,7 @@ const objects = combineEntriesWithKeys(
       image: locationImages["locations_colored_7"],
       validTileTypes: ["forest"],
       onPlace: ({ hex, neighbors, grid }) => {
-        return ["skull", hex];
+        return [["skull", hex]];
       },
     },
   })
