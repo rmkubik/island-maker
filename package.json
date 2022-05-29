@@ -5,19 +5,28 @@
   "description": "",
   "dependencies": {
     "honeycomb-grid": "^3.1.8",
-    "parcel": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
     "@parcel/resolver-glob": "^2.2.1",
-    "http-server": "^14.1.0"
+    "babel-jest": "^28.1.0",
+    "babel-plugin-import-glob": "^2.0.0",
+    "babel-plugin-wildcard": "^7.0.0",
+    "http-server": "^14.1.0",
+    "jest": "^28.1.0",
+    "parcel": "^2.6.0",
+    "process": "^0.11.10"
   },
   "scripts": {
     "start": "parcel src/index.html",
     "prebuild": "npm run clear-cache",
     "build": "parcel build src/index.html --public-url='.'",
+    "test": "jest",
     "serve": "cd dist && http-server -so -c-1",
     "clear-cache": "rm -rf dist .parcel-cache",
     "deploy": "npm run build && npm run deploy:itch",
