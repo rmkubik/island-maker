@@ -11,6 +11,7 @@ const MainMenu = ({
   reGenerateGame,
   currentSeedLabel,
   setCurrentSeedLabel,
+  version,
 }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
@@ -163,6 +164,15 @@ const MainMenu = ({
       >
         Start
       </button>
+      <p
+        style={{
+          margin: "0",
+          display: "flex",
+          justifyContent: "right",
+        }}
+      >
+        Ver: {version}
+      </p>
     </Menu>
   );
 };

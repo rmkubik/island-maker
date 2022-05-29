@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import packageInfo from "../../package.json";
 import "../style.css";
 import useScaleRef from "../hooks/useScaleRef";
 import {
@@ -34,7 +35,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const newSaveData = { ...saveData, journal };
+    const newSaveData = { ...saveData, journal, version: packageInfo.version };
 
     setSaveData(newSaveData);
   }, [journal]);
@@ -51,6 +52,7 @@ function App() {
         reGenerateGame={reGenerateGame}
         currentSeedLabel={currentSeedLabel}
         setCurrentSeedLabel={setCurrentSeedLabel}
+        version={packageInfo.version}
       />
     ),
     gameOver: (
