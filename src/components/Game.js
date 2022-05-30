@@ -78,6 +78,7 @@ function Game({
           unlockItem,
           commitUnlocks,
         }}
+        gameMode={gameMode}
       />
       <TopBar
         deck={deck}

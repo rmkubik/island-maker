@@ -5,7 +5,7 @@ import Tile from "../components/Tile";
 import { objects } from "../data/locations";
 import shouldOverrideObject from "../utils/shouldOverrideObject";
 import isValidPlacement from "../utils/isValidPlacement";
-import { VISUAL_Y_OFFSET } from "../data/config";
+import { GAME_MODE_OPTIONS, VISUAL_Y_OFFSET } from "../data/config";
 import getNextId from "../utils/getNextId";
 import isValidCard from "../utils/isValidCard";
 
@@ -24,6 +24,11 @@ function onClickPlayMode({
   setNewCards,
   setDeck,
 }) {
+  if (e.button !== 0) {
+    // Only left click has play mode functionality right now
+    return;
+  }
+
   if (isGameOver) {
     return;
   }
@@ -116,6 +121,72 @@ function onClickPlayMode({
   setDeck(newDeck);
 }
 
+function onClickEditMode({
+  e,
+  isGameOver,
+  selected,
+  getHexFromPointerEventWithGridData,
+  grid,
+  setShakeHex,
+  game,
+  deck,
+  setShouldShowSelected,
+  setOriginHex,
+  setNewCardLocations,
+  setNewCards,
+  setDeck,
+}) {
+  const hexCoordinates = getHexFromPointerEventWithGridData(e);
+  const hex = grid.get(hexCoordinates);
+
+  console.log({ hex, selected, e, button: e.button });
+
+  switch (e.button) {
+    default:
+    case 0:
+      // Left click, set tile to selected
+      // Place object
+      if (!hex) {
+        return;
+      }
+
+      if (selected === undefined) {
+        hex.objectType = undefined;
+        hex.objectImage = undefined;
+      } else {
+        hex.objectType = selected.key;
+        hex.objectImage = selected.image;
+      }
+
+      grid.set(hexCoordinates, hex);
+      break;
+    case 1:
+      // Middle click, select hovered object
+      const hoveredCard = objects[hex.objectType];
+
+      setDeck([hoveredCard]);
+      break;
+    case 2:
+      if (e.type === "auxclick") {
+        // auxclick and contextmenu events both trigger
+        // for right clicks.
+        //
+        // We don't want to double count right clicks,
+        // so we're going to short circuit the auxclick
+        // event.
+        //
+        // if you try try to rely on just the auxclick
+        // event, you're too late to prevent the default
+        // context menu behavior.
+        return;
+      }
+      // Right click, selected hovered tile
+      e.preventDefault();
+
+      break;
+  }
+}
+
 const Grid = ({
   deck,
   setDeck,
@@ -129,6 +200,7 @@ const Grid = ({
   setShouldShowSelected,
   shouldShowSelected,
   isGameOver,
+  gameMode,
 }) => {
   const [hovered, setHovered] = useState();
   const [originHex, setOriginHex] = useState();
@@ -158,21 +230,28 @@ const Grid = ({
     return className;
   };
 
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: VISUAL_Y_OFFSET,
-      }}
-      onMouseMove={(e) => {
-        const hex = getHexFromPointerEventWithGridData(e);
-
-        setHovered(hex);
-      }}
-      onMouseLeave={(e) => {
-        setHovered();
-      }}
-      onClick={(e) => {
+  const onClick = (e) => {
+    switch (gameMode) {
+      case GAME_MODE_OPTIONS.EDITOR:
+        onClickEditMode({
+          e,
+          isGameOver,
+          selected,
+          getHexFromPointerEventWithGridData,
+          grid,
+          setShakeHex,
+          game,
+          deck,
+          setShouldShowSelected,
+          setOriginHex,
+          setNewCardLocations,
+          setNewCards,
+          setDeck,
+        });
+        break;
+      case GAME_MODE_OPTIONS.SEEDED:
+      case GAME_MODE_OPTIONS.PREMADE:
+      default:
         onClickPlayMode({
           e,
           isGameOver,
@@ -188,7 +267,27 @@ const Grid = ({
           setNewCards,
           setDeck,
         });
+        break;
+    }
+  };
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: VISUAL_Y_OFFSET,
       }}
+      onMouseMove={(e) => {
+        const hex = getHexFromPointerEventWithGridData(e);
+
+        setHovered(hex);
+      }}
+      onMouseLeave={(e) => {
+        setHovered();
+      }}
+      onClick={onClick}
+      onContextMenu={onClick}
+      onAuxClick={onClick}
     >
       {grid.map((hex) => (
         <Tile
