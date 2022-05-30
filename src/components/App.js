@@ -8,6 +8,8 @@ import {
   TILE_HEIGHT,
   TILE_IMAGE_WIDTH,
   VISUAL_Y_OFFSET,
+  GAME_MODE_OPTIONS,
+  LOCAL_STORAGE_KEY,
 } from "../data/config";
 import Game from "./Game";
 import MainMenu from "./MainMenu";
@@ -19,16 +21,16 @@ import useLocalStorage from "../hooks/useLocalStorage";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
-  const [saveData, setSaveData] = useLocalStorage(
-    "com.ryankubik.island-maker",
-    {}
-  );
+  const [saveData, setSaveData] = useLocalStorage(LOCAL_STORAGE_KEY, {});
   const [view, setView] = useState("mainMenu");
   const [gameId, setGameId] = useState(0);
   const [lastGrid, setLastGrid] = useState();
   const [currentSeedLabel, setCurrentSeedLabel] = useState("Random");
   const { journal, setJournal, isUnlocked, unlockItem, commitUnlocks } =
     useJournal();
+  // seeded, editor, premade
+  // config.GAME_MODE_OPTIONS
+  const [gameMode, setGameMode] = useState(GAME_MODE_OPTIONS.SEEDED);
 
   useEffect(() => {
     setJournal(saveData.journal ?? {});
@@ -53,6 +55,20 @@ function App() {
         currentSeedLabel={currentSeedLabel}
         setCurrentSeedLabel={setCurrentSeedLabel}
         version={packageInfo.version}
+        gameMode={gameMode}
+        toggleGameMode={() => {
+          switch (gameMode) {
+            case GAME_MODE_OPTIONS.SEEDED:
+              setGameMode(GAME_MODE_OPTIONS.EDITOR);
+              break;
+            case GAME_MODE_OPTIONS.EDITOR:
+              setGameMode(GAME_MODE_OPTIONS.PREMADE);
+              break;
+            case GAME_MODE_OPTIONS.PREMADE:
+              setGameMode(GAME_MODE_OPTIONS.SEEDED);
+              break;
+          }
+        }}
       />
     ),
     gameOver: (
@@ -82,6 +98,7 @@ function App() {
       <Game
         key={gameId}
         scale={scale}
+        gameMode={gameMode}
         showGameOver={(grid) => {
           if (view !== "none") {
             // Game only has authority to set the view if no

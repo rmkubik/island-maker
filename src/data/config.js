@@ -20,6 +20,14 @@ const LOCATION_X_OFFSET = TILE_IMAGE_WIDTH / 2 - HALF_LOCATION_SIZE;
 
 const dimensions = { width: 10, height: 10 };
 
+const GAME_MODE_OPTIONS = {
+  SEEDED: "SEEDED",
+  EDITOR: "EDITOR",
+  PREMADE: "PREMADE",
+};
+
+const LOCAL_STORAGE_KEY = "com.ryankubik.island-maker";
+
 export {
   TILE_WIDTH,
   TILE_HEIGHT,
@@ -33,4 +41,6 @@ export {
   LOCATION_X_OFFSET,
   VISUAL_Y_OFFSET,
   DECK_STACK_INCREMENT,
+  GAME_MODE_OPTIONS,
+  LOCAL_STORAGE_KEY,
 };

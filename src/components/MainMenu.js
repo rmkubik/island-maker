@@ -12,6 +12,8 @@ const MainMenu = ({
   currentSeedLabel,
   setCurrentSeedLabel,
   version,
+  gameMode,
+  toggleGameMode,
 }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
@@ -164,15 +166,37 @@ const MainMenu = ({
       >
         Start
       </button>
-      <p
+      <div
         style={{
           margin: "0",
           display: "flex",
-          justifyContent: "right",
+          placeContent: "space-between",
+          alignItems: "center",
         }}
       >
-        Ver: {version}
-      </p>
+        <button
+          onClick={toggleGameMode}
+          style={{
+            width: "fit-content",
+            fontSize: "0.7em",
+            borderRadius: "4px",
+            border: "none",
+            padding: "8px 12px",
+            background: "white",
+            cursor: "pointer",
+            margin: "8px",
+          }}
+        >
+          {gameMode}
+        </button>
+        <p
+          style={{
+            margin: "0",
+          }}
+        >
+          Ver: {version}
+        </p>
+      </div>
     </Menu>
   );
 };
