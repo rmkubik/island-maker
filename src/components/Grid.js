@@ -162,9 +162,29 @@ function onClickEditMode({
       break;
     case 1:
       // Middle click, select hovered object
-      const hoveredCard = objects[hex.objectType];
+      if (!hex.objectType) {
+        // TODO: make this select an "eraser" object
+        // instead of short circuiting.
+        return;
+      }
 
-      setDeck([hoveredCard]);
+      const hoveredObjectTypeIndexInDeck = deck.findIndex(
+        (card) => card.key === hex.objectType
+      );
+
+      // Scroll to the new index
+      const cardsBeforeHoveredObject = deck.slice(
+        0,
+        hoveredObjectTypeIndexInDeck
+      );
+      const cardsAfterAndIncludingHoveredObject = deck.slice(
+        hoveredObjectTypeIndexInDeck
+      );
+
+      setDeck([
+        ...cardsAfterAndIncludingHoveredObject,
+        ...cardsBeforeHoveredObject,
+      ]);
       break;
     case 2:
       if (e.type === "auxclick") {
@@ -185,6 +205,34 @@ function onClickEditMode({
 
       break;
   }
+}
+
+function onWheelEditMode({
+  e,
+  isGameOver,
+  selected,
+  getHexFromPointerEventWithGridData,
+  grid,
+  setShakeHex,
+  game,
+  deck,
+  setShouldShowSelected,
+  setOriginHex,
+  setNewCardLocations,
+  setNewCards,
+  setDeck,
+}) {
+  let newDeck;
+
+  if (e.deltaY > 0) {
+    // Scrolling down, move first card to end of the deck
+    newDeck = [...deck.slice(1), deck[0]];
+  } else if (e.deltaY < 0) {
+    // Scrolling up, move last card to beginning of deck
+    newDeck = [deck[deck.length - 1], ...deck.slice(0, deck.length - 1)];
+  }
+
+  setDeck(newDeck);
 }
 
 const Grid = ({
@@ -288,6 +336,29 @@ const Grid = ({
       onClick={onClick}
       onContextMenu={onClick}
       onAuxClick={onClick}
+      onWheel={(e) => {
+        switch (gameMode) {
+          case GAME_MODE_OPTIONS.EDITOR:
+            onWheelEditMode({
+              e,
+              isGameOver,
+              selected,
+              getHexFromPointerEventWithGridData,
+              grid,
+              setShakeHex,
+              game,
+              deck,
+              setShouldShowSelected,
+              setOriginHex,
+              setNewCardLocations,
+              setNewCards,
+              setDeck,
+            });
+            break;
+          default:
+            break;
+        }
+      }}
     >
       {grid.map((hex) => (
         <Tile

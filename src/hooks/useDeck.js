@@ -1,27 +1,48 @@
 import { useEffect, useState } from "react";
+import { GAME_MODE_OPTIONS } from "../data/config";
 import { objects } from "../data/locations";
 import getNextId from "../utils/getNextId";
 import shuffle from "../utils/shuffle";
 
-const useDeck = () => {
+const useDeck = ({ gameMode }) => {
   const [deck, setDeck] = useState([]);
 
   useEffect(() => {
-    const unShuffledDeck = [
-      objects.camp,
-      objects.camp,
-      objects.mine,
-      objects.mine,
-      objects.farm,
-      objects.farm,
-    ];
-    const initialDeck = shuffle(unShuffledDeck);
-    const initialDeckWithIds = initialDeck.map((card) => {
-      return { ...card, id: getNextId() };
-    });
+    let initialDeckWithIds;
+
+    switch (gameMode) {
+      default:
+      case GAME_MODE_OPTIONS.SEEDED: {
+        const unShuffledDeck = [
+          objects.camp,
+          objects.camp,
+          objects.mine,
+          objects.mine,
+          objects.farm,
+          objects.farm,
+        ];
+        const initialDeck = shuffle(unShuffledDeck);
+
+        initialDeckWithIds = initialDeck.map((card) => {
+          return { ...card, id: getNextId() };
+        });
+
+        break;
+      }
+      case GAME_MODE_OPTIONS.EDITOR: {
+        const initialDeck = Object.values(objects).filter(
+          (object) => object.name && object.desc
+        );
+
+        initialDeckWithIds = initialDeck.map((card) => {
+          return { ...card, id: getNextId() };
+        });
+        break;
+      }
+    }
 
     setDeck(initialDeckWithIds);
-  }, []);
+  }, [gameMode]);
 
   return { deck, setDeck };
 };

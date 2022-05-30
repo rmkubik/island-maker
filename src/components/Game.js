@@ -38,7 +38,7 @@ function Game({
       hex.tileImage = tileImage;
     },
   });
-  const { deck, setDeck } = useDeck();
+  const { deck, setDeck } = useDeck({ gameMode });
   const [shouldShowSelected, setShouldShowSelected] = useState(true);
   const [isForcedGameOver, setIsForcedGameOver] = useState(false);
 
