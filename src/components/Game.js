@@ -10,7 +10,14 @@ import TopBar from "./TopBar";
 import getResource from "../utils/getResource";
 import { objects } from "../data/locations";
 
-function Game({ scale, setView, showGameOver, unlockItem, commitUnlocks }) {
+function Game({
+  scale,
+  setView,
+  showGameOver,
+  unlockItem,
+  commitUnlocks,
+  gameMode,
+}) {
   const [previewCount, setPreviewCount] = useState(1);
   const [banked, setBanked] = useState([objects.x]);
   const [newCards, setNewCards] = useState([]);

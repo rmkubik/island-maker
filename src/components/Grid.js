@@ -9,6 +9,113 @@ import { VISUAL_Y_OFFSET } from "../data/config";
 import getNextId from "../utils/getNextId";
 import isValidCard from "../utils/isValidCard";
 
+function onClickPlayMode({
+  e,
+  isGameOver,
+  selected,
+  getHexFromPointerEventWithGridData,
+  grid,
+  setShakeHex,
+  game,
+  deck,
+  setShouldShowSelected,
+  setOriginHex,
+  setNewCardLocations,
+  setNewCards,
+  setDeck,
+}) {
+  if (isGameOver) {
+    return;
+  }
+
+  if (!selected) {
+    return;
+  }
+
+  const hexCoordinates = getHexFromPointerEventWithGridData(e);
+  const hex = grid.get(hexCoordinates);
+
+  if (!isValidPlacement({ hex, selected })) {
+    setShakeHex(hex);
+    return;
+  } else {
+    setShakeHex();
+  }
+
+  const isOverridingObject = shouldOverrideObject({ hex, selected });
+
+  const neighbors = grid
+    .neighborsOf(hex)
+    .filter((neighbor) => neighbor !== undefined);
+
+  // Allow for object overriding
+  if (isOverridingObject) {
+    selected.onOverride?.({ hex, neighbors, grid, game });
+  } else {
+    // Place object
+    hex.objectType = selected.key;
+    hex.objectImage = selected.image;
+
+    grid.set(hexCoordinates, hex);
+  }
+
+  // When you place an object, unlock it in the journal
+  game.unlockItem(selected.key);
+
+  // onPlace, an object can modify the grid based on
+  // the neighbors and grid contents.
+  // The function can also return new cards to be added
+  // to the deck.
+  const newCardKeys =
+    selected.onPlace?.({
+      hex,
+      neighbors,
+      grid,
+      game,
+    }) ?? [];
+
+  const cardLocations = [];
+  const newCards = newCardKeys.map((keyOrTuple) => {
+    if (Array.isArray(keyOrTuple)) {
+      const [key, hex] = keyOrTuple;
+
+      cardLocations.push(hex);
+      return objects[key];
+    }
+
+    return objects[keyOrTuple];
+  });
+
+  // Check if any invalid cards were added
+  const validNewCards = newCards.filter(isValidCard);
+
+  const newCardsWithIds = validNewCards.map((card) => {
+    return {
+      ...card,
+      id: getNextId(),
+    };
+  });
+  const deckWithNewCards = [...deck, ...newCardsWithIds];
+
+  // Draw next card
+  // const [newSelected, ...newDeck] = deckWithNewCards;
+
+  const [playedCard, ...newDeck] = deck;
+
+  game.commitUnlocks();
+
+  if (newCardsWithIds.length === 0) {
+    setShouldShowSelected(true);
+  } else {
+    setShouldShowSelected(false);
+  }
+
+  setOriginHex(hex);
+  setNewCardLocations(cardLocations);
+  setNewCards(newCardsWithIds);
+  setDeck(newDeck);
+}
+
 const Grid = ({
   deck,
   setDeck,
@@ -66,96 +173,21 @@ const Grid = ({
         setHovered();
       }}
       onClick={(e) => {
-        if (isGameOver) {
-          return;
-        }
-
-        if (!selected) {
-          return;
-        }
-
-        const hexCoordinates = getHexFromPointerEventWithGridData(e);
-        const hex = grid.get(hexCoordinates);
-
-        if (!isValidPlacement({ hex, selected })) {
-          setShakeHex(hex);
-          return;
-        } else {
-          setShakeHex();
-        }
-
-        const isOverridingObject = shouldOverrideObject({ hex, selected });
-
-        const neighbors = grid
-          .neighborsOf(hex)
-          .filter((neighbor) => neighbor !== undefined);
-
-        // Allow for object overriding
-        if (isOverridingObject) {
-          selected.onOverride?.({ hex, neighbors, grid, game });
-        } else {
-          // Place object
-          hex.objectType = selected.key;
-          hex.objectImage = selected.image;
-
-          grid.set(hexCoordinates, hex);
-        }
-
-        // When you place an object, unlock it in the journal
-        game.unlockItem(selected.key);
-
-        // onPlace, an object can modify the grid based on
-        // the neighbors and grid contents.
-        // The function can also return new cards to be added
-        // to the deck.
-        const newCardKeys =
-          selected.onPlace?.({
-            hex,
-            neighbors,
-            grid,
-            game,
-          }) ?? [];
-
-        const cardLocations = [];
-        const newCards = newCardKeys.map((keyOrTuple) => {
-          if (Array.isArray(keyOrTuple)) {
-            const [key, hex] = keyOrTuple;
-
-            cardLocations.push(hex);
-            return objects[key];
-          }
-
-          return objects[keyOrTuple];
+        onClickPlayMode({
+          e,
+          isGameOver,
+          selected,
+          getHexFromPointerEventWithGridData,
+          grid,
+          setShakeHex,
+          game,
+          deck,
+          setShouldShowSelected,
+          setOriginHex,
+          setNewCardLocations,
+          setNewCards,
+          setDeck,
         });
-
-        // Check if any invalid cards were added
-        const validNewCards = newCards.filter(isValidCard);
-
-        const newCardsWithIds = validNewCards.map((card) => {
-          return {
-            ...card,
-            id: getNextId(),
-          };
-        });
-        const deckWithNewCards = [...deck, ...newCardsWithIds];
-
-        // Draw next card
-        // const [newSelected, ...newDeck] = deckWithNewCards;
-
-        const [playedCard, ...newDeck] = deck;
-
-        game.commitUnlocks();
-
-        if (newCardsWithIds.length === 0) {
-          setShouldShowSelected(true);
-        } else {
-          setShouldShowSelected(false);
-        }
-
-        setOriginHex(hex);
-        setNewCardLocations(cardLocations);
-        setNewCards(newCardsWithIds);
-        setDeck(newDeck);
       }}
     >
       {grid.map((hex) => (
