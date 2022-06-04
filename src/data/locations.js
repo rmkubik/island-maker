@@ -10,6 +10,78 @@ import getHouseLevel from "../utils/getHouseLevel";
 
 const HOUSE_3_OPTIONS = ["inn", "church"];
 
+const editObjects = combineEntriesWithKeys(
+  Object.entries({
+    deleteObject: {
+      name: "Delete Object",
+      image: iconImages["icons_colored_3"],
+      desc: "Remove selected object",
+      onEditOverride: ({ hex, neighbors, grid }) => {
+        hex.objectImage = undefined;
+        hex.objectType = undefined;
+
+        grid.set(hex, hex);
+      },
+    },
+    placeForest: {
+      name: "Place Forest",
+      image: iconImages["icons_colored_12"],
+      desc: "Turn terrain into forest",
+      onEditOverride: ({ hex, neighbors, grid }) => {
+        const tileTypeImages = tilePaths.forest;
+        const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+        hex.tileType = "forest";
+        hex.tileImage = tileImage;
+
+        grid.set(hex, hex);
+      },
+    },
+    placeOcean: {
+      name: "Place Ocean",
+      image: iconImages["icons_colored_8"],
+      desc: "Turn terrain into ocean",
+      onEditOverride: ({ hex, neighbors, grid }) => {
+        const tileTypeImages = tilePaths.ocean;
+        const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+        hex.tileType = "ocean";
+        hex.tileImage = tileImage;
+
+        grid.set(hex, hex);
+      },
+    },
+    placeGrassland: {
+      name: "Place Grassland",
+      image: iconImages["icons_colored_0"],
+      desc: "Turn terrain into grassland",
+      onEditOverride: ({ hex, neighbors, grid }) => {
+        const tileTypeImages = tilePaths.grassland;
+        const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+        hex.tileType = "grassland";
+        hex.tileImage = tileImage;
+
+        grid.set(hex, hex);
+      },
+    },
+    placeMountain: {
+      name: "Place Mountain",
+      image: iconImages["icons_colored_16"],
+      desc: "Turn terrain into mountain",
+      onEditOverride: ({ hex, neighbors, grid }) => {
+        const tileTypeImages = tilePaths.mountain;
+        const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+        hex.tileType = "mountain";
+        hex.tileImage = tileImage;
+
+        grid.set(hex, hex);
+      },
+    },
+  })
+);
+
 const objects = combineEntriesWithKeys(
   Object.entries({
     circle: {
@@ -587,4 +659,4 @@ const objects = combineEntriesWithKeys(
   })
 );
 
-export { objects };
+export { objects, editObjects };

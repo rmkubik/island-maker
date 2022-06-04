@@ -150,6 +150,17 @@ function onClickEditMode({
         return;
       }
 
+      // If selected has an onEditOverride, execute the override
+      // function instead of placing the selected object.
+      if (selected.onEditOverride) {
+        const neighbors = grid
+          .neighborsOf(hex)
+          .filter((neighbor) => neighbor !== undefined);
+
+        selected.onEditOverride({ hex, neighbors, grid });
+        return;
+      }
+
       if (selected === undefined) {
         hex.objectType = undefined;
         hex.objectImage = undefined;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { GAME_MODE_OPTIONS } from "../data/config";
-import { objects } from "../data/locations";
+import { editObjects, objects } from "../data/locations";
 import getNextId from "../utils/getNextId";
 import shuffle from "../utils/shuffle";
 
@@ -33,8 +33,12 @@ const useDeck = ({ gameMode }) => {
         const initialDeck = Object.values(objects).filter(
           (object) => object.name && object.desc
         );
+        const initialDeckWithEditObjects = [
+          ...Object.values(editObjects),
+          ...initialDeck,
+        ];
 
-        initialDeckWithIds = initialDeck.map((card) => {
+        initialDeckWithIds = initialDeckWithEditObjects.map((card) => {
           return { ...card, id: getNextId() };
         });
         break;
