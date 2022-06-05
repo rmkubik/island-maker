@@ -28,6 +28,8 @@ const GAME_MODE_OPTIONS = {
 
 const LOCAL_STORAGE_KEY = "com.ryankubik.island-maker";
 
+const SEED_LENGTH = 8;
+
 export {
   TILE_WIDTH,
   TILE_HEIGHT,
@@ -43,4 +45,5 @@ export {
   DECK_STACK_INCREMENT,
   GAME_MODE_OPTIONS,
   LOCAL_STORAGE_KEY,
+  SEED_LENGTH,
 };
