@@ -69,6 +69,7 @@ function App() {
               break;
           }
         }}
+        setGameMode={setGameMode}
       />
     ),
     gameOver: (
@@ -77,6 +78,7 @@ function App() {
         reGenerateGame={reGenerateGame}
         lastGrid={lastGrid}
         currentSeedLabel={currentSeedLabel}
+        gameMode={gameMode}
       />
     ),
     journal: <JournalMenu setView={setView} isUnlocked={isUnlocked} />,

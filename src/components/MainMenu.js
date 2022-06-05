@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { GAME_MODE_OPTIONS, SEED_LENGTH } from "../data/config";
 import createRandomString from "../utils/createRandomString";
 import debounceTrailingEdge from "../utils/debounceTrailingEdge";
 import getDailySeed from "../utils/getDailySeed";
@@ -14,11 +15,12 @@ const MainMenu = ({
   version,
   gameMode,
   toggleGameMode,
+  setGameMode,
 }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
 
-  const suggestedSeeds = [
+  const levels = [
     { seed: "8FZRNG2E", label: "Fields" },
     { seed: "FA6F7Z77", label: "Lakes" },
     { seed: "ORD1WRHF", label: "Peaks" },
@@ -26,19 +28,38 @@ const MainMenu = ({
     { seed: "KLBA15ZJ", label: "Fragmented" },
     { seed: "SC0KIRFC", label: "Islands" },
     { seed: "GGXEAB7F", label: "Tracks" },
+    {
+      mode: GAME_MODE_OPTIONS.PREMADE,
+      label: "Ocean Hole",
+      level: "ocean-hole",
+    },
   ];
 
-  const setSeed = (newSeed) => {
-    // Our font only has upper case letters, players
-    // will not be able to visually see lower
-    // case letters.
-    const upperCaseSeed = newSeed.seed.toUpperCase();
+  const pickLevel = (level) => {
+    // Set seed
+    let seed;
 
-    setCurrentSeed(upperCaseSeed);
-    setCurrentSeedLabel(newSeed.label);
+    if (level.seed) {
+      // Our font only has upper case letters, players
+      // will not be able to visually see lower
+      // case letters.
+      seed = level.seed.toUpperCase();
+    } else {
+      // If no seed provided, use a random one
+      seed = createRandomString(SEED_LENGTH);
+    }
+
+    setCurrentSeed(seed);
+    setCurrentSeedLabel(level.label || "Random");
+
+    if (level.mode) {
+      setGameMode(level.mode);
+    } else {
+      setGameMode(GAME_MODE_OPTIONS.SEEDED);
+    }
 
     debounceRef.current(() => {
-      rng.setSeed(upperCaseSeed);
+      rng.setSeed(seed);
       reGenerateGame();
     });
   };
@@ -71,7 +92,7 @@ const MainMenu = ({
             onChange={(event) => {
               const newSeed = event.target.value.toUpperCase();
 
-              setSeed({ seed: newSeed, label: "Random" });
+              pickLevel({ seed: newSeed, label: "Random" });
             }}
           />
           <button
@@ -85,9 +106,9 @@ const MainMenu = ({
               cursor: "pointer",
             }}
             onClick={() => {
-              const newSeed = createRandomString(8);
+              const newSeed = createRandomString(SEED_LENGTH);
 
-              setSeed({ seed: newSeed, label: "Random" });
+              pickLevel({ seed: newSeed, label: "Random" });
             }}
           >
             Random
@@ -117,7 +138,7 @@ const MainMenu = ({
           onClick={() => {
             const dailySeed = getDailySeed();
 
-            setSeed({ seed: dailySeed, label: `Daily ${getTodayString()}` });
+            pickLevel({ seed: dailySeed, label: `Daily ${getTodayString()}` });
           }}
         >
           Daily
@@ -132,8 +153,8 @@ const MainMenu = ({
             justifyContent: "center",
           }}
         >
-          {suggestedSeeds.map((suggestedSeed) => (
-            <li key={suggestedSeed.seed}>
+          {levels.map((level) => (
+            <li key={level.label}>
               <button
                 style={{
                   width: "fit-content",
@@ -146,10 +167,10 @@ const MainMenu = ({
                   margin: "8px",
                 }}
                 onClick={() => {
-                  setSeed(suggestedSeed);
+                  pickLevel(level);
                 }}
               >
-                {suggestedSeed.label}
+                {level.label}
               </button>
             </li>
           ))}

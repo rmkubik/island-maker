@@ -5,12 +5,14 @@ import rng from "../utils/rng";
 import convertPopulationToStars from "../utils/convertPopulationToStars";
 import constructArray from "../utils/constructArray";
 import { objects } from "../data/locations";
+import { GAME_MODE_OPTIONS } from "../data/config";
 
 const GameOverMenu = ({
   setView,
   reGenerateGame,
   lastGrid,
   currentSeedLabel,
+  gameMode,
 }) => {
   const population = countPopulation(lastGrid);
   const stars = convertPopulationToStars(population);
@@ -110,6 +112,22 @@ const GameOverMenu = ({
       >
         Done
       </button>
+      {gameMode === GAME_MODE_OPTIONS.EDITOR && (
+        <button
+          style={{
+            padding: "16px 32px",
+            borderRadius: "8px",
+            fontSize: "1.25em",
+            cursor: "pointer",
+            marginLeft: "8px",
+          }}
+          onClick={() => {
+            console.log(JSON.stringify(lastGrid));
+          }}
+        >
+          Save Map
+        </button>
+      )}
     </Menu>
   );
 };

@@ -23,6 +23,7 @@ function Game({
   const [newCards, setNewCards] = useState([]);
   const { GridDataRef, grid } = useHexGrid({
     initializeHex: (hex) => {
+      // TODO: This needs to respond to the current game mode
       const tileType = tilesMap.pickRandom();
       const tileTypeImages = tilePaths[tileType];
       const tileImage = pickRandomlyFromArray(tileTypeImages);
