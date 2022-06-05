@@ -1,6 +1,7 @@
 import createRandomString from "./createRandomString";
 import rng from "./rng";
 import getTodayString from "./getTodayString";
+import { SEED_LENGTH } from "../data/config";
 
 function getDailySeed() {
   const prevSeed = rng.getSeed();
@@ -8,7 +9,7 @@ function getDailySeed() {
   const todayString = getTodayString();
   rng.setSeed(todayString);
 
-  const dailySeed = createRandomString(8);
+  const dailySeed = createRandomString(SEED_LENGTH);
 
   rng.setSeed(prevSeed);
 
