@@ -10,6 +10,8 @@ const useDeck = ({ gameMode }) => {
   useEffect(() => {
     let initialDeckWithIds;
 
+    // TODO: PREMADE game mode needs to be able to specify
+    // different cards in the deck
     switch (gameMode) {
       default:
       case GAME_MODE_OPTIONS.SEEDED: {
