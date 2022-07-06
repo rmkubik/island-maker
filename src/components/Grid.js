@@ -139,8 +139,6 @@ function onClickEditMode({
   const hexCoordinates = getHexFromPointerEventWithGridData(e);
   const hex = grid.get(hexCoordinates);
 
-  console.log({ hex, selected, e, button: e.button });
-
   switch (e.button) {
     default:
     case 0:

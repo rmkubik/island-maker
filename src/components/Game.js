@@ -9,6 +9,8 @@ import { tilePaths, tilesMap } from "../data/tiles";
 import TopBar from "./TopBar";
 import getResource from "../utils/getResource";
 import { objects } from "../data/locations";
+import levels from "../data/levels";
+import { GAME_MODE_OPTIONS } from "../data/config";
 
 function Game({
   scale,
@@ -17,27 +19,38 @@ function Game({
   unlockItem,
   commitUnlocks,
   gameMode,
+  currentLevel,
 }) {
   const [previewCount, setPreviewCount] = useState(1);
   const [banked, setBanked] = useState([objects.x]);
   const [newCards, setNewCards] = useState([]);
   const { GridDataRef, grid } = useHexGrid({
     initializeHex: (hex) => {
-      // TODO: This needs to respond to the current game mode
-      const tileType = tilesMap.pickRandom();
-      const tileTypeImages = tilePaths[tileType];
-      const tileImage = pickRandomlyFromArray(tileTypeImages);
+      switch (gameMode) {
+        case GAME_MODE_OPTIONS.SEEDED:
+        case GAME_MODE_OPTIONS.EDITOR:
+          const tileType = tilesMap.pickRandom();
+          const tileTypeImages = tilePaths[tileType];
+          const tileImage = pickRandomlyFromArray(tileTypeImages);
 
-      const resource = getResource(tileType);
+          const resource = getResource(tileType);
 
-      if (resource) {
-        hex.objectType = resource.key;
-        hex.objectImage = resource.image;
+          if (resource) {
+            hex.objectType = resource.key;
+            hex.objectImage = resource.image;
+          }
+
+          hex.tileType = tileType;
+          hex.tileImage = tileImage;
+          break;
+        case GAME_MODE_OPTIONS.PREMADE:
+          // Do nothing here
+          break;
       }
-
-      hex.tileType = tileType;
-      hex.tileImage = tileImage;
     },
+    premadeGrid:
+      gameMode === GAME_MODE_OPTIONS.PREMADE &&
+      levels[currentLevel?.level]?.grid,
   });
   const { deck, setDeck } = useDeck({ gameMode });
   const [shouldShowSelected, setShouldShowSelected] = useState(true);

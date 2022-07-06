@@ -31,6 +31,7 @@ function App() {
   // seeded, editor, premade
   // config.GAME_MODE_OPTIONS
   const [gameMode, setGameMode] = useState(GAME_MODE_OPTIONS.SEEDED);
+  const [currentLevel, setCurrentLevel] = useState();
 
   useEffect(() => {
     setJournal(saveData.journal ?? {});
@@ -70,6 +71,7 @@ function App() {
           }
         }}
         setGameMode={setGameMode}
+        setCurrentLevel={setCurrentLevel}
       />
     ),
     gameOver: (
@@ -101,6 +103,7 @@ function App() {
         key={gameId}
         scale={scale}
         gameMode={gameMode}
+        currentLevel={currentLevel}
         showGameOver={(grid) => {
           if (view !== "none") {
             // Game only has authority to set the view if no

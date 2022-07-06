@@ -2,7 +2,7 @@ import { defineGrid, extendHex } from "honeycomb-grid";
 import { useEffect, useRef, useState } from "react";
 import { dimensions, TILE_HEIGHT, TILE_WIDTH } from "../data/config";
 
-const useHexGrid = ({ initializeHex }) => {
+const useHexGrid = ({ initializeHex, premadeGrid }) => {
   const GridDataRef = useRef();
   const [grid, setGrid] = useState();
 
@@ -18,7 +18,13 @@ const useHexGrid = ({ initializeHex }) => {
 
     GridDataRef.current = defineGrid(Hex);
 
-    const initialGrid = GridDataRef.current.rectangle(dimensions);
+    let initialGrid;
+
+    if (premadeGrid) {
+      initialGrid = GridDataRef.current(premadeGrid);
+    } else {
+      initialGrid = GridDataRef.current.rectangle(dimensions);
+    }
 
     initialGrid.forEach(initializeHex);
 

@@ -16,6 +16,7 @@ const MainMenu = ({
   gameMode,
   toggleGameMode,
   setGameMode,
+  setCurrentLevel,
 }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
@@ -51,6 +52,7 @@ const MainMenu = ({
 
     setCurrentSeed(seed);
     setCurrentSeedLabel(level.label || "Random");
+    setCurrentLevel(level);
 
     if (level.mode) {
       setGameMode(level.mode);
