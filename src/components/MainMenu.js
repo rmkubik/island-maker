@@ -34,6 +34,11 @@ const MainMenu = ({
       label: "Ocean Hole",
       level: "ocean-hole",
     },
+    {
+      mode: GAME_MODE_OPTIONS.PREMADE,
+      label: "Plains",
+      level: "plains",
+    },
   ];
 
   const pickLevel = (level) => {

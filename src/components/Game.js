@@ -52,7 +52,13 @@ function Game({
       gameMode === GAME_MODE_OPTIONS.PREMADE &&
       levels[currentLevel?.level]?.grid,
   });
-  const { deck, setDeck } = useDeck({ gameMode });
+  const initialDeck = levels[currentLevel?.level]?.initialDeck.map(
+    (card) => objects[card]
+  );
+  const { deck, setDeck } = useDeck({
+    gameMode,
+    initialDeck,
+  });
   const [shouldShowSelected, setShouldShowSelected] = useState(true);
   const [isForcedGameOver, setIsForcedGameOver] = useState(false);
 

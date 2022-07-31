@@ -1,0 +1,615 @@
+{
+  "initialDeck": ["farm", "farm", "farm", "mill", "mill"],
+  "grid": [
+    {
+      "x": 0,
+      "y": 0,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_2.04cc6115.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_15.ac7d82b1.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_2.a442d89f.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_13.6d1d11c2.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_7.1a351e95.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_6.e95479b0.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_5.ebddf309.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_9.79096158.png?1659288854827"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_15.fe35ce9c.png?1659288854827"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "tileType": "mountain",
+      "tileImage": "http://localhost:1234/tile_mountain_0.da70c3fe.png?1659290034724"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_0.51b5cfbf.png?1659288854827"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_12.d9edf7d6.png?1659288854827"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_17.1c64b508.png?1659288854827"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_18.08164529.png?1659288854827"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_15.ac7d82b1.png?1659288854827",
+      "objectType": "turnip3",
+      "objectImage": "http://localhost:1234/turnip_3.2c723a33.png?1659290034726"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_15.ac7d82b1.png?1659288854827"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_13.1192c12a.png?1659288854827"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_8.a6169656.png?1659288854827"
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_11.cc38f559.png?1659288854827"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_14.a1ffc5e3.png?1659288854827"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_14.4665ae12.png?1659290034723"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_16.ecf41860.png?1659288854827"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_9.79096158.png?1659288854827"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_13.1192c12a.png?1659288854827"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_7.1a351e95.png?1659288854827"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_3.caa06f74.png?1659288854827"
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_6.e95479b0.png?1659288854827"
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_4.f418e540.png?1659288854827",
+      "objectType": "turnip3",
+      "objectImage": "http://localhost:1234/turnip_3.2c723a33.png?1659290034726"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_16.9c73c7b6.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_4.037901df.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_7.7fe775eb.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_2.04cc6115.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_3.5c0362a1.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_15.277bbb82.png?1659290034723"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_6.e95479b0.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_3.caa06f74.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_14.71830a0e.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_0.4ae94307.png?1659288854827"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_18.cb986b60.png?1659288854827"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_12.d9edf7d6.png?1659288854827"
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_2.a442d89f.png?1659288854827"
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_4.f418e540.png?1659288854827"
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_10.8e0622f8.png?1659288854827"
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_8.d19a6bc7.png?1659290034724"
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "tileType": "mountain",
+      "tileImage": "http://localhost:1234/tile_mountain_18.1839436e.png?1659290034724"
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_12.e25c5313.png?1659290034723"
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_16.ecf41860.png?1659288854827"
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_10.8e0622f8.png?1659288854827"
+    },
+    {
+      "x": 4,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_3.5c0362a1.png?1659288854827"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_8.241a7d9e.png?1659288854827"
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_4.f418e540.png?1659288854827"
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_1.c3b8f52c.png?1659288854827"
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_7.1a351e95.png?1659288854827"
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_10.683aef71.png?1659290034723"
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_3.caa06f74.png?1659288854827"
+    },
+    {
+      "x": 5,
+      "y": 6,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_5.3faa6126.png?1659290034724"
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_9.7081b808.png?1659290034724"
+    },
+    {
+      "x": 5,
+      "y": 8,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_6.e95479b0.png?1659288854827"
+    },
+    {
+      "x": 5,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_4.037901df.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_15.fe35ce9c.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_2.a442d89f.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_19.29161ebe.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_5.3ae5e089.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_9.436dafd9.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_17.1c64b508.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_18.08164529.png?1659288854827",
+      "objectType": "turnip3",
+      "objectImage": "http://localhost:1234/turnip_3.2c723a33.png?1659290034726"
+    },
+    {
+      "x": 6,
+      "y": 7,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_16.ecf41860.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_17.1c64b508.png?1659288854827"
+    },
+    {
+      "x": 6,
+      "y": 9,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_14.71830a0e.png?1659288854827"
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_4.f418e540.png?1659288854827"
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_3.caa06f74.png?1659288854827"
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_8.241a7d9e.png?1659288854827"
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_17.2acf8c39.png?1659290034723"
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_2.827e4ea0.png?1659290034724"
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_8.241a7d9e.png?1659288854827"
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_8.241a7d9e.png?1659288854827"
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_3.caa06f74.png?1659288854827"
+    },
+    {
+      "x": 7,
+      "y": 8,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_9.436dafd9.png?1659288854827"
+    },
+    {
+      "x": 7,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_17.673694bb.png?1659288854827"
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_15.fe35ce9c.png?1659288854827"
+    },
+    {
+      "x": 8,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_9.436dafd9.png?1659288854827"
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_8.241a7d9e.png?1659288854827"
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "tileType": "forest",
+      "tileImage": "http://localhost:1234/tile_forest_13.3cb2fd56.png?1659290034723"
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_19.29161ebe.png?1659288854827",
+      "objectType": "turnip3",
+      "objectImage": "http://localhost:1234/turnip_3.2c723a33.png?1659290034726"
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_17.1c64b508.png?1659288854827"
+    },
+    {
+      "x": 8,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_0.51b5cfbf.png?1659288854827"
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_4.f418e540.png?1659288854827",
+      "objectType": "turnip3",
+      "objectImage": "http://localhost:1234/turnip_3.2c723a33.png?1659290034726"
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_8.241a7d9e.png?1659288854827"
+    },
+    {
+      "x": 8,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_10.c09b5bf5.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_8.a6169656.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_18.cb986b60.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 3,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_1.c3b8f52c.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 4,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_0.51b5cfbf.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "http://localhost:1234/tile_grassland_7.1a351e95.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_8.a6169656.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 8,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_17.673694bb.png?1659288854827"
+    },
+    {
+      "x": 9,
+      "y": 9,
+      "tileType": "ocean",
+      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+    }
+  ]
+}

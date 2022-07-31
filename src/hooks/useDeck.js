@@ -4,25 +4,24 @@ import { editObjects, objects } from "../data/locations";
 import getNextId from "../utils/getNextId";
 import shuffle from "../utils/shuffle";
 
-const useDeck = ({ gameMode }) => {
+const defaultDeck = [
+  objects.camp,
+  objects.camp,
+  objects.mine,
+  objects.mine,
+  objects.farm,
+  objects.farm,
+];
+
+const useDeck = ({ gameMode, initialDeck: unShuffledDeck = defaultDeck }) => {
   const [deck, setDeck] = useState([]);
 
   useEffect(() => {
     let initialDeckWithIds;
 
-    // TODO: PREMADE game mode needs to be able to specify
-    // different cards in the deck
     switch (gameMode) {
       default:
       case GAME_MODE_OPTIONS.SEEDED: {
-        const unShuffledDeck = [
-          objects.camp,
-          objects.camp,
-          objects.mine,
-          objects.mine,
-          objects.farm,
-          objects.farm,
-        ];
         const initialDeck = shuffle(unShuffledDeck);
 
         initialDeckWithIds = initialDeck.map((card) => {
