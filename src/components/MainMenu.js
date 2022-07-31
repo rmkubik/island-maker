@@ -22,13 +22,21 @@ const MainMenu = ({
   const debounceRef = useRef(debounceTrailingEdge(500));
 
   const levels = [
-    { seed: "8FZRNG2E", label: "Fields" },
-    { seed: "FA6F7Z77", label: "Lakes" },
-    { seed: "ORD1WRHF", label: "Peaks" },
-    { seed: "GKEE7QUN", label: "Fish" },
-    { seed: "KLBA15ZJ", label: "Fragmented" },
-    { seed: "SC0KIRFC", label: "Islands" },
-    { seed: "GGXEAB7F", label: "Tracks" },
+    {
+      mode: GAME_MODE_OPTIONS.PREMADE,
+      label: "Plains",
+      level: "plains",
+    },
+    {
+      mode: GAME_MODE_OPTIONS.PREMADE,
+      label: "Forest",
+      level: "forest",
+    },
+    {
+      mode: GAME_MODE_OPTIONS.PREMADE,
+      label: "Tiny Island",
+      level: "tiny-island",
+    },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
       label: "Ocean Hole",
@@ -36,8 +44,8 @@ const MainMenu = ({
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
-      label: "Plains",
-      level: "plains",
+      label: "All Water",
+      level: "all-water",
     },
   ];
 
@@ -129,7 +137,7 @@ const MainMenu = ({
           marginBottom: "64px",
         }}
       >
-        <p style={{ marginBottom: 0 }}>Interesting Seeds:</p>
+        <p style={{ marginBottom: 0 }}>Levels:</p>
         <button
           style={{
             width: "fit-content",

@@ -52,7 +52,7 @@ function Game({
       gameMode === GAME_MODE_OPTIONS.PREMADE &&
       levels[currentLevel?.level]?.grid,
   });
-  const initialDeck = levels[currentLevel?.level]?.initialDeck.map(
+  const initialDeck = levels[currentLevel?.level]?.initialDeck?.map(
     (card) => objects[card]
   );
   const { deck, setDeck } = useDeck({
