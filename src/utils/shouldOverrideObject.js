@@ -1,4 +1,8 @@
 function shouldOverrideObject({ hex, selected }) {
+  if (!hex) {
+    return false;
+  }
+
   // Objects can specify other objects that they can override
   let isOverridingObject = selected.validObjectOverrides?.includes(
     hex.objectType

@@ -1,6 +1,10 @@
 import shouldOverrideObject from "./shouldOverrideObject";
 
 function isValidPlacement({ hex, selected }) {
+  if (!hex) {
+    return;
+  }
+
   // Objects can specify other objects that they can override
   const isOverridingObject = shouldOverrideObject({ hex, selected });
 
