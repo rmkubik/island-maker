@@ -190,28 +190,53 @@ const objects = combineEntriesWithKeys(
       desc: "Hunts in the woods",
       isInJournal: true,
       image: locationImages["locations_colored_8"],
-      validTileTypes: ["forest"],
+      validTileTypes: ["forest", "grassland"],
       onPlace: ({ hex, neighbors, grid, game }) => {
-        const options = ["turnip3", "mill"];
+        switch (hex.tileType) {
+          case "forest": {
+            const options = ["turnip3", "mill"];
 
-        const tracks = neighbors.filter(
-          (neighbor) => neighbor.objectType === "tracks"
-        );
+            const tracks = neighbors.filter(
+              (neighbor) => neighbor.objectType === "tracks"
+            );
 
-        if (tracks.length > 0) {
-          game.unlockItem("tracks");
+            if (tracks.length > 0) {
+              game.unlockItem("tracks");
+            }
+
+            const nests = tracks.map((track) => {
+              track.objectType = undefined;
+              track.objectImage = undefined;
+
+              grid.set(track, track);
+
+              return ["nest", track];
+            });
+
+            return [...nests, [pickRandomlyFromArray(options), hex]];
+          }
+          case "grassland": {
+            const adjacentForests = neighbors.filter(
+              (neighbor) => neighbor.tileType === "forest"
+            );
+
+            adjacentForests.forEach((forest) => {
+              const tileTypeImages = tilePaths.grassland;
+              const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+              forest.objectType = undefined;
+              forest.objectImage = undefined;
+              forest.tileType = "grassland";
+              forest.tileImage = tileImage;
+
+              grid.set(forest, forest);
+            });
+
+            break;
+          }
+          default:
+            break;
         }
-
-        const nests = tracks.map((track) => {
-          track.objectType = undefined;
-          track.objectImage = undefined;
-
-          grid.set(track, track);
-
-          return ["nest", track];
-        });
-
-        return [...nests, [pickRandomlyFromArray(options), hex]];
       },
     },
     farm: {

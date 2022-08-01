@@ -1,5 +1,5 @@
 {
-  "initialDeck": ["camp", "camp", "camp", "camp"],
+  "initialDeck": ["camp", "camp", "camp", "farm", "farm", "farm"],
   "grid": [
     {
       "x": 0,
@@ -22,8 +22,8 @@
     {
       "x": 0,
       "y": 3,
-      "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+      "tileType": "oceanWave",
+      "tileImage": "http://localhost:1234/tile_ocean_16.9fe900f4.png?1659316514765"
     },
     {
       "x": 0,
@@ -95,7 +95,9 @@
       "x": 1,
       "y": 5,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_15.ac7d82b1.png?1659288854827"
+      "tileImage": "http://localhost:1234/tile_grassland_15.ac7d82b1.png?1659288854827",
+      "objectType": "turnip3",
+      "objectImage": "http://localhost:1234/turnip_3.2c723a33.png?1659316514767"
     },
     {
       "x": 1,
@@ -118,8 +120,8 @@
     {
       "x": 1,
       "y": 9,
-      "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_11.cc38f559.png?1659288854827"
+      "tileType": "oceanWave",
+      "tileImage": "http://localhost:1234/tile_ocean_15.00dc79ca.png?1659316514765"
     },
     {
       "x": 2,
@@ -377,7 +379,9 @@
       "x": 6,
       "y": 2,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_19.29161ebe.png?1659288854827"
+      "tileImage": "http://localhost:1234/tile_grassland_19.29161ebe.png?1659288854827",
+      "objectType": "turnip3",
+      "objectImage": "http://localhost:1234/turnip_3.2c723a33.png?1659316514767"
     },
     {
       "x": 6,
@@ -580,14 +584,14 @@
     {
       "x": 9,
       "y": 6,
-      "tileType": "forest",
-      "tileImage": "http://localhost:1234/tile_forest_9.7081b808.png?1659294212711"
+      "tileType": "oceanWave",
+      "tileImage": "http://localhost:1234/tile_ocean_5.d00a2a34.png?1659316514765"
     },
     {
       "x": 9,
       "y": 7,
-      "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+      "tileType": "oceanWave",
+      "tileImage": "http://localhost:1234/tile_ocean_0.c8d65a93.png?1659316514765"
     },
     {
       "x": 9,
