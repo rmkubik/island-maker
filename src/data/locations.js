@@ -51,6 +51,20 @@ const editObjects = combineEntriesWithKeys(
         grid.set(hex, hex);
       },
     },
+    placeOceanWave: {
+      name: "Place Ocean Wave",
+      image: iconImages["icons_colored_8"],
+      desc: "Turn terrain into ocean wave",
+      onEditOverride: ({ hex, neighbors, grid }) => {
+        const tileTypeImages = tilePaths.oceanWave;
+        const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+        hex.tileType = "oceanWave";
+        hex.tileImage = tileImage;
+
+        grid.set(hex, hex);
+      },
+    },
     placeGrassland: {
       name: "Place Grassland",
       image: iconImages["icons_colored_0"],
