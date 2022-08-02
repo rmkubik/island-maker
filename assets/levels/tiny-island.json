@@ -5,603 +5,603 @@
       "x": 0,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_2.04cc6115.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_2"
     },
     {
       "x": 0,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_0.4ae94307.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_0"
     },
     {
       "x": 0,
       "y": 2,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_4.037901df.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_4"
     },
     {
       "x": 0,
       "y": 3,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_1"
     },
     {
       "x": 0,
       "y": 4,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_13.6d1d11c2.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_13"
     },
     {
       "x": 0,
       "y": 5,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_12.d9edf7d6.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_12"
     },
     {
       "x": 0,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_3.5c0362a1.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_3"
     },
     {
       "x": 0,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_5.ebddf309.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_5"
     },
     {
       "x": 0,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_11.cc38f559.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_11"
     },
     {
       "x": 0,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_15.fe35ce9c.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_15"
     },
     {
       "x": 1,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_19.6dbc978b.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_19"
     },
     {
       "x": 1,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_3.5c0362a1.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_3"
     },
     {
       "x": 1,
       "y": 2,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_7.7fe775eb.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_7"
     },
     {
       "x": 1,
       "y": 3,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_11.cc38f559.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_11"
     },
     {
       "x": 1,
       "y": 4,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_1"
     },
     {
       "x": 1,
       "y": 5,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_14.a1ffc5e3.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_14"
     },
     {
       "x": 1,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_11.cc38f559.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_11"
     },
     {
       "x": 1,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_0.4ae94307.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_0"
     },
     {
       "x": 1,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_7.7fe775eb.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_7"
     },
     {
       "x": 1,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_11.cc38f559.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_11"
     },
     {
       "x": 2,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_14.a1ffc5e3.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_14"
     },
     {
       "x": 2,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_16.9c73c7b6.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_16"
     },
     {
       "x": 2,
       "y": 2,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_19.6dbc978b.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_19"
     },
     {
       "x": 2,
       "y": 3,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_1"
     },
     {
       "x": 2,
       "y": 4,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_3.5c0362a1.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_3"
     },
     {
       "x": 2,
       "y": 5,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_8.a6169656.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_8"
     },
     {
       "x": 2,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_11.cc38f559.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_11"
     },
     {
       "x": 2,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_9.79096158.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_9"
     },
     {
       "x": 2,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_5.ebddf309.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_5"
     },
     {
       "x": 2,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_2.04cc6115.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_2"
     },
     {
       "x": 3,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_7.7fe775eb.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_7"
     },
     {
       "x": 3,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_17.673694bb.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_17"
     },
     {
       "x": 3,
       "y": 2,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_8.a6169656.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_8"
     },
     {
       "x": 3,
       "y": 3,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_19.29161ebe.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_19"
     },
     {
       "x": 3,
       "y": 4,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_2.04cc6115.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_2"
     },
     {
       "x": 3,
       "y": 5,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_2.04cc6115.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_2"
     },
     {
       "x": 3,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_10.c09b5bf5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_10"
     },
     {
       "x": 3,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_14.a1ffc5e3.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_14"
     },
     {
       "x": 3,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_8.a6169656.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_8"
     },
     {
       "x": 3,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_18.cb986b60.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_18"
     },
     {
       "x": 4,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_13.6d1d11c2.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_13"
     },
     {
       "x": 4,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_6.c81ede15.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_6"
     },
     {
       "x": 4,
       "y": 2,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_12.d9edf7d6.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_12"
     },
     {
       "x": 4,
       "y": 3,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_14.71830a0e.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_14"
     },
     {
       "x": 4,
       "y": 4,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_14.71830a0e.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_14"
     },
     {
       "x": 4,
       "y": 5,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_14.71830a0e.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_14"
     },
     {
       "x": 4,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_6.c81ede15.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_6"
     },
     {
       "x": 4,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_5.ebddf309.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_5"
     },
     {
       "x": 4,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_10.c09b5bf5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_10"
     },
     {
       "x": 4,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_14.a1ffc5e3.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_14"
     },
     {
       "x": 5,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_0.4ae94307.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_0"
     },
     {
       "x": 5,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_14.a1ffc5e3.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_14"
     },
     {
       "x": 5,
       "y": 2,
       "tileType": "forest",
-      "tileImage": "http://localhost:1234/tile_forest_19.06ec5a71.png?1659300116181"
+      "tileImage": "forest.tile_forest_19"
     },
     {
       "x": 5,
       "y": 3,
       "tileType": "mountain",
-      "tileImage": "http://localhost:1234/tile_mountain_5.ac046b37.png?1659300116182"
+      "tileImage": "mountain.tile_mountain_5"
     },
     {
       "x": 5,
       "y": 4,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_14.71830a0e.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_14"
     },
     {
       "x": 5,
       "y": 5,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_6.e95479b0.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_6"
     },
     {
       "x": 5,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_19.6dbc978b.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_19"
     },
     {
       "x": 5,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_12.d9edf7d6.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_12"
     },
     {
       "x": 5,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_9.79096158.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_9"
     },
     {
       "x": 5,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_4.037901df.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_4"
     },
     {
       "x": 6,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_15.fe35ce9c.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_15"
     },
     {
       "x": 6,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_5.ebddf309.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_5"
     },
     {
       "x": 6,
       "y": 2,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_2.04cc6115.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_2"
     },
     {
       "x": 6,
       "y": 3,
       "tileType": "forest",
-      "tileImage": "http://localhost:1234/tile_forest_8.d19a6bc7.png?1659300116181"
+      "tileImage": "forest.tile_forest_8"
     },
     {
       "x": 6,
       "y": 4,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_6.e95479b0.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_6"
     },
     {
       "x": 6,
       "y": 5,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_3.caa06f74.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_3"
     },
     {
       "x": 6,
       "y": 6,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_6.e95479b0.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_6"
     },
     {
       "x": 6,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_8.a6169656.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_8"
     },
     {
       "x": 6,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_16.9c73c7b6.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_16"
     },
     {
       "x": 6,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_16.9c73c7b6.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_16"
     },
     {
       "x": 7,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_1"
     },
     {
       "x": 7,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_3.5c0362a1.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_3"
     },
     {
       "x": 7,
       "y": 2,
       "tileType": "forest",
-      "tileImage": "http://localhost:1234/tile_forest_7.93aeb603.png?1659300116181"
+      "tileImage": "forest.tile_forest_7"
     },
     {
       "x": 7,
       "y": 3,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_16.ecf41860.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_16"
     },
     {
       "x": 7,
       "y": 4,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_8.241a7d9e.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_8"
     },
     {
       "x": 7,
       "y": 5,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_16.ecf41860.png?1659300116181",
+      "tileImage": "grassland.tile_grassland_16",
       "objectType": "turnip3",
-      "objectImage": "http://localhost:1234/turnip_3.2c723a33.png?1659300116184"
+      "objectImage": "turnip_3"
     },
     {
       "x": 7,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_13.6d1d11c2.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_13"
     },
     {
       "x": 7,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_17.673694bb.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_17"
     },
     {
       "x": 7,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_10.c09b5bf5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_10"
     },
     {
       "x": 7,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_17.673694bb.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_17"
     },
     {
       "x": 8,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_15.fe35ce9c.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_15"
     },
     {
       "x": 8,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_10.c09b5bf5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_10"
     },
     {
       "x": 8,
       "y": 2,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_13.6d1d11c2.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_13"
     },
     {
       "x": 8,
       "y": 3,
       "tileType": "grassland",
-      "tileImage": "http://localhost:1234/tile_grassland_11.2b69fdd1.png?1659300116181"
+      "tileImage": "grassland.tile_grassland_11"
     },
     {
       "x": 8,
       "y": 4,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_7.7fe775eb.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_7"
     },
     {
       "x": 8,
       "y": 5,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_4.037901df.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_4"
     },
     {
       "x": 8,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_5.ebddf309.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_5"
     },
     {
       "x": 8,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_2.04cc6115.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_2"
     },
     {
       "x": 8,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_9.79096158.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_9"
     },
     {
       "x": 8,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_15.fe35ce9c.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_15"
     },
     {
       "x": 9,
       "y": 0,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_10.c09b5bf5.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_10"
     },
     {
       "x": 9,
       "y": 1,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_7.7fe775eb.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_7"
     },
     {
       "x": 9,
       "y": 2,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_10.c09b5bf5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_10"
     },
     {
       "x": 9,
       "y": 3,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_0.4ae94307.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_0"
     },
     {
       "x": 9,
       "y": 4,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_1"
     },
     {
       "x": 9,
       "y": 5,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_10.c09b5bf5.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_10"
     },
     {
       "x": 9,
       "y": 6,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_8.a6169656.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_8"
     },
     {
       "x": 9,
       "y": 7,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_1"
     },
     {
       "x": 9,
       "y": 8,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_12.d9edf7d6.png?1659295391212"
+      "tileImage": "ocean.tile_ocean_12"
     },
     {
       "x": 9,
       "y": 9,
       "tileType": "ocean",
-      "tileImage": "http://localhost:1234/tile_ocean_1.9671edc5.png?1659288854827"
+      "tileImage": "ocean.tile_ocean_1"
     }
   ]
 }

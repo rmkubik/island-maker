@@ -8,21 +8,32 @@ import * as oceanWaveTiles from "../../assets/Tiles Oceans with Waves/*.png";
 
 import tileCorners from "../../assets/Overlays Hex Corners/hex_corner_overlay.png";
 import tileBorders from "../../assets/Overlays Hex Borders/hex_border_overlay.png";
+import reduceEntries from "../utils/reduceEntries";
 
 const tilePaths = {
-  grassland: Object.values(grassLandTiles),
-  forest: Object.values(forestTiles),
-  mountain: Object.values(mountainTiles),
-  ocean: Object.values(oceanTiles),
-  oceanWave: Object.values(oceanWaveTiles),
+  grassland: Object.keys(grassLandTiles).map((key) => `grassland.${key}`),
+  forest: Object.keys(forestTiles).map((key) => `forest.${key}`),
+  mountain: Object.keys(mountainTiles).map((key) => `mountain.${key}`),
+  ocean: Object.keys(oceanTiles).map((key) => `ocean.${key}`),
+  oceanWave: Object.keys(oceanWaveTiles).map((key) => `oceanWave.${key}`),
+};
+
+const fixTilesKeys = (tiles, keyPrefix) => {
+  const entries = Object.entries(tiles);
+  const fixedKeyEntries = entries.map(([key, value]) => [
+    `${keyPrefix}.${key}`,
+    value,
+  ]);
+
+  return reduceEntries(fixedKeyEntries);
 };
 
 const tileImages = {
-  ...grassLandTiles,
-  ...forestTiles,
-  ...mountainTiles,
-  ...oceanTiles,
-  ...oceanWaveTiles,
+  ...fixTilesKeys(grassLandTiles, "grassland"),
+  ...fixTilesKeys(forestTiles, "forest"),
+  ...fixTilesKeys(mountainTiles, "mountain"),
+  ...fixTilesKeys(oceanTiles, "ocean"),
+  ...fixTilesKeys(oceanWaveTiles, "oceanWave"),
 };
 
 const tilesMap = new WeightedMap({

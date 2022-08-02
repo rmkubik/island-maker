@@ -49,7 +49,7 @@ const Tile = ({
         style={{
           position: "absolute",
         }}
-        src={hex.tileImage}
+        src={tileImages[hex.tileImage]}
       />
       {isHovered && (
         <img
