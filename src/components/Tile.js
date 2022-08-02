@@ -4,7 +4,8 @@ import {
   LOCATION_Y_OFFSET,
   TOP_MARGIN,
 } from "../data/config";
-import { tileBorders } from "../data/tiles";
+import { tileBorders, tileImages } from "../data/tiles";
+import { objectImages } from "../data/locations";
 
 const Tile = ({
   hex,
@@ -22,7 +23,7 @@ const Tile = ({
 
   const isHovered = hovered && hex.equals(hovered);
 
-  let objectImageSrc = hex.objectImage;
+  let objectImageSrc = objectImages[hex.objectImage];
 
   // if (!objectImageSrc) {
   //   if (isHovered) {
@@ -83,7 +84,7 @@ const Tile = ({
             left: `${LOCATION_X_OFFSET + (objectImageSrc ? 40 : 0)}px`,
             zIndex: 999999,
           }}
-          src={selected.image}
+          src={objectImages[selected.image]}
         />
       ) : null}
       {/* {newCards.length > 0
@@ -99,7 +100,7 @@ const Tile = ({
                 top: `${LOCATION_Y_OFFSET - 80}px`,
                 left: `${LOCATION_X_OFFSET}px`,
               }}
-              src={card.image}
+              src={objectImages[card.image]}
               onAnimationEnd={onNewCardAnimationEnd}
             />
           ))
@@ -117,7 +118,7 @@ const Tile = ({
             top: `${LOCATION_Y_OFFSET - 80}px`,
             left: `${LOCATION_X_OFFSET}px`,
           }}
-          src={newCard.image}
+          src={objectImages[newCard.image]}
           onAnimationEnd={onNewCardAnimationEnd}
           onAnimationStart={onNewCardAnimationStart}
         />

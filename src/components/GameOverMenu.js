@@ -4,7 +4,7 @@ import countPopulation from "../utils/countPopulation";
 import rng from "../utils/rng";
 import convertPopulationToStars from "../utils/convertPopulationToStars";
 import constructArray from "../utils/constructArray";
-import { objects } from "../data/locations";
+import { objectImages, objects } from "../data/locations";
 import { GAME_MODE_OPTIONS } from "../data/config";
 
 const GameOverMenu = ({
@@ -53,7 +53,7 @@ const GameOverMenu = ({
                 style={{ marginRight: "-20px" }}
                 draggable={false}
                 key={index}
-                src={image}
+                src={objectImages[image]}
               />
             );
           }, 5)}
@@ -122,6 +122,7 @@ const GameOverMenu = ({
             marginLeft: "8px",
           }}
           onClick={() => {
+            console.log(lastGrid);
             console.log(JSON.stringify(lastGrid));
           }}
         >

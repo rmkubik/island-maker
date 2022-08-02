@@ -28,8 +28,6 @@ function App() {
   const [currentSeedLabel, setCurrentSeedLabel] = useState("Random");
   const { journal, setJournal, isUnlocked, unlockItem, commitUnlocks } =
     useJournal();
-  // seeded, editor, premade
-  // config.GAME_MODE_OPTIONS
   const [gameMode, setGameMode] = useState(GAME_MODE_OPTIONS.SEEDED);
   const [currentLevel, setCurrentLevel] = useState();
 

@@ -10,11 +10,17 @@ import getHouseLevel from "../utils/getHouseLevel";
 
 const HOUSE_3_OPTIONS = ["inn", "church"];
 
+const objectImages = {
+  ...locationImages,
+  ...iconImages,
+  ...resourceImages,
+};
+
 const editObjects = combineEntriesWithKeys(
   Object.entries({
     deleteObject: {
       name: "Delete Object",
-      image: iconImages["icons_colored_3"],
+      image: "icons_colored_3",
       desc: "Remove selected object",
       onEditOverride: ({ hex, neighbors, grid }) => {
         hex.objectImage = undefined;
@@ -25,7 +31,7 @@ const editObjects = combineEntriesWithKeys(
     },
     placeForest: {
       name: "Place Forest",
-      image: iconImages["icons_colored_12"],
+      image: "icons_colored_12",
       desc: "Turn terrain into forest",
       onEditOverride: ({ hex, neighbors, grid }) => {
         const tileTypeImages = tilePaths.forest;
@@ -39,7 +45,7 @@ const editObjects = combineEntriesWithKeys(
     },
     placeOcean: {
       name: "Place Ocean",
-      image: iconImages["icons_colored_8"],
+      image: "icons_colored_8",
       desc: "Turn terrain into ocean",
       onEditOverride: ({ hex, neighbors, grid }) => {
         const tileTypeImages = tilePaths.ocean;
@@ -53,7 +59,7 @@ const editObjects = combineEntriesWithKeys(
     },
     placeOceanWave: {
       name: "Place Ocean Wave",
-      image: iconImages["icons_colored_8"],
+      image: "icons_colored_8",
       desc: "Turn terrain into ocean wave",
       onEditOverride: ({ hex, neighbors, grid }) => {
         const tileTypeImages = tilePaths.oceanWave;
@@ -67,7 +73,7 @@ const editObjects = combineEntriesWithKeys(
     },
     placeGrassland: {
       name: "Place Grassland",
-      image: iconImages["icons_colored_0"],
+      image: "icons_colored_0",
       desc: "Turn terrain into grassland",
       onEditOverride: ({ hex, neighbors, grid }) => {
         const tileTypeImages = tilePaths.grassland;
@@ -81,7 +87,7 @@ const editObjects = combineEntriesWithKeys(
     },
     placeMountain: {
       name: "Place Mountain",
-      image: iconImages["icons_colored_16"],
+      image: "icons_colored_16",
       desc: "Turn terrain into mountain",
       onEditOverride: ({ hex, neighbors, grid }) => {
         const tileTypeImages = tilePaths.mountain;
@@ -100,11 +106,11 @@ const objects = combineEntriesWithKeys(
   Object.entries({
     circle: {
       name: "Circle",
-      image: iconImages["icons_colored_0"],
+      image: "icons_colored_0",
     },
     question: {
       name: "???",
-      image: iconImages["icons_colored_1"],
+      image: "icons_colored_1",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
         return [
@@ -116,38 +122,38 @@ const objects = combineEntriesWithKeys(
     },
     x: {
       name: "X",
-      image: iconImages["icons_colored_3"],
+      image: "icons_colored_3",
     },
     fish1: {
       name: "Fish",
       desc: "Swims in the sea",
-      image: resourceImages["fish_1"],
+      image: "fish_1",
     },
     fish2: {
       name: "Fish",
       desc: "Swims in the sea",
-      image: resourceImages["fish_2"],
+      image: "fish_2",
     },
     fish3: {
       name: "Fish",
       desc: "Swims in the sea",
-      image: resourceImages["fish_3"],
+      image: "fish_3",
       isInJournal: true,
     },
     turnip1: {
       name: "Turnip",
       desc: "Grows in the ground",
-      image: resourceImages["turnip_1"],
+      image: "turnip_1",
     },
     turnip2: {
       name: "Turnip",
       desc: "Grows in the ground",
-      image: resourceImages["turnip_2"],
+      image: "turnip_2",
     },
     turnip3: {
       name: "Turnip",
       desc: "Grows in the ground",
-      image: resourceImages["turnip_3"],
+      image: "turnip_3",
       validTileTypes: ["grassland"],
       isInJournal: true,
     },
@@ -155,7 +161,7 @@ const objects = combineEntriesWithKeys(
       name: "Grow",
       desc: "The trees will rise",
       isInJournal: true,
-      image: iconImages["icons_colored_12"],
+      image: "icons_colored_12",
       validObjectOverrides: ["house1"],
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid, game }) => {
@@ -189,7 +195,7 @@ const objects = combineEntriesWithKeys(
       name: "Camp",
       desc: "Hunts in the woods",
       isInJournal: true,
-      image: locationImages["locations_colored_8"],
+      image: "locations_colored_8",
       validTileTypes: ["forest", "grassland"],
       onPlace: ({ hex, neighbors, grid, game }) => {
         switch (hex.tileType) {
@@ -243,7 +249,7 @@ const objects = combineEntriesWithKeys(
       name: "Farm",
       desc: "Harvests turnips",
       isInJournal: true,
-      image: locationImages["locations_colored_5"],
+      image: "locations_colored_5",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid, game }) => {
         const turnips = neighbors.filter((neighbor) =>
@@ -289,7 +295,7 @@ const objects = combineEntriesWithKeys(
       name: "Mine",
       desc: "Extracts from mountains",
       isInJournal: true,
-      image: locationImages["locations_colored_19"],
+      image: "locations_colored_19",
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
         const options = ["quarry", "lighthouse"];
@@ -309,13 +315,13 @@ const objects = combineEntriesWithKeys(
     brickHouse1: {
       name: "Brick House",
       desc: "Kind of snooty",
-      image: locationImages["locations_colored_2"],
+      image: "locations_colored_2",
     },
     house1: {
       name: "House",
       desc: "A nice place to live",
       isInJournal: true,
-      image: resourceImages["house_1"],
+      image: "house_1",
       validTileTypes: ["grassland"],
       validObjectOverrides: ["house1", "house2"],
       onOverride: ({ hex, neighbors, grid, game }) => {
@@ -352,28 +358,28 @@ const objects = combineEntriesWithKeys(
       name: "Hamlet",
       desc: "Two is company",
       isInJournal: true,
-      image: resourceImages["house_2"],
+      image: "house_2",
       validTileTypes: ["grassland"],
     },
     house3: {
       name: "Village",
       desc: "Three's a crowd",
       isInJournal: true,
-      image: resourceImages["house_3"],
+      image: "house_3",
       validTileTypes: ["grassland"],
     },
     house4: {
       name: "Town",
       desc: "Bustling",
       isInJournal: true,
-      image: resourceImages["house_4"],
+      image: "house_4",
       validTileTypes: ["grassland"],
     },
     mill: {
       name: "Mill",
       desc: "Farms the farms",
       isInJournal: true,
-      image: locationImages["locations_colored_6"],
+      image: "locations_colored_6",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
         const farms = neighbors.filter(
@@ -389,7 +395,7 @@ const objects = combineEntriesWithKeys(
       name: "Inn",
       desc: "Gives the people happiness",
       isInJournal: true,
-      image: locationImages["locations_colored_12"],
+      image: "locations_colored_12",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
         const houses = neighbors.filter(
@@ -405,7 +411,7 @@ const objects = combineEntriesWithKeys(
       name: "Church",
       desc: "Brings the people faith",
       isInJournal: true,
-      image: locationImages["locations_colored_16"],
+      image: "locations_colored_16",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid, game }) => {
         const houses = neighbors.filter(
@@ -471,14 +477,14 @@ const objects = combineEntriesWithKeys(
     tracks: {
       name: "Tracks",
       desc: "Something was here",
-      image: iconImages["icons_colored_11"],
+      image: "icons_colored_11",
       isInJournal: true,
     },
     nest: {
       name: "Nest",
       desc: "Room for one more?",
       isInJournal: true,
-      image: locationImages["locations_colored_20"],
+      image: "locations_colored_20",
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid, game }) => {
         switch (hex.tileType) {
@@ -500,7 +506,7 @@ const objects = combineEntriesWithKeys(
       name: "Quarry",
       desc: "We have to go deeper",
       isInJournal: true,
-      image: locationImages["locations_colored_4"],
+      image: "locations_colored_4",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
         const options = [];
@@ -531,7 +537,7 @@ const objects = combineEntriesWithKeys(
       name: "Lighthouse",
       desc: "Lights the way",
       isInJournal: true,
-      image: locationImages["locations_colored_13"],
+      image: "locations_colored_13",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
         const oceans = neighbors.filter((neighbor) =>
@@ -547,7 +553,7 @@ const objects = combineEntriesWithKeys(
       name: "Ship",
       desc: "Gathers fish",
       isInJournal: true,
-      image: locationImages["locations_colored_28"],
+      image: "locations_colored_28",
       validTileTypes: ["ocean", "oceanWave"],
       onPlace: ({ hex, neighbors, grid, game }) => {
         // If a ship is placed on a wave, turn it into a
@@ -615,14 +621,14 @@ const objects = combineEntriesWithKeys(
       name: "Shipwreck",
       desc: "To the bottom of the sea",
       isInJournal: true,
-      image: locationImages["locations_colored_29"],
+      image: "locations_colored_29",
       validTileTypes: ["ocean", "oceanWave"],
     },
     cave: {
       name: "Seed",
       desc: "A rocky spore",
       isInJournal: true,
-      image: locationImages["locations_colored_17"],
+      image: "locations_colored_17",
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
         const tileTypeImages = tilePaths.mountain;
@@ -640,7 +646,7 @@ const objects = combineEntriesWithKeys(
       name: "Dungeon",
       desc: "What's inside?",
       isInJournal: true,
-      image: locationImages["locations_colored_18"],
+      image: "locations_colored_18",
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
         const options = ["grave", "skull"];
@@ -666,14 +672,14 @@ const objects = combineEntriesWithKeys(
       name: "Grave",
       desc: "Rest in peace",
       isInJournal: true,
-      image: locationImages["locations_colored_27"],
+      image: "locations_colored_27",
       validTileTypes: ["grassland", "forest"],
     },
     skull: {
       name: "Curse",
       desc: "All things must pass",
       isInJournal: true,
-      image: iconImages["icons_colored_4"],
+      image: "icons_colored_4",
       validTileTypes: ["grassland", "forest"],
       validObjectOverrides: ["all"],
       notValidObjectOverrides: ["grave"],
@@ -689,7 +695,7 @@ const objects = combineEntriesWithKeys(
       name: "Witch Hut",
       desc: "Not so friendly",
       isInJournal: true,
-      image: locationImages["locations_colored_7"],
+      image: "locations_colored_7",
       validTileTypes: ["forest"],
       onPlace: ({ hex, neighbors, grid }) => {
         return [["skull", hex]];
@@ -698,4 +704,4 @@ const objects = combineEntriesWithKeys(
   })
 );
 
-export { objects, editObjects };
+export { objects, editObjects, objectImages };

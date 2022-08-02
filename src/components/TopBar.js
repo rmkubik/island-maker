@@ -5,7 +5,7 @@ import {
   LOCATION_TEXT_X_OFFSET,
   LOCATION_TEXT_Y_OFFSET,
 } from "../data/config";
-import { objects } from "../data/locations";
+import { objectImages, objects } from "../data/locations";
 import constructArray from "../utils/constructArray";
 import countPopulation from "../utils/countPopulation";
 import update from "../utils/update";
@@ -85,7 +85,7 @@ const TopBar = ({
           draggable={false}
           key={selected && selected.id}
           className="slideInRight"
-          src={selected ? selected.image : undefined}
+          src={selected ? objectImages[selected.image] : undefined}
         />
         <p className="cardInfo">
           {selected ? `${selected.name} - ${selected.desc}` : undefined}
@@ -115,7 +115,7 @@ const TopBar = ({
                 left: DECK_STACK_INCREMENT * index,
               }}
               // src={index < previewCount ? card.image : objects.circle.image}
-              src={card.image}
+              src={objectImages[card.image]}
             />
           );
         })}
@@ -185,7 +185,7 @@ const TopBar = ({
             }}
           >
             {bankedObject.key !== "x" ? (
-              <img draggable={false} src={bankedObject.image} />
+              <img draggable={false} src={objectImages[bankedObject.image]} />
             ) : null}
           </button>
         ))}
@@ -207,7 +207,7 @@ const TopBar = ({
           onClick={showJournal}
           style={{ background: "none", border: "none", cursor: "pointer" }}
         >
-          <img draggable={false} src={objects.question.image} />
+          <img draggable={false} src={objectImages[objects.question.image]} />
         </button>
       </div>
       {!isGameOver ? (

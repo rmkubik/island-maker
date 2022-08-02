@@ -1,6 +1,6 @@
 import React from "react";
 import Menu from "./Menu";
-import { objects } from "../data/locations";
+import { objectImages, objects } from "../data/locations";
 import constructArray from "../utils/constructArray";
 
 const JournalMenu = ({ setView, isUnlocked }) => {
@@ -28,7 +28,7 @@ const JournalMenu = ({ setView, isUnlocked }) => {
 
             return (
               <li key={index}>
-                <img src={renderedObject.image} />
+                <img src={objectImages[renderedObject.image]} />
                 <p>{renderedObject.name}</p>
               </li>
             );

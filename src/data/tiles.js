@@ -17,6 +17,14 @@ const tilePaths = {
   oceanWave: Object.values(oceanWaveTiles),
 };
 
+const tileImages = {
+  ...grassLandTiles,
+  ...forestTiles,
+  ...mountainTiles,
+  ...oceanTiles,
+  ...oceanWaveTiles,
+};
+
 const tilesMap = new WeightedMap({
   grassland: 50,
   forest: 15,
@@ -25,4 +33,4 @@ const tilesMap = new WeightedMap({
   oceanWave: 5,
 });
 
-export { tilePaths, tilesMap, tileBorders };
+export { tilePaths, tilesMap, tileImages, tileBorders };
