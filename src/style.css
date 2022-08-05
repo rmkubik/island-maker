@@ -27,11 +27,33 @@ img.icon {
   height: 100%;
 }
 
+* {
+  /* Foreground, Background */
+  scrollbar-color: #fff #333;
+}
+::-webkit-scrollbar {
+  width: 12px; /* Mostly for vertical scrollbars */
+  height: 10px; /* Mostly for horizontal scrollbars */
+}
+::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: #fff;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  /* Background */
+  background: #333;
+}
+
 input,
 button {
   color: rgb(69, 69, 69);
   font-family: "Honeyblot Caps", "Franklin Gothic Medium", "Arial Narrow", Arial,
     sans-serif;
+}
+
+.locked {
+  opacity: 0.4;
 }
 
 img {

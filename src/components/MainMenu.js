@@ -188,6 +188,9 @@ const MainMenu = ({
         style={{
           marginTop: "64px",
           marginBottom: "64px",
+          paddingRight: "1rem",
+          maxHeight: "60vh",
+          overflowY: "scroll",
         }}
       >
         {/* <p style={{ marginBottom: 0 }}>Levels:</p> */}
@@ -224,6 +227,7 @@ const MainMenu = ({
         >
           {levels.map((level) => {
             const isUnlocked = totalPopulation >= level.unlockCost;
+            const playButtonRef = useRef();
 
             return (
               <li
@@ -231,6 +235,7 @@ const MainMenu = ({
                 style={{
                   display: "flex",
                   flexDirection: "row",
+                  marginBottom: "1rem",
                 }}
               >
                 <img
@@ -257,7 +262,7 @@ const MainMenu = ({
                   <h2
                     style={{
                       marginBottom: "0.3em",
-                      marginTop: "0.3em",
+                      marginTop: "0.15em",
                     }}
                   >
                     {level.label}
@@ -265,7 +270,7 @@ const MainMenu = ({
                   <p
                     style={{
                       marginBottom: "0.3em",
-                      marginTop: "0.3em",
+                      marginTop: "0.15em",
                       fontSize: "0.8em",
                     }}
                   >
@@ -275,6 +280,8 @@ const MainMenu = ({
                   </p>
                 </div>
                 <button
+                  ref={playButtonRef}
+                  className={isUnlocked ? "" : "locked"}
                   style={{
                     width: "fit-content",
                     fontSize: "1em",
@@ -286,6 +293,15 @@ const MainMenu = ({
                     margin: "8px",
                   }}
                   onClick={() => {
+                    if (!isUnlocked) {
+                      playButtonRef.current.classList.remove("shake");
+                      // This triggers a document reflow in between class
+                      // assignments so the animation plays again.
+                      void playButtonRef.current.offsetWidth;
+                      playButtonRef.current.classList.add("shake");
+                      return;
+                    }
+
                     pickLevel(level);
                     setTimeout(() => setView("none"), 800);
                   }}
