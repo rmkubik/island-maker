@@ -18,7 +18,7 @@ const MainMenu = ({
   toggleGameMode,
   setGameMode,
   setCurrentLevel,
-  totalPopulation,
+  highScores,
 }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
@@ -48,28 +48,28 @@ const MainMenu = ({
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
       label: "Mountains",
-      level: "forest",
+      level: "mountains",
       icon: objects.mine.image,
       unlockCost: 50,
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
       label: "Island",
-      level: "forest",
+      level: "island",
       icon: objects.ship.image,
       unlockCost: 80,
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
       label: "Daily",
-      level: "forest",
+      level: "daily",
       icon: objects.crown.image,
       unlockCost: 120,
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
       label: "Full Random",
-      level: "forest",
+      level: "random",
       icon: objects.crown.image,
       unlockCost: 150,
     },
@@ -116,6 +116,11 @@ const MainMenu = ({
       reGenerateGame();
     });
   };
+
+  const totalPopulation = Object.values(highScores).reduce(
+    (total, curr) => total + curr,
+    0
+  );
 
   return (
     <Menu>
@@ -275,8 +280,8 @@ const MainMenu = ({
                     }}
                   >
                     {isUnlocked
-                      ? `Best: 3 population`
-                      : `Unlock: ${level.unlockCost} population`}
+                      ? `Best: ${highScores[level.level] ?? 0} population`
+                      : `Unlocks at ${level.unlockCost} population`}
                   </p>
                 </div>
                 <button

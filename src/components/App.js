@@ -30,17 +30,25 @@ function App() {
     useJournal();
   const [gameMode, setGameMode] = useState(GAME_MODE_OPTIONS.SEEDED);
   const [currentLevel, setCurrentLevel] = useState();
-  const [totalPopulation, setTotalPopulation] = useState(0);
+  const [highScores, setHighScores] = useState({});
 
+  // Load save data
   useEffect(() => {
     setJournal(saveData.journal ?? {});
+    setHighScores(saveData.highScores ?? {});
   }, []);
 
+  // Save save data
   useEffect(() => {
-    const newSaveData = { ...saveData, journal, version: packageInfo.version };
+    const newSaveData = {
+      ...saveData,
+      journal,
+      highScores,
+      version: packageInfo.version,
+    };
 
     setSaveData(newSaveData);
-  }, [journal]);
+  }, [journal, highScores]);
 
   const reGenerateGame = () => {
     rng.resetCurrentSeed();
@@ -71,7 +79,7 @@ function App() {
         }}
         setGameMode={setGameMode}
         setCurrentLevel={setCurrentLevel}
-        totalPopulation={totalPopulation}
+        highScores={highScores}
       />
     ),
     gameOver: (
@@ -79,8 +87,11 @@ function App() {
         setView={setView}
         reGenerateGame={reGenerateGame}
         lastGrid={lastGrid}
+        currentLevel={currentLevel}
         currentSeedLabel={currentSeedLabel}
         gameMode={gameMode}
+        highScores={highScores}
+        setHighScores={setHighScores}
       />
     ),
     journal: <JournalMenu setView={setView} isUnlocked={isUnlocked} />,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Menu from "./Menu";
 import countPopulation from "../utils/countPopulation";
 import rng from "../utils/rng";
@@ -13,9 +13,29 @@ const GameOverMenu = ({
   lastGrid,
   currentSeedLabel,
   gameMode,
+  highScores,
+  setHighScores,
+  currentLevel,
 }) => {
   const population = countPopulation(lastGrid);
   const stars = convertPopulationToStars(population);
+
+  const existingHighScore = highScores[currentLevel.level] ?? 0;
+  const isNewHighScore = population > existingHighScore;
+
+  if (isNewHighScore) {
+    setHighScores({
+      ...highScores,
+      [currentLevel.level]: population,
+    });
+  }
+
+  useEffect(() => {
+    // TODO:
+    // determine if new population is greater than high score
+    // show "NEW HIGH SCORE" message
+    // setHighScore with the current population
+  }, []);
 
   return (
     <Menu>
@@ -33,7 +53,18 @@ const GameOverMenu = ({
         </p>
       </div>
       <div style={{ marginBottom: "64px" }}>
-        <p style={{ margin: 0, marginBottom: "-12px" }}>Rating:</p>
+        <p style={{ margin: 0, marginBottom: "0.25em" }}>High Score:</p>
+        {isNewHighScore ? <p>New High Score!</p> : null}
+        <p
+          style={{
+            fontSize: "2em",
+            margin: 0,
+            marginBottom: "0.85em",
+          }}
+        >
+          {highScores[currentLevel.level] ?? 0}
+        </p>
+        {/* <p style={{ margin: 0, marginBottom: "-12px" }}>Rating:</p>
         <div style={{ display: "flex", flexDirection: "row" }}>
           {constructArray((index) => {
             let image;
@@ -57,7 +88,7 @@ const GameOverMenu = ({
               />
             );
           }, 5)}
-        </div>
+        </div> */}
       </div>
       <div
         style={{
