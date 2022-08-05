@@ -30,6 +30,7 @@ function App() {
     useJournal();
   const [gameMode, setGameMode] = useState(GAME_MODE_OPTIONS.SEEDED);
   const [currentLevel, setCurrentLevel] = useState();
+  const [totalPopulation, setTotalPopulation] = useState(0);
 
   useEffect(() => {
     setJournal(saveData.journal ?? {});
@@ -70,6 +71,7 @@ function App() {
         }}
         setGameMode={setGameMode}
         setCurrentLevel={setCurrentLevel}
+        totalPopulation={totalPopulation}
       />
     ),
     gameOver: (

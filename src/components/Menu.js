@@ -1,6 +1,6 @@
 import React from "react";
 
-const Menu = ({ children, maxWidth = "900px" }) => {
+const Menu = ({ children, maxWidth = "1200px" }) => {
   return (
     <div
       style={{

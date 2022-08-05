@@ -120,6 +120,10 @@ const objects = combineEntriesWithKeys(
         ];
       },
     },
+    crown: {
+      name: "crown",
+      image: "icons_colored_9",
+    },
     x: {
       name: "X",
       image: "icons_colored_3",

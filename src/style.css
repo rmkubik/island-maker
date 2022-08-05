@@ -15,6 +15,18 @@ body {
     sans-serif;
 }
 
+h2 {
+  font-size: 1.3em;
+}
+
+img.inline-offset {
+  margin-top: -48px;
+}
+
+img.icon {
+  height: 100%;
+}
+
 input,
 button {
   color: rgb(69, 69, 69);
