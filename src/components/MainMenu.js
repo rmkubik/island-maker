@@ -124,8 +124,8 @@ const MainMenu = ({
 
   return (
     <Menu>
-      <h1 style={{ marginBottom: "64px" }}>Island Maker</h1>
-      <h2 style={{ margin: 0 }}>Total Population:</h2>
+      <h1 style={{ marginBottom: "72px" }}>Island Maker</h1>
+      <h2 style={{ marginBottom: "24px", margin: 0 }}>Total Population:</h2>
       <div
         style={{
           display: "flex",
@@ -191,11 +191,13 @@ const MainMenu = ({
       </div> */}
       <div
         style={{
-          marginTop: "64px",
+          marginTop: "32px",
           marginBottom: "64px",
-          paddingRight: "1rem",
+          padding: "1rem",
           maxHeight: "60vh",
+          borderRadius: "6px",
           overflowY: "scroll",
+          backgroundColor: "rgb(90, 90, 90)",
         }}
       >
         {/* <p style={{ marginBottom: 0 }}>Levels:</p> */}
@@ -270,7 +272,7 @@ const MainMenu = ({
                       marginTop: "0.15em",
                     }}
                   >
-                    {level.label}
+                    {isUnlocked ? level.label : "Locked"}
                   </h2>
                   <p
                     style={{
