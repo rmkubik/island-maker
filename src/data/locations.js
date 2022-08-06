@@ -204,7 +204,7 @@ const objects = combineEntriesWithKeys(
       onPlace: ({ hex, neighbors, grid, game }) => {
         switch (hex.tileType) {
           case "forest": {
-            const options = ["turnip3", "mill"];
+            const options = ["mill"];
 
             const tracks = neighbors.filter(
               (neighbor) => neighbor.objectType === "tracks"
@@ -234,8 +234,11 @@ const objects = combineEntriesWithKeys(
               const tileTypeImages = tilePaths.grassland;
               const tileImage = pickRandomlyFromArray(tileTypeImages);
 
-              forest.objectType = undefined;
-              forest.objectImage = undefined;
+              if (forest.objectType) {
+                forest.objectType = objects.turnip3.key;
+                forest.objectImage = objects.turnip3.image;
+              }
+
               forest.tileType = "grassland";
               forest.tileImage = tileImage;
 

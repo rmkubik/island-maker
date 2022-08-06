@@ -28,7 +28,6 @@ function Game({
     initializeHex: (hex) => {
       switch (gameMode) {
         case GAME_MODE_OPTIONS.SEEDED:
-        case GAME_MODE_OPTIONS.EDITOR:
           const tileType = tilesMap.pickRandom();
           const tileTypeImages = tilePaths[tileType];
           const tileImage = pickRandomlyFromArray(tileTypeImages);
@@ -43,13 +42,15 @@ function Game({
           hex.tileType = tileType;
           hex.tileImage = tileImage;
           break;
+        case GAME_MODE_OPTIONS.EDITOR:
         case GAME_MODE_OPTIONS.PREMADE:
           // Do nothing here
           break;
       }
     },
     premadeGrid:
-      gameMode === GAME_MODE_OPTIONS.PREMADE &&
+      (gameMode === GAME_MODE_OPTIONS.PREMADE ||
+        gameMode === GAME_MODE_OPTIONS.EDITOR) &&
       levels[currentLevel?.level]?.grid,
   });
   const initialDeck = levels[currentLevel?.level]?.initialDeck?.map(
