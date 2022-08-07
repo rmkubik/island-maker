@@ -305,7 +305,7 @@ const objects = combineEntriesWithKeys(
       image: "locations_colored_19",
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const options = ["quarry", "lighthouse"];
+        const options = ["quarry"];
 
         const mountains = neighbors.filter(
           (neighbor) => neighbor.tileType === "mountain"
