@@ -533,33 +533,20 @@ const objects = combineEntriesWithKeys(
     },
     quarry: {
       name: "Quarry",
-      desc: "We have to go deeper",
+      desc: "Imitation is the sincerest form of flattery",
       isInJournal: true,
       image: "locations_colored_4",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const options = [];
+        const newObjects = [];
 
-        const mountains = neighbors.filter((neighbor) =>
-          neighbor.tileType?.includes("mountain")
-        );
-        mountains.forEach((mountain) => {
-          options.push(["cave", mountain]);
+        neighbors.forEach((neighbor) => {
+          if (neighbor.objectType !== undefined) {
+            newObjects.push([neighbor.objectType, neighbor]);
+          }
         });
 
-        const mines = neighbors.filter((neighbor) =>
-          neighbor.objectType?.includes("mine")
-        );
-        mines.forEach((mine) => {
-          options.push(["mine", mine]);
-          options.push(["dungeon", mine]);
-        });
-
-        if (options.length === 0) {
-          return;
-        }
-
-        return [pickRandomlyFromArray(options)];
+        return newObjects;
       },
     },
     lighthouse: {
