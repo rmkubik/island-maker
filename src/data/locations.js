@@ -16,6 +16,16 @@ const objectImages = {
   ...resourceImages,
 };
 
+function getDungeonRandomOutcome(hex) {
+  const options = ["grave", "skull"];
+
+  return [
+    [pickRandomlyFromArray(options), hex],
+    [pickRandomlyFromArray(options), hex],
+    [pickRandomlyFromArray(options), hex],
+  ];
+}
+
 const editObjects = combineEntriesWithKeys(
   Object.entries({
     deleteObject: {
@@ -315,6 +325,11 @@ const objects = combineEntriesWithKeys(
         );
         const newCurses = ruins.map((ruin) => {
           // Side effect inside a map, shh don't tell the function police
+          //
+          // This is visually confusing as the ruins are destroyed
+          // before the player actually sees the curses granted...
+          // We would need some kind of callback hook or more complicated
+          // animation framework to make this clearer.
           ruin.objectType = undefined;
           ruin.objectImage = undefined;
 
@@ -663,21 +678,11 @@ const objects = combineEntriesWithKeys(
       image: "locations_colored_18",
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const options = ["grave", "skull"];
-
         const mountains = neighbors.filter(
           (neighbor) => neighbor.tileType === "mountain"
         );
 
-        const newObjects = mountains
-          .map((mountain) => {
-            return [
-              [pickRandomlyFromArray(options), mountain],
-              [pickRandomlyFromArray(options), mountain],
-              [pickRandomlyFromArray(options), mountain],
-            ];
-          })
-          .flat();
+        const newObjects = mountains.map(getDungeonRandomOutcome).flat();
 
         return [["church", hex], ...newObjects];
       },
@@ -699,10 +704,25 @@ const objects = combineEntriesWithKeys(
       notValidObjectOverrides: ["grave"],
       requireOverride: true,
       onOverride: ({ hex, neighbors, grid }) => {
-        hex.objectImage = objects.grave.image;
-        hex.objectType = "grave";
+        // Mine is special case handled in onPlace
+        if (hex.objectType !== "mine") {
+          hex.objectImage = objects.grave.image;
+          hex.objectType = "grave";
+        }
 
         grid.set(hex, hex);
+      },
+      onPlace: ({ hex, neighbors, grid }) => {
+        let newObjects = [];
+
+        if (hex.objectType === "mine") {
+          hex.objectImage = objects.dungeon.image;
+          hex.objectType = "dungeon";
+
+          newObjects = getDungeonRandomOutcome(hex);
+        }
+
+        return newObjects;
       },
     },
     witchHut: {

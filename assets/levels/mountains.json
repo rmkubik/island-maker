@@ -1,4 +1,5 @@
 {
+  "initialDeck": ["mine", "skull", "dungeon", "quarry"],
   "grid": [
     {
       "x": 0,
