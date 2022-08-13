@@ -300,7 +300,9 @@
       "x": 5,
       "y": 7,
       "tileType": "forest",
-      "tileImage": "forest.tile_forest_5"
+      "tileImage": "forest.tile_forest_5",
+      "objectType": "ruin",
+      "objectImage": "locations_colored_24"
     },
     {
       "x": 5,
@@ -349,7 +351,9 @@
       "x": 6,
       "y": 6,
       "tileType": "forest",
-      "tileImage": "forest.tile_forest_7"
+      "tileImage": "forest.tile_forest_7",
+      "objectType": "ruin",
+      "objectImage": "locations_colored_24"
     },
     {
       "x": 6,
@@ -514,7 +518,9 @@
       "x": 9,
       "y": 4,
       "tileType": "grassland",
-      "tileImage": "grassland.tile_grassland_18"
+      "tileImage": "grassland.tile_grassland_18",
+      "objectType": "ruin",
+      "objectImage": "locations_colored_24"
     },
     {
       "x": 9,

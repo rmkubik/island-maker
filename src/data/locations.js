@@ -305,16 +305,23 @@ const objects = combineEntriesWithKeys(
       image: "locations_colored_19",
       validTileTypes: ["grassland", "forest"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const options = ["quarry"];
-
         const mountains = neighbors.filter(
           (neighbor) => neighbor.tileType === "mountain"
         );
+        const newQuarries = mountains.map((mountain) => ["quarry", mountain]);
 
-        const newObjects = mountains.map((mountain) => [
-          pickRandomlyFromArray(options),
-          mountain,
-        ]);
+        const ruins = neighbors.filter(
+          (neighbor) => neighbor.objectType === "ruin"
+        );
+        const newCurses = ruins.map((ruin) => {
+          // Side effect inside a map, shh don't tell the function police
+          ruin.objectType = undefined;
+          ruin.objectImage = undefined;
+
+          return ["skull", ruin];
+        });
+
+        const newObjects = [...newCurses, ...newQuarries];
 
         return newObjects;
       },
@@ -706,6 +713,17 @@ const objects = combineEntriesWithKeys(
       validTileTypes: ["forest"],
       onPlace: ({ hex, neighbors, grid }) => {
         return [["skull", hex]];
+      },
+    },
+    ruin: {
+      name: "Ruin",
+      desc: "No living soul remains",
+      isInJournal: true,
+      image: "locations_colored_24",
+      validTileTypes: ["forest", "grassland"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        // Does nothing on place right now
+        return;
       },
     },
   })
