@@ -396,6 +396,9 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "house_3",
       validTileTypes: ["grassland"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        return [[pickRandomlyFromArray(HOUSE_3_OPTIONS), hex]];
+      },
     },
     house4: {
       name: "Town",
@@ -542,7 +545,25 @@ const objects = combineEntriesWithKeys(
 
         neighbors.forEach((neighbor) => {
           if (neighbor.objectType !== undefined) {
-            newObjects.push([neighbor.objectType, neighbor]);
+            // Ensure an object of neighbor's type is not
+            // already in the newObjects array.
+            //
+            // TODO: This still seems incredibly overpowered
+            // right now!
+            // ESPECIALLY: The way a quarry can directly copy
+            // a house2, house3, or house4.
+            // ESPECIALLY: The with the quantity of quarries a
+            // mine can generate. It's a very odd feeling!
+            // There's HELLA duping happening. This could be
+            // an alright ability, but its feels so weirdly
+            // distorting right now.
+            if (
+              newObjects.every(
+                ([newObject]) => newObject !== neighbor.objectType
+              )
+            ) {
+              newObjects.push([neighbor.objectType, neighbor]);
+            }
           }
         });
 
