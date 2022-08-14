@@ -47,8 +47,8 @@ const MainMenu = ({
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
-      label: "Island",
-      level: "island",
+      label: "Islands",
+      level: "islands",
       icon: objects.ship.image,
       unlockCost: 60,
     },

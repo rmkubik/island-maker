@@ -1,0 +1,309 @@
+{
+  "initialDeck": [
+    "farm",
+    "farm",
+    "mine",
+    "mine",
+    "camp",
+    "camp",
+    "lighthouse",
+    "lighthouse"
+  ],
+  "grid": [
+    { "x": 0, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_2" },
+    { "x": 0, "y": 1, "tileType": "ocean", "tileImage": "ocean.tile_ocean_0" },
+    { "x": 0, "y": 2, "tileType": "ocean", "tileImage": "ocean.tile_ocean_4" },
+    {
+      "x": 0,
+      "y": 3,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_13"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_2"
+    },
+    { "x": 0, "y": 5, "tileType": "ocean", "tileImage": "ocean.tile_ocean_18" },
+    {
+      "x": 0,
+      "y": 6,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_10"
+    },
+    { "x": 0, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_1" },
+    { "x": 0, "y": 8, "tileType": "ocean", "tileImage": "ocean.tile_ocean_11" },
+    { "x": 0, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_15" },
+    { "x": 1, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_19" },
+    {
+      "x": 1,
+      "y": 1,
+      "tileType": "mountain",
+      "tileImage": "mountain.tile_mountain_13"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "tileType": "forest",
+      "tileImage": "forest.tile_forest_0"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "tileType": "forest",
+      "tileImage": "forest.tile_forest_16"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_14"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_10"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_12"
+    },
+    { "x": 1, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_0" },
+    {
+      "x": 1,
+      "y": 8,
+      "tileType": "ocean",
+      "tileImage": "ocean.tile_ocean_7",
+      "objectType": "fish3",
+      "objectImage": "fish_3"
+    },
+    { "x": 1, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_11" },
+    {
+      "x": 2,
+      "y": 0,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_1"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "tileType": "forest",
+      "tileImage": "forest.tile_forest_0"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "tileType": "forest",
+      "tileImage": "forest.tile_forest_10"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_17"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_2"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_18"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_15"
+    },
+    { "x": 2, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_9" },
+    { "x": 2, "y": 8, "tileType": "ocean", "tileImage": "ocean.tile_ocean_5" },
+    {
+      "x": 2,
+      "y": 9,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_8"
+    },
+    { "x": 3, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_7" },
+    {
+      "x": 3,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_17"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_7"
+    },
+    { "x": 3, "y": 3, "tileType": "ocean", "tileImage": "ocean.tile_ocean_9" },
+    { "x": 3, "y": 4, "tileType": "ocean", "tileImage": "ocean.tile_ocean_2" },
+    { "x": 3, "y": 5, "tileType": "ocean", "tileImage": "ocean.tile_ocean_2" },
+    { "x": 3, "y": 6, "tileType": "ocean", "tileImage": "ocean.tile_ocean_10" },
+    {
+      "x": 3,
+      "y": 7,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_17"
+    },
+    { "x": 3, "y": 8, "tileType": "ocean", "tileImage": "ocean.tile_ocean_8" },
+    { "x": 3, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_18" },
+    { "x": 4, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_13" },
+    {
+      "x": 4,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_18"
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_12"
+    },
+    { "x": 4, "y": 3, "tileType": "ocean", "tileImage": "ocean.tile_ocean_1" },
+    {
+      "x": 4,
+      "y": 4,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_7"
+    },
+    { "x": 4, "y": 5, "tileType": "ocean", "tileImage": "ocean.tile_ocean_10" },
+    { "x": 4, "y": 6, "tileType": "ocean", "tileImage": "ocean.tile_ocean_6" },
+    { "x": 4, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_5" },
+    {
+      "x": 4,
+      "y": 8,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_8"
+    },
+    { "x": 4, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_14" },
+    { "x": 5, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_0" },
+    { "x": 5, "y": 1, "tileType": "ocean", "tileImage": "ocean.tile_ocean_14" },
+    { "x": 5, "y": 2, "tileType": "ocean", "tileImage": "ocean.tile_ocean_5" },
+    { "x": 5, "y": 3, "tileType": "ocean", "tileImage": "ocean.tile_ocean_13" },
+    { "x": 5, "y": 4, "tileType": "ocean", "tileImage": "ocean.tile_ocean_7" },
+    {
+      "x": 5,
+      "y": 5,
+      "tileType": "ocean",
+      "tileImage": "ocean.tile_ocean_11",
+      "objectType": "fish3",
+      "objectImage": "fish_3"
+    },
+    { "x": 5, "y": 6, "tileType": "ocean", "tileImage": "ocean.tile_ocean_19" },
+    { "x": 5, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_12" },
+    { "x": 5, "y": 8, "tileType": "ocean", "tileImage": "ocean.tile_ocean_9" },
+    { "x": 5, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_4" },
+    { "x": 6, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_15" },
+    { "x": 6, "y": 1, "tileType": "ocean", "tileImage": "ocean.tile_ocean_5" },
+    {
+      "x": 6,
+      "y": 2,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_16"
+    },
+    { "x": 6, "y": 3, "tileType": "ocean", "tileImage": "ocean.tile_ocean_5" },
+    { "x": 6, "y": 4, "tileType": "ocean", "tileImage": "ocean.tile_ocean_7" },
+    {
+      "x": 6,
+      "y": 5,
+      "tileType": "ocean",
+      "tileImage": "ocean.tile_ocean_15",
+      "objectType": "fish3",
+      "objectImage": "fish_3"
+    },
+    { "x": 6, "y": 6, "tileType": "ocean", "tileImage": "ocean.tile_ocean_2" },
+    { "x": 6, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_8" },
+    { "x": 6, "y": 8, "tileType": "ocean", "tileImage": "ocean.tile_ocean_16" },
+    { "x": 6, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_16" },
+    {
+      "x": 7,
+      "y": 0,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_7"
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_19"
+    },
+    {
+      "x": 7,
+      "y": 2,
+      "tileType": "mountain",
+      "tileImage": "mountain.tile_mountain_4"
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_10"
+    },
+    { "x": 7, "y": 4, "tileType": "ocean", "tileImage": "ocean.tile_ocean_11" },
+    { "x": 7, "y": 5, "tileType": "ocean", "tileImage": "ocean.tile_ocean_2" },
+    { "x": 7, "y": 6, "tileType": "ocean", "tileImage": "ocean.tile_ocean_13" },
+    { "x": 7, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_17" },
+    {
+      "x": 7,
+      "y": 8,
+      "tileType": "ocean",
+      "tileImage": "ocean.tile_ocean_10",
+      "objectType": "fish3",
+      "objectImage": "fish_3"
+    },
+    { "x": 7, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_17" },
+    { "x": 8, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_15" },
+    { "x": 8, "y": 1, "tileType": "ocean", "tileImage": "ocean.tile_ocean_10" },
+    { "x": 8, "y": 2, "tileType": "ocean", "tileImage": "ocean.tile_ocean_13" },
+    { "x": 8, "y": 3, "tileType": "ocean", "tileImage": "ocean.tile_ocean_16" },
+    { "x": 8, "y": 4, "tileType": "ocean", "tileImage": "ocean.tile_ocean_7" },
+    { "x": 8, "y": 5, "tileType": "ocean", "tileImage": "ocean.tile_ocean_4" },
+    {
+      "x": 8,
+      "y": 6,
+      "tileType": "grassland",
+      "tileImage": "grassland.tile_grassland_4"
+    },
+    { "x": 8, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_2" },
+    {
+      "x": 8,
+      "y": 8,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_10"
+    },
+    { "x": 8, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_15" },
+    { "x": 9, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_10" },
+    {
+      "x": 9,
+      "y": 1,
+      "tileType": "ocean",
+      "tileImage": "ocean.tile_ocean_7",
+      "objectType": "fish3",
+      "objectImage": "fish_3"
+    },
+    { "x": 9, "y": 2, "tileType": "ocean", "tileImage": "ocean.tile_ocean_10" },
+    { "x": 9, "y": 3, "tileType": "ocean", "tileImage": "ocean.tile_ocean_0" },
+    {
+      "x": 9,
+      "y": 4,
+      "tileType": "oceanWave",
+      "tileImage": "oceanWave.tile_ocean_14"
+    },
+    { "x": 9, "y": 5, "tileType": "ocean", "tileImage": "ocean.tile_ocean_10" },
+    { "x": 9, "y": 6, "tileType": "ocean", "tileImage": "ocean.tile_ocean_8" },
+    { "x": 9, "y": 7, "tileType": "ocean", "tileImage": "ocean.tile_ocean_1" },
+    { "x": 9, "y": 8, "tileType": "ocean", "tileImage": "ocean.tile_ocean_12" },
+    { "x": 9, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_1" }
+  ]
+}
