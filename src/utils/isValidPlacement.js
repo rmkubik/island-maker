@@ -22,6 +22,10 @@ function isValidPlacement({ hex, selected }) {
     return false;
   }
 
+  if (!selected.validTileTypes) {
+    return false;
+  }
+
   if (!selected.validTileTypes.includes(hex.tileType)) {
     // Do not place object if the clicked
     // hex is not a valid tile type

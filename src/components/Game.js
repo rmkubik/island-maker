@@ -11,6 +11,7 @@ import getResource from "../utils/getResource";
 import { objects } from "../data/locations";
 import levels from "../data/levels";
 import { GAME_MODE_OPTIONS } from "../data/config";
+import doesObjectHaveAnyValidPlacement from "../utils/doesObjectHaveAnyValidPlacement";
 
 function Game({
   scale,
@@ -72,11 +73,24 @@ function Game({
     setPreviewCount(previewCount + 1);
   };
 
+  const isSelectedPlaceable = doesObjectHaveAnyValidPlacement({
+    object: deck[0],
+    grid,
+  });
+  const isSomeBankedPlaceable = banked.some((bankedItem) =>
+    doesObjectHaveAnyValidPlacement({ object: bankedItem, grid })
+  );
+  const isPlayerOutOfValidPlacements =
+    !isSelectedPlaceable && !isSomeBankedPlaceable;
+
+  const isDeckEmpty = deck.length === 0;
+  const areNoNewCardsLeft = newCards.length === 0;
+  const isBankEmpty = banked.every((bankedItem) => bankedItem.key === "x");
+
+  const isUnforcedGameOver = isDeckEmpty && areNoNewCardsLeft && isBankEmpty;
+
   const isGameOver =
-    isForcedGameOver ||
-    (deck.length === 0 &&
-      newCards.length === 0 &&
-      banked.every((bankedItem) => bankedItem.key === "x"));
+    isForcedGameOver || isPlayerOutOfValidPlacements || isUnforcedGameOver;
 
   return (
     <>
