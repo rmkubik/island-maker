@@ -1,7 +1,7 @@
 {
   "name": "parcel-react-starter",
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "version": "3.0.0-beta.4",
+  "version": "3.0.0-beta.5",
   "description": "",
   "dependencies": {
     "honeycomb-grid": "^3.1.8",
