@@ -36,7 +36,7 @@ const MainMenu = ({
       label: "Plains",
       level: "plains",
       icon: objects.farm.image,
-      unlockCost: 3,
+      unlockCost: 2,
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
