@@ -318,7 +318,11 @@ const objects = combineEntriesWithKeys(
         const mountains = neighbors.filter(
           (neighbor) => neighbor.tileType === "mountain"
         );
-        const newQuarries = mountains.map((mountain) => ["quarry", mountain]);
+        const newQuarries = mountains.map((mountain, index) => {
+          const newObjectType = index % 2 === 0 ? "cave" : "quarry";
+
+          return [newObjectType, mountain];
+        });
 
         const ruins = neighbors.filter(
           (neighbor) => neighbor.objectType === "ruin"
@@ -666,15 +670,37 @@ const objects = combineEntriesWithKeys(
       desc: "A rocky spore",
       isInJournal: true,
       image: "locations_colored_17",
-      validTileTypes: ["grassland", "forest"],
+      validTileTypes: ["grassland", "forest", "ocean", "oceanWave"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const tileTypeImages = tilePaths.mountain;
-        const tileImage = pickRandomlyFromArray(tileTypeImages);
+        switch (hex.tileType) {
+          case "grassland":
+          case "forest": {
+            const tileTypeImages = tilePaths.mountain;
+            const tileImage = pickRandomlyFromArray(tileTypeImages);
 
-        hex.tileType = "mountain";
-        hex.tileImage = tileImage;
-        hex.objectImage = undefined;
-        hex.objectType = undefined;
+            hex.tileType = "mountain";
+            hex.tileImage = tileImage;
+            hex.objectImage = undefined;
+            hex.objectType = undefined;
+            break;
+          }
+          case "ocean":
+          case "oceanWave": {
+            const tileTypeImages = tilePaths.grassland;
+            const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+            hex.tileType = "grassland";
+            hex.tileImage = tileImage;
+            hex.objectImage = undefined;
+            hex.objectType = undefined;
+            break;
+          }
+          default:
+            console.error(
+              `Invalid tileType "${hex.tileType}" for "cave" onPlace.`
+            );
+            break;
+        }
 
         grid.set(hex, hex);
       },
