@@ -173,7 +173,7 @@ const objects = combineEntriesWithKeys(
     },
     plant: {
       name: "Grow",
-      desc: "The trees will rise",
+      desc: "Creates a forest",
       isInJournal: true,
       image: "icons_colored_12",
       validObjectOverrides: ["house1"],
@@ -207,7 +207,7 @@ const objects = combineEntriesWithKeys(
     },
     camp: {
       name: "Camp",
-      desc: "Hunts in the woods",
+      desc: "Gives a mill when placed on a forest",
       isInJournal: true,
       image: "locations_colored_8",
       validTileTypes: ["forest", "grassland"],
@@ -264,7 +264,7 @@ const objects = combineEntriesWithKeys(
     },
     farm: {
       name: "Farm",
-      desc: "Harvests turnips",
+      desc: "Harvests adjacent turnips",
       isInJournal: true,
       image: "locations_colored_5",
       validTileTypes: ["grassland"],
@@ -310,7 +310,7 @@ const objects = combineEntriesWithKeys(
     },
     mine: {
       name: "Mine",
-      desc: "Extracts from mountains",
+      desc: "Mines adjacent mountains",
       isInJournal: true,
       image: "locations_colored_19",
       validTileTypes: ["grassland", "forest"],
@@ -352,7 +352,7 @@ const objects = combineEntriesWithKeys(
     },
     house1: {
       name: "House",
-      desc: "A nice place to live",
+      desc: "Counts for 1 population",
       isInJournal: true,
       image: "house_1",
       validTileTypes: ["grassland"],
@@ -389,14 +389,14 @@ const objects = combineEntriesWithKeys(
     },
     house2: {
       name: "Hamlet",
-      desc: "Two is company",
+      desc: "Counts for 2 population",
       isInJournal: true,
       image: "house_2",
       validTileTypes: ["grassland"],
     },
     house3: {
       name: "Village",
-      desc: "Three's a crowd",
+      desc: "Counts for 3 population",
       isInJournal: true,
       image: "house_3",
       validTileTypes: ["grassland"],
@@ -406,14 +406,14 @@ const objects = combineEntriesWithKeys(
     },
     house4: {
       name: "Town",
-      desc: "Bustling",
+      desc: "Counts for 4 population",
       isInJournal: true,
       image: "house_4",
       validTileTypes: ["grassland"],
     },
     mill: {
       name: "Mill",
-      desc: "Farms the farms",
+      desc: "Harvests adjacent farms",
       isInJournal: true,
       image: "locations_colored_6",
       validTileTypes: ["grassland"],
@@ -429,7 +429,7 @@ const objects = combineEntriesWithKeys(
     },
     inn: {
       name: "Inn",
-      desc: "Gives the people happiness",
+      desc: "Gives a house for each adjacent house",
       isInJournal: true,
       image: "locations_colored_12",
       validTileTypes: ["grassland"],
@@ -445,7 +445,7 @@ const objects = combineEntriesWithKeys(
     },
     church: {
       name: "Church",
-      desc: "Brings the people faith",
+      desc: "Upgrades each adjacent house",
       isInJournal: true,
       image: "locations_colored_16",
       validTileTypes: ["grassland"],
@@ -518,7 +518,7 @@ const objects = combineEntriesWithKeys(
     },
     nest: {
       name: "Nest",
-      desc: "Room for one more?",
+      desc: "Adds another bank slot",
       isInJournal: true,
       image: "locations_colored_20",
       validTileTypes: ["grassland", "forest"],
@@ -540,7 +540,7 @@ const objects = combineEntriesWithKeys(
     },
     quarry: {
       name: "Quarry",
-      desc: "Imitation is the sincerest form of flattery",
+      desc: "Copies adjacent buildings",
       isInJournal: true,
       image: "locations_colored_4",
       validTileTypes: ["grassland"],
@@ -576,7 +576,7 @@ const objects = combineEntriesWithKeys(
     },
     lighthouse: {
       name: "Lighthouse",
-      desc: "Lights the way",
+      desc: "Creates a ship for each adjacent ocean",
       isInJournal: true,
       image: "locations_colored_13",
       validTileTypes: ["grassland"],
@@ -592,7 +592,7 @@ const objects = combineEntriesWithKeys(
     },
     ship: {
       name: "Ship",
-      desc: "Gathers fish",
+      desc: "Harvests adjacent fish",
       isInJournal: true,
       image: "locations_colored_28",
       validTileTypes: ["ocean", "oceanWave"],
@@ -667,7 +667,7 @@ const objects = combineEntriesWithKeys(
     },
     cave: {
       name: "Seed",
-      desc: "A rocky spore",
+      desc: "Creates a mountain",
       isInJournal: true,
       image: "locations_colored_17",
       validTileTypes: ["grassland", "forest", "ocean", "oceanWave"],
@@ -707,7 +707,7 @@ const objects = combineEntriesWithKeys(
     },
     dungeon: {
       name: "Dungeon",
-      desc: "What's inside?",
+      desc: "Creates graves and curses for each adjacent mountain",
       isInJournal: true,
       image: "locations_colored_18",
       validTileTypes: ["grassland", "forest"],
@@ -730,7 +730,7 @@ const objects = combineEntriesWithKeys(
     },
     skull: {
       name: "Curse",
-      desc: "All things must pass",
+      desc: "Turns target into a grave",
       isInJournal: true,
       image: "icons_colored_4",
       validTileTypes: ["grassland", "forest"],
@@ -761,7 +761,7 @@ const objects = combineEntriesWithKeys(
     },
     witchHut: {
       name: "Witch Hut",
-      desc: "Not so friendly",
+      desc: "Gives a curse",
       isInJournal: true,
       image: "locations_colored_7",
       validTileTypes: ["forest"],
@@ -771,7 +771,7 @@ const objects = combineEntriesWithKeys(
     },
     ruin: {
       name: "Ruin",
-      desc: "No living soul remains",
+      desc: "Gives a curse when mined",
       isInJournal: true,
       image: "locations_colored_24",
       validTileTypes: ["forest", "grassland"],
