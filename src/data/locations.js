@@ -3,6 +3,7 @@ import combineEntriesWithKeys from "../utils/combineEntriesWithKeys";
 import * as locationImages from "../../assets/Locations 134x134/*.png";
 import * as iconImages from "../../assets/Icons 134x134/*.png";
 import * as resourceImages from "../../assets/resources/*.png";
+import * as isleOfLore2Recolors from "../../assets/isle-of-lore-2-recolors/*.png";
 import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
 import constructArray from "../utils/constructArray";
 import { tilePaths } from "./tiles";
@@ -14,6 +15,7 @@ const objectImages = {
   ...locationImages,
   ...iconImages,
   ...resourceImages,
+  ...isleOfLore2Recolors,
 };
 
 function getDungeonRandomOutcome(hex) {
@@ -779,6 +781,13 @@ const objects = combineEntriesWithKeys(
         // Does nothing on place right now
         return;
       },
+    },
+    merchant: {
+      name: "Merchant",
+      desc: "Use resource on this to trade",
+      isInJournal: true,
+      image: "85_trading_ship-resize",
+      validTileTypes: ["ocean", "oceanWave"],
     },
   })
 );
