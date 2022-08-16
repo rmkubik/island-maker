@@ -33,9 +33,10 @@ const MainMenu = ({
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
-      label: "Verticality",
+      label: "Urbanization",
       level: "mid-island",
       icon: objects.house3.image,
+      adjustIconOffset: 24,
       unlockCost: 4,
     },
     {
@@ -243,6 +244,12 @@ const MainMenu = ({
             const isUnlocked = totalPopulation >= level.unlockCost;
             const playButtonRef = useRef();
 
+            const levelStyle = {};
+
+            if (level.adjustIconOffset) {
+              levelStyle.marginTop = `-${level.adjustIconOffset}px`;
+            }
+
             return (
               <li
                 key={level.label}
@@ -254,6 +261,7 @@ const MainMenu = ({
               >
                 <img
                   className="icon inline-offset"
+                  style={levelStyle}
                   src={
                     objectImages[
                       isUnlocked
