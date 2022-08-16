@@ -73,6 +73,8 @@ function Game({
     setPreviewCount(previewCount + 1);
   };
 
+  const areNoNewCardsLeft = newCards.length === 0;
+
   const isSelectedPlaceable = doesObjectHaveAnyValidPlacement({
     object: deck[0],
     grid,
@@ -81,10 +83,9 @@ function Game({
     doesObjectHaveAnyValidPlacement({ object: bankedItem, grid })
   );
   const isPlayerOutOfValidPlacements =
-    !isSelectedPlaceable && !isSomeBankedPlaceable;
+    !isSelectedPlaceable && !isSomeBankedPlaceable && !areNoNewCardsLeft;
 
   const isDeckEmpty = deck.length === 0;
-  const areNoNewCardsLeft = newCards.length === 0;
   const isBankEmpty = banked.every((bankedItem) => bankedItem.key === "x");
 
   const isUnforcedGameOver = isDeckEmpty && areNoNewCardsLeft && isBankEmpty;
