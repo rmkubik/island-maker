@@ -817,6 +817,29 @@ const objects = combineEntriesWithKeys(
         };
       },
     },
+    pirate: {
+      name: "Pirate",
+      desc: "Sinks adjacent ships",
+      isInJournal: true,
+      image: "87_pirate_ship-resize",
+      validTileTypes: ["ocean", "oceanWave"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        // Does nothing on place right now
+        const ships = neighbors.filter(
+          (neighbor) =>
+            neighbor.objectType === "ship" || neighbor.objectType === "merchant"
+        );
+
+        ships.forEach((ship) => {
+          ship.objectType = objects.shipwreck.key;
+          ship.objectImage = objects.shipwreck.image;
+
+          grid.set(ship, ship);
+        });
+
+        return;
+      },
+    },
   })
 );
 
