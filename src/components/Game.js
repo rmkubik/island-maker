@@ -84,7 +84,7 @@ function Game({
     doesObjectHaveAnyValidPlacement({ object: bankedItem, grid })
   );
   const isPlayerOutOfValidPlacements =
-    !isSelectedPlaceable && !isSomeBankedPlaceable && !areNoNewCardsLeft;
+    !isSelectedPlaceable && !isSomeBankedPlaceable && areNoNewCardsLeft;
 
   const isDeckEmpty = deck.length === 0;
   const isBankEmpty = banked.every((bankedItem) => bankedItem.key === "x");

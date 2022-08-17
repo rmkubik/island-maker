@@ -824,7 +824,6 @@ const objects = combineEntriesWithKeys(
       image: "87_pirate_ship-resize",
       validTileTypes: ["ocean", "oceanWave"],
       onPlace: ({ hex, neighbors, grid }) => {
-        // Does nothing on place right now
         const ships = neighbors.filter(
           (neighbor) =>
             neighbor.objectType === "ship" || neighbor.objectType === "merchant"
@@ -837,6 +836,17 @@ const objects = combineEntriesWithKeys(
           grid.set(ship, ship);
         });
 
+        return;
+      },
+    },
+    kraken: {
+      name: "Kraken",
+      desc: "It looks hungry",
+      isInJournal: true,
+      image: "63_kraken-resize",
+      validTileTypes: ["ocean", "oceanWave"],
+      onPlace: ({ hex, neighbors, grid }) => {
+        // Does nothing on place right now
         return;
       },
     },
