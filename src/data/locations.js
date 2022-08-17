@@ -657,6 +657,14 @@ const objects = combineEntriesWithKeys(
           newCards.push([pickRandomlyFromArray(lightHouseOptions), lighthouse]);
         });
 
+        // If ship next to ship, generate a merchant
+        const ships = neighbors.filter(
+          (neighbor) => neighbor.objectType === "ship"
+        );
+        if (ships.length > 0) {
+          newCards.push(["merchant", ships[0]]);
+        }
+
         return newCards;
       },
     },
