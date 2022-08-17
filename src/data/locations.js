@@ -138,7 +138,9 @@ const objects = combineEntriesWithKeys(
     },
     x: {
       name: "X",
+      desc: "X marks the spot!",
       image: "icons_colored_3",
+      validTileTypes: ["grassland"],
     },
     fish1: {
       name: "Fish",
