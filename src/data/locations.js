@@ -144,16 +144,19 @@ const objects = combineEntriesWithKeys(
       name: "Fish",
       desc: "Swims in the sea",
       image: "fish_1",
+      validTileTypes: ["ocean", "oceanWave"],
     },
     fish2: {
       name: "Fish",
       desc: "Swims in the sea",
       image: "fish_2",
+      validTileTypes: ["ocean", "oceanWave"],
     },
     fish3: {
       name: "Fish",
       desc: "Swims in the sea",
       image: "fish_3",
+      validTileTypes: ["ocean", "oceanWave"],
       isInJournal: true,
     },
     turnip1: {
@@ -796,6 +799,23 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "85_trading_ship-resize",
       validTileTypes: ["ocean", "oceanWave"],
+      onTargeted: ({ hex, selected, neighbors, grid, game }) => {
+        if (
+          !selected.validTileTypes.includes("ocean") &&
+          !selected.validTileTypes.includes("oceanWave")
+        ) {
+          // This means selected item is a "land" item
+          return {
+            skipPlacement: true,
+            newCards: [["fish3", hex]],
+          };
+        }
+
+        return {
+          skipPlacement: false,
+          newCards: [],
+        };
+      },
     },
   })
 );

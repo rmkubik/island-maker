@@ -40,44 +40,77 @@ function onClickPlayMode({
   const hexCoordinates = getHexFromPointerEventWithGridData(e);
   const hex = grid.get(hexCoordinates);
 
-  if (!isValidPlacement({ hex, selected })) {
-    setShakeHex(hex);
-    return;
-  } else {
-    setShakeHex();
-  }
-
-  const isOverridingObject = shouldOverrideObject({ hex, selected });
-
+  // if something is in the hex i'm targeting
+  // IT gets the chance to onTargeted BEFORE
+  // we check if placement is valid.
+  // This means onTargeted COULD change validity
+  // of the placement attempt.
+  // It can also affect override and placement
+  // outcomes since it can affect the grid.
+  // This is PROBABLY a bad idea in the current
+  // architecture, because we do not have a
+  // method to animate and communicate these
+  // changes to the player. However, this is
+  // kinda sick and could be good to keep in
+  // mind.
   const neighbors = grid
     .neighborsOf(hex)
     .filter((neighbor) => neighbor !== undefined);
 
-  // Allow for object overriding
-  if (isOverridingObject) {
-    selected.onOverride?.({ hex, neighbors, grid, game });
-  } else {
-    // Place object
-    hex.objectType = selected.key;
-    hex.objectImage = selected.image;
+  let newCardKeys = [];
+  let skipPlacement = false;
 
-    grid.set(hexCoordinates, hex);
-  }
-
-  // When you place an object, unlock it in the journal
-  game.unlockItem(selected.key);
-
-  // onPlace, an object can modify the grid based on
-  // the neighbors and grid contents.
-  // The function can also return new cards to be added
-  // to the deck.
-  const newCardKeys =
-    selected.onPlace?.({
+  if (hex.objectType && objects[hex.objectType]?.onTargeted) {
+    const { skipPlacement: _skipPlacement, newCards } = objects[
+      hex.objectType
+    ].onTargeted({
       hex,
+      selected,
       neighbors,
       grid,
       game,
-    }) ?? [];
+    });
+
+    skipPlacement = _skipPlacement;
+    newCardKeys.push(...newCards);
+  }
+
+  if (!skipPlacement) {
+    if (!isValidPlacement({ hex, selected })) {
+      setShakeHex(hex);
+      return;
+    } else {
+      setShakeHex();
+    }
+
+    const isOverridingObject = shouldOverrideObject({ hex, selected });
+
+    // Allow for object overriding
+    if (isOverridingObject) {
+      selected.onOverride?.({ hex, neighbors, grid, game });
+    } else {
+      // Place object
+      hex.objectType = selected.key;
+      hex.objectImage = selected.image;
+
+      grid.set(hexCoordinates, hex);
+    }
+
+    // When you place an object, unlock it in the journal
+    game.unlockItem(selected.key);
+
+    // onPlace, an object can modify the grid based on
+    // the neighbors and grid contents.
+    // The function can also return new cards to be added
+    // to the deck.
+    newCardKeys =
+      selected.onPlace?.({
+        hex,
+        neighbors,
+        grid,
+        game,
+      }) ?? [];
+  }
 
   const cardLocations = [];
   const newCards = newCardKeys.map((keyOrTuple) => {

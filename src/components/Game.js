@@ -12,6 +12,7 @@ import { objects } from "../data/locations";
 import levels from "../data/levels";
 import { GAME_MODE_OPTIONS } from "../data/config";
 import doesObjectHaveAnyValidPlacement from "../utils/doesObjectHaveAnyValidPlacement";
+import update from "../utils/update";
 
 function Game({
   scale,
