@@ -894,7 +894,19 @@ const objects = combineEntriesWithKeys(
           grid.set(ship, ship);
         });
 
-        return;
+        let newCards = [];
+
+        const exes = neighbors.filter(
+          (neighbor) => neighbor.objectType === "x"
+        );
+        exes.forEach((ex) => {
+          ex.objectType = undefined;
+          ex.objectImage = undefined;
+
+          newCards.push(["treasure", ex]);
+        });
+
+        return newCards;
       },
     },
     kraken: {
@@ -906,6 +918,43 @@ const objects = combineEntriesWithKeys(
       onPlace: ({ hex, neighbors, grid }) => {
         // Does nothing on place right now
         return;
+      },
+    },
+    treasure: {
+      name: "Treasure",
+      desc: "What's inside?",
+      isInJournal: true,
+      image: "icons_colored_18",
+      validTileTypes: ["grassland", "forest"],
+      onTargeted: ({ hex, selected, neighbors, grid, game }) => {
+        console.log({ hex, selected });
+        if (selected.key === "key") {
+          hex.objectType = undefined;
+          hex.objectImage = undefined;
+
+          return { newCards: [["fishRelic", hex]], skipPlacement: true };
+        }
+
+        return { newCards: [], skipPlacement: false };
+      },
+    },
+    key: {
+      name: "Key",
+      desc: "Opens something",
+      isInJournal: true,
+      image: "icons_colored_10",
+      validTileTypes: ["grassland", "forest"],
+    },
+    fishRelic: {
+      name: "Relic",
+      desc: "Fish count as population",
+      isInJournal: true,
+      image: "locations_colored_23",
+      validTileTypes: ["grassland", "forest"],
+      onPlace: ({ hex, neighbors, grid, game }) => {
+        // Use game object to set fish as score?
+        // Or maybe we just hard code this into
+        // the score checking logic?
       },
     },
   })
