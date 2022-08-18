@@ -717,16 +717,20 @@ const objects = combineEntriesWithKeys(
       desc: "Harvests adjacent fish",
       isInJournal: true,
       image: "ship_2",
+      validTileTypes: ["ocean", "oceanWave"],
     },
     ship3: {
       name: "Ship",
       desc: "Harvests adjacent fish",
       isInJournal: true,
       image: "ship_3",
+      validTileTypes: ["ocean", "oceanWave"],
     },
     ship4: {
       name: "Ship",
       desc: "Harvests adjacent fish",
+      image: "ship_4",
+      validTileTypes: ["ocean", "oceanWave"],
     },
     shipwreck: {
       name: "Shipwreck",
@@ -872,6 +876,15 @@ const objects = combineEntriesWithKeys(
           skipPlacement: false,
           newCards: [],
         };
+      },
+      onPlace: ({ hex, neighbors, grid }) => {
+        const fleets = neighbors.filter(
+          (neighbor) => neighbor.objectType === "ship3"
+        );
+
+        if (fleets.length > 0) {
+          return ["key", hex];
+        }
       },
     },
     pirate: {

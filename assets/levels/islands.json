@@ -1,5 +1,5 @@
 {
-  "_initialDeck": ["lighthouse"],
+  "_initialDeck": ["ship3", "merchant"],
   "__initialDeck": ["pirate", "pirate", "kraken", "kraken"],
   "___initialDeck": ["treasure", "key"],
   "initialDeck": ["mine", "mine", "camp", "camp", "lighthouse", "lighthouse"],
