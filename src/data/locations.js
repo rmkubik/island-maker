@@ -10,6 +10,7 @@ import { tilePaths } from "./tiles";
 import getHouseLevel from "../utils/getHouseLevel";
 
 const HOUSE_3_OPTIONS = ["inn", "church"];
+const SHIP_3_OPTIONS = ["merchant", "pirate"];
 
 const objectImages = {
   ...locationImages,
@@ -592,7 +593,7 @@ const objects = combineEntriesWithKeys(
           neighbor.tileType?.includes("ocean")
         );
 
-        const ships = oceans.map((ocean) => ["ship", ocean]);
+        const ships = oceans.map((ocean) => ["ship1", ocean]);
 
         return ships;
       },
@@ -600,9 +601,45 @@ const objects = combineEntriesWithKeys(
     ship: {
       name: "Ship",
       desc: "Harvests adjacent fish",
-      isInJournal: true,
+      isInJournal: false,
       image: "locations_colored_28",
       validTileTypes: ["ocean", "oceanWave"],
+      onPlace: ({ hex, neighbors, grid, game }) => {
+        console.log(
+          "This is the old ship object. It shouldn't exist any more!"
+        );
+        return;
+      },
+    },
+    ship1: {
+      name: "Ship",
+      desc: "Harvests adjacent fish",
+      isInJournal: true,
+      image: "ship_1",
+      validTileTypes: ["ocean", "oceanWave"],
+      validObjectOverrides: ["ship1", "ship2"],
+      onOverride: ({ hex, neighbors, grid, game }) => {
+        let shipLevel = parseInt(hex.objectType[hex.objectType.length - 1]);
+
+        shipLevel += 1;
+
+        switch (shipLevel) {
+          case 3:
+            hex.objectType = objects.ship3.key;
+            hex.objectImage = objects.ship3.image;
+            game.unlockItem("ship3");
+            break;
+          case 2:
+            hex.objectType = objects.ship2.key;
+            hex.objectImage = objects.ship2.image;
+            game.unlockItem("ship2");
+            break;
+          default:
+            break;
+        }
+
+        grid.set(hex, hex);
+      },
       onPlace: ({ hex, neighbors, grid, game }) => {
         // If a ship is placed on a wave, turn it into a
         // shipwreck and don't generate any other tiles.
@@ -616,6 +653,7 @@ const objects = combineEntriesWithKeys(
           return;
         }
 
+        // Start counting fishes and creating houses
         const fishes = neighbors.filter((neighbor) =>
           neighbor.objectType?.includes("fish")
         );
@@ -648,8 +686,10 @@ const objects = combineEntriesWithKeys(
           grid.set(fish, fish);
         });
 
+        let newCards = [];
+
         // Add a house for each adjacent fish
-        let newCards = fishes.map((fish) => ["house1", fish]);
+        newCards = fishes.map((fish) => ["house1", fish]);
 
         // Add a random card for each adjacent lighthouse
         const lighthouses = neighbors.filter((neighbor) =>
@@ -662,16 +702,31 @@ const objects = combineEntriesWithKeys(
           newCards.push([pickRandomlyFromArray(lightHouseOptions), lighthouse]);
         });
 
-        // If ship next to ship, generate a merchant
-        const ships = neighbors.filter(
-          (neighbor) => neighbor.objectType === "ship"
-        );
-        if (ships.length > 0) {
-          newCards.push(["merchant", ships[0]]);
+        // Support ship stacking
+        const shipLevel = parseInt(hex.objectType[hex.objectType.length - 1]);
+
+        if (shipLevel === 3) {
+          newCards.push([pickRandomlyFromArray(SHIP_3_OPTIONS), hex]);
         }
 
         return newCards;
       },
+    },
+    ship2: {
+      name: "Ship",
+      desc: "Harvests adjacent fish",
+      isInJournal: true,
+      image: "ship_2",
+    },
+    ship3: {
+      name: "Ship",
+      desc: "Harvests adjacent fish",
+      isInJournal: true,
+      image: "ship_3",
+    },
+    ship4: {
+      name: "Ship",
+      desc: "Harvests adjacent fish",
     },
     shipwreck: {
       name: "Shipwreck",
@@ -828,7 +883,8 @@ const objects = combineEntriesWithKeys(
       onPlace: ({ hex, neighbors, grid }) => {
         const ships = neighbors.filter(
           (neighbor) =>
-            neighbor.objectType === "ship" || neighbor.objectType === "merchant"
+            neighbor.objectType === "ship1" ||
+            neighbor.objectType === "merchant"
         );
 
         ships.forEach((ship) => {

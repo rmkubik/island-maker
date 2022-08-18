@@ -1,4 +1,6 @@
 {
+  "_initialDeck": ["lighthouse"],
+  "__initialDeck": ["pirate", "pirate", "kraken", "kraken"],
   "initialDeck": ["mine", "mine", "camp", "camp", "lighthouse", "lighthouse"],
   "grid": [
     { "x": 0, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_2" },
