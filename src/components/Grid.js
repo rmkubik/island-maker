@@ -40,19 +40,10 @@ function onClickPlayMode({
   const hexCoordinates = getHexFromPointerEventWithGridData(e);
   const hex = grid.get(hexCoordinates);
 
-  // if something is in the hex i'm targeting
-  // IT gets the chance to onTargeted BEFORE
-  // we check if placement is valid.
-  // This means onTargeted COULD change validity
-  // of the placement attempt.
-  // It can also affect override and placement
-  // outcomes since it can affect the grid.
-  // This is PROBABLY a bad idea in the current
-  // architecture, because we do not have a
-  // method to animate and communicate these
-  // changes to the player. However, this is
-  // kinda sick and could be good to keep in
-  // mind.
+  if (!hex) {
+    return;
+  }
+
   const neighbors = grid
     .neighborsOf(hex)
     .filter((neighbor) => neighbor !== undefined);
