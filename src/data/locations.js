@@ -713,21 +713,21 @@ const objects = combineEntriesWithKeys(
       },
     },
     ship2: {
-      name: "Ship",
+      name: "Flotilla",
       desc: "Harvests adjacent fish",
       isInJournal: true,
       image: "ship_2",
       validTileTypes: ["ocean", "oceanWave"],
     },
     ship3: {
-      name: "Ship", // Fleet
+      name: "Fleet",
       desc: "Harvests adjacent fish",
       isInJournal: true,
       image: "ship_3",
       validTileTypes: ["ocean", "oceanWave"],
     },
     ship4: {
-      name: "Ship", // Armada
+      name: "Armada",
       desc: "Harvests adjacent fish",
       image: "ship_4",
       validTileTypes: ["ocean", "oceanWave"],
