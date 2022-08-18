@@ -177,7 +177,9 @@
       "x": 4,
       "y": 8,
       "tileType": "grassland",
-      "tileImage": "grassland.tile_grassland_8"
+      "tileImage": "grassland.tile_grassland_8",
+      "objectType": "x",
+      "objectImage": "icons_colored_3"
     },
     { "x": 4, "y": 9, "tileType": "ocean", "tileImage": "ocean.tile_ocean_14" },
     { "x": 5, "y": 0, "tileType": "ocean", "tileImage": "ocean.tile_ocean_0" },
