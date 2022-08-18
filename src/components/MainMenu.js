@@ -328,7 +328,7 @@ const MainMenu = ({
                     setTimeout(() => setView("none"), 800);
                   }}
                 >
-                  {"Play"}
+                  {level.mode === GAME_MODE_OPTIONS.EDITOR ? "Edit" : "Play"}
                 </button>
               </li>
             );
