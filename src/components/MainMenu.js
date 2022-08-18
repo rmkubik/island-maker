@@ -36,7 +36,7 @@ const MainMenu = ({
       label: "Urbanization",
       level: "mid-island",
       icon: objects.house3.image,
-      adjustIconOffset: 24,
+      adjustIconOffset: 38,
       unlockCost: 4,
     },
     {
