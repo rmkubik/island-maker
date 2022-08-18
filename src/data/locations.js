@@ -720,14 +720,14 @@ const objects = combineEntriesWithKeys(
       validTileTypes: ["ocean", "oceanWave"],
     },
     ship3: {
-      name: "Ship",
+      name: "Ship", // Fleet
       desc: "Harvests adjacent fish",
       isInJournal: true,
       image: "ship_3",
       validTileTypes: ["ocean", "oceanWave"],
     },
     ship4: {
-      name: "Ship",
+      name: "Ship", // Armada
       desc: "Harvests adjacent fish",
       image: "ship_4",
       validTileTypes: ["ocean", "oceanWave"],
