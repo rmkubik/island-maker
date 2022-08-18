@@ -80,13 +80,22 @@ const TopBar = ({
       }}
     >
       <div>
-        <p>Current: </p>
-        <img
-          draggable={false}
-          key={selected && selected.id}
-          className="slideInRight"
-          src={selected ? objectImages[selected.image] : undefined}
-        />
+        <p>Current</p>
+        <div
+          style={{
+            backgroundColor: "rgb(54,54,54)",
+            border: "6px solid rgb(90,90,90)",
+            borderRadius: "6px",
+            height: `${LOCATION_SIZE}px`,
+          }}
+        >
+          <img
+            draggable={false}
+            key={selected && selected.id}
+            className="slideInRight"
+            src={selected ? objectImages[selected.image] : undefined}
+          />
+        </div>
         <p className="cardInfo">
           {selected ? `${selected.name} - ${selected.desc}` : undefined}
         </p>
@@ -100,25 +109,37 @@ const TopBar = ({
         }}
         className="deck"
       >
-        <p>{`Remaining: ${Math.max(
+        <p>Next Up</p>
+        {/* <p>{`Remaining: ${Math.max(
           deck.length - (shouldShowSelected ? 1 : 0),
           0
-        )}`}</p>
-        {deck.slice(shouldShowSelected ? 1 : 0).map((card, index) => {
-          return (
-            <img
-              draggable={false}
-              key={card.id}
-              style={{
-                position: "absolute",
-                zIndex: -1 * (index + 1),
-                left: DECK_STACK_INCREMENT * index,
-              }}
-              // src={index < previewCount ? card.image : objects.circle.image}
-              src={objectImages[card.image]}
-            />
-          );
-        })}
+        )}`}</p> */}
+        <div
+          style={{
+            backgroundColor: "rgb(54,54,54)",
+            border: "6px solid rgb(90,90,90)",
+            borderRadius: "6px",
+            height: `${LOCATION_SIZE}px`,
+            // zIndex: -1 * deck.length,
+          }}
+        >
+          {deck.slice(shouldShowSelected ? 1 : 0).map((card, index) => {
+            return (
+              <img
+                draggable={false}
+                key={card.id}
+                style={{
+                  position: "absolute",
+                  // zIndex: -1 * (index + 1),
+                  zIndex: deck.length - index,
+                  left: DECK_STACK_INCREMENT * index,
+                }}
+                // src={index < previewCount ? card.image : objects.circle.image}
+                src={objectImages[card.image]}
+              />
+            );
+          })}
+        </div>
         {/* <p
           className="deckNumber"
           style={{
@@ -130,12 +151,12 @@ const TopBar = ({
         </p> */}
       </div>
       <div>
-        <p>Bank:</p>
+        <p>Bank</p>
         {banked.map((bankedObject, index) => (
           <button
             style={{
-              backgroundColor: "rgba(32,32,32,0.5)",
-              border: "6px solid white",
+              backgroundColor: "rgb(54,54,54)",
+              border: "6px solid rgb(90,90,90)",
               borderRadius: "6px",
               padding: 0,
               margin: 0,
@@ -186,28 +207,65 @@ const TopBar = ({
           >
             {bankedObject.key !== "x" ? (
               <img draggable={false} src={objectImages[bankedObject.image]} />
-            ) : null}
+            ) : (
+              <p
+                style={{ fontSize: "2rem", margin: 0, color: "rgb(90,90,90)" }}
+              >
+                Click
+              </p>
+            )}
           </button>
         ))}
       </div>
-      <div>
-        <p>Population:</p>
-        <p
-          className={`textNumber ${
-            populationAnimationState === "animating" ? "pulse" : null
-          }`}
+      <div style={{ flex: 1 }}></div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <p>Population</p>
+        <div
+          className={populationAnimationState === "animating" ? "pulse" : null}
           onAnimationEnd={() => setPopulationAnimationState("finished")}
+          style={{
+            backgroundColor: "rgb(54,54,54)",
+            border: "6px solid rgb(90,90,90)",
+            borderRadius: "6px",
+            height: `${LOCATION_SIZE}px`,
+            width: `${LOCATION_SIZE}px`,
+            transformOrigin: "center",
+          }}
         >
-          {population}
-        </p>
+          <p className={`textNumber`}>{population}</p>
+        </div>
       </div>
-      <div>
-        <p>Journal:</p>
+      <div
+        style={{
+          fontSize: "2em",
+          paddingTop: "3.2rem",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        {/* <p>Journal:</p> */}
         <button
           onClick={showJournal}
-          style={{ background: "none", border: "none", cursor: "pointer" }}
+          style={{
+            padding: "0.25em 0.5em",
+            borderRadius: "8px",
+            fontSize: "0.7em",
+            cursor: "pointer",
+            // height: "fit-content",
+            height: `${LOCATION_SIZE}px`,
+            width: "fit-content",
+          }}
+          // style={{ background: "none", border: "none", cursor: "pointer" }}
         >
-          <img draggable={false} src={objectImages[objects.question.image]} />
+          Journal
+          {/* <img draggable={false} src={objectImages[objects.question.image]} /> */}
         </button>
       </div>
       {!isGameOver ? (
@@ -218,7 +276,7 @@ const TopBar = ({
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            flex: 1,
+            paddingTop: "3.2rem",
             justifyContent: "end",
             marginRight: "64px",
           }}
@@ -229,7 +287,8 @@ const TopBar = ({
               borderRadius: "8px",
               fontSize: "0.7em",
               cursor: "pointer",
-              height: "fit-content",
+              // height: "fit-content",
+              height: `${LOCATION_SIZE}px`,
               width: "fit-content",
             }}
             onClick={() => setIsForcedGameOver(true)}
@@ -246,7 +305,6 @@ const TopBar = ({
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            flex: 1,
             justifyContent: "end",
             marginRight: "64px",
           }}
@@ -258,7 +316,8 @@ const TopBar = ({
               borderRadius: "8px",
               fontSize: "0.7em",
               cursor: "pointer",
-              height: "fit-content",
+              // height: "fit-content",
+              height: `${LOCATION_SIZE}px`,
               width: "fit-content",
             }}
             onClick={showGameOverMenu}
