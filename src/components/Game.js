@@ -65,6 +65,44 @@ function Game({
   const [shouldShowSelected, setShouldShowSelected] = useState(true);
   const [isForcedGameOver, setIsForcedGameOver] = useState(false);
 
+  const [hasShownInitialGameOverMenu, setHasShownInitialGameOverMenu] =
+    useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+
+  useEffect(() => {
+    const areNoNewCardsLeft = newCards.length === 0;
+
+    const isSelectedPlaceable = doesObjectHaveAnyValidPlacement({
+      object: deck[0],
+      grid,
+    });
+    const isSomeBankedPlaceable = banked.some((bankedItem) =>
+      doesObjectHaveAnyValidPlacement({ object: bankedItem, grid })
+    );
+    const isPlayerOutOfValidPlacements =
+      !isSelectedPlaceable && !isSomeBankedPlaceable && areNoNewCardsLeft;
+
+    const isDeckEmpty = deck.length === 0;
+    const isBankEmpty = banked.every((bankedItem) => bankedItem.key === "x");
+
+    const isUnforcedGameOver = isDeckEmpty && areNoNewCardsLeft && isBankEmpty;
+
+    /**
+     * Grid is undefined if it has not finished loading yet. We cannot have a
+     * game over before the game is finished loading.
+     */
+    const newIsGameOver =
+      grid &&
+      (isForcedGameOver || isPlayerOutOfValidPlacements || isUnforcedGameOver);
+
+    if (newIsGameOver && !hasShownInitialGameOverMenu) {
+      showGameOver(grid);
+      setHasShownInitialGameOverMenu(true);
+    }
+
+    setIsGameOver(newIsGameOver);
+  }, [newCards, deck, grid, banked, isForcedGameOver]);
+
   const addBankSlot = () => {
     const newBanked = [...banked, objects.x];
     setBanked(newBanked);
@@ -73,26 +111,6 @@ function Game({
   const addPreviewSlot = () => {
     setPreviewCount(previewCount + 1);
   };
-
-  const areNoNewCardsLeft = newCards.length === 0;
-
-  const isSelectedPlaceable = doesObjectHaveAnyValidPlacement({
-    object: deck[0],
-    grid,
-  });
-  const isSomeBankedPlaceable = banked.some((bankedItem) =>
-    doesObjectHaveAnyValidPlacement({ object: bankedItem, grid })
-  );
-  const isPlayerOutOfValidPlacements =
-    !isSelectedPlaceable && !isSomeBankedPlaceable && areNoNewCardsLeft;
-
-  const isDeckEmpty = deck.length === 0;
-  const isBankEmpty = banked.every((bankedItem) => bankedItem.key === "x");
-
-  const isUnforcedGameOver = isDeckEmpty && areNoNewCardsLeft && isBankEmpty;
-
-  const isGameOver =
-    isForcedGameOver || isPlayerOutOfValidPlacements || isUnforcedGameOver;
 
   return (
     <>

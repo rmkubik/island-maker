@@ -115,51 +115,71 @@ const GameOverMenu = ({
         />
         <p>{`"${currentSeedLabel}"`}</p>
       </div>
-      <button
-        style={{
-          padding: "16px 32px",
-          borderRadius: "8px",
-          fontSize: "1.25em",
-          cursor: "pointer",
-          marginRight: "8px",
-        }}
-        onClick={() => {
-          setView("none");
-        }}
-      >
-        Back to Map
-      </button>
-      <button
-        style={{
-          padding: "16px 32px",
-          borderRadius: "8px",
-          fontSize: "1.25em",
-          cursor: "pointer",
-        }}
-        onClick={() => {
-          setView("mainMenu");
-          reGenerateGame();
-        }}
-      >
-        Done
-      </button>
-      {gameMode === GAME_MODE_OPTIONS.EDITOR && (
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <button
+          className="secondary"
+          style={{
+            padding: "16px 32px",
+            borderRadius: "8px",
+            fontSize: "1.25em",
+            cursor: "pointer",
+            marginBottom: "16px",
+          }}
+          onClick={() => {
+            setView("none");
+          }}
+        >
+          Back to Map
+        </button>
+        <button
+          className="secondary"
+          style={{
+            padding: "16px 32px",
+            borderRadius: "8px",
+            fontSize: "1.25em",
+            cursor: "pointer",
+            marginBottom: "16px",
+          }}
+          onClick={() => {
+            reGenerateGame();
+            setView("none");
+          }}
+        >
+          Retry
+        </button>
         <button
           style={{
             padding: "16px 32px",
             borderRadius: "8px",
             fontSize: "1.25em",
             cursor: "pointer",
-            marginLeft: "8px",
+            marginBottom: "16px",
           }}
           onClick={() => {
-            console.log(lastGrid);
-            console.log(JSON.stringify(lastGrid));
+            setView("mainMenu");
+            reGenerateGame();
           }}
         >
-          Save Map
+          Done
         </button>
-      )}
+        {gameMode === GAME_MODE_OPTIONS.EDITOR && (
+          <button
+            style={{
+              padding: "16px 32px",
+              borderRadius: "8px",
+              fontSize: "1.25em",
+              cursor: "pointer",
+              marginLeft: "8px",
+            }}
+            onClick={() => {
+              console.log(lastGrid);
+              console.log(JSON.stringify(lastGrid));
+            }}
+          >
+            Save Map
+          </button>
+        )}
+      </div>
     </Menu>
   );
 };

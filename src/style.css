@@ -56,6 +56,12 @@ button {
     sans-serif;
 }
 
+button.secondary {
+  color: white;
+  border: 6px solid white;
+  background-color: rgb(69, 69, 69);
+}
+
 .locked {
   opacity: 0.4;
 }
