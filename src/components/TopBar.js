@@ -121,6 +121,8 @@ const TopBar = ({
             borderRadius: "6px",
             height: `${LOCATION_SIZE}px`,
             // zIndex: -1 * deck.length,
+            zIndex: -1,
+            position: "relative",
           }}
         >
           {deck.slice(shouldShowSelected ? 1 : 0).map((card, index) => {
