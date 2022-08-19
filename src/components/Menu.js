@@ -18,7 +18,7 @@ const Menu = ({ children, maxWidth = "1200px" }) => {
       }}
     >
       <div
-        className="menu"
+        className="menu slideInUp"
         style={{
           textAlign: "center",
           borderRadius: "12px",
