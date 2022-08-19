@@ -40,30 +40,33 @@ const GameOverMenu = ({
   return (
     <Menu>
       <h1 style={{ marginBottom: "64px" }}>Run Complete!</h1>
-      <div>
-        <p style={{ margin: 0, marginBottom: "0.25em" }}>Population:</p>
-        <p
-          style={{
-            fontSize: "2em",
-            margin: 0,
-            marginBottom: "0.85em",
-          }}
-        >
-          {population}
-        </p>
-      </div>
-      <div style={{ marginBottom: "64px" }}>
-        <p style={{ margin: 0, marginBottom: "0.25em" }}>High Score:</p>
-        {isNewHighScore ? <p>New High Score!</p> : null}
-        <p
-          style={{
-            fontSize: "2em",
-            margin: 0,
-            marginBottom: "0.85em",
-          }}
-        >
-          {highScores[currentLevel.level] ?? 0}
-        </p>
+      <h2>Population</h2>
+      {isNewHighScore ? <p>New High Score!</p> : null}
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <div>
+          <p style={{ margin: 0, marginBottom: "0.25em" }}>Current</p>
+          <p
+            style={{
+              fontSize: "2em",
+              margin: 0,
+              marginBottom: "0.85em",
+            }}
+          >
+            {population}
+          </p>
+        </div>
+        <div style={{ marginBottom: "64px" }}>
+          <p style={{ margin: 0, marginBottom: "0.25em" }}>High Score</p>
+          <p
+            style={{
+              fontSize: "2em",
+              margin: 0,
+              marginBottom: "0.85em",
+            }}
+          >
+            {highScores[currentLevel.level] ?? 0}
+          </p>
+        </div>
         {/* <p style={{ margin: 0, marginBottom: "-12px" }}>Rating:</p>
         <div style={{ display: "flex", flexDirection: "row" }}>
           {constructArray((index) => {
@@ -98,7 +101,7 @@ const GameOverMenu = ({
           alignItems: "center",
         }}
       >
-        <label htmlFor="seed">Seed:</label>
+        <label htmlFor="seed">Seed</label>
         <input
           style={{
             width: "fit-content",
