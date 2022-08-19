@@ -116,6 +116,23 @@ const GameOverMenu = ({
         <p>{`"${currentSeedLabel}"`}</p>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
+        {gameMode === GAME_MODE_OPTIONS.EDITOR && (
+          <button
+            style={{
+              padding: "16px 32px",
+              borderRadius: "8px",
+              fontSize: "1.25em",
+              cursor: "pointer",
+              marginBottom: "16px",
+            }}
+            onClick={() => {
+              console.log(lastGrid);
+              console.log(JSON.stringify(lastGrid));
+            }}
+          >
+            Save Map
+          </button>
+        )}
         <button
           className="secondary"
           style={{
@@ -162,23 +179,6 @@ const GameOverMenu = ({
         >
           Done
         </button>
-        {gameMode === GAME_MODE_OPTIONS.EDITOR && (
-          <button
-            style={{
-              padding: "16px 32px",
-              borderRadius: "8px",
-              fontSize: "1.25em",
-              cursor: "pointer",
-              marginLeft: "8px",
-            }}
-            onClick={() => {
-              console.log(lastGrid);
-              console.log(JSON.stringify(lastGrid));
-            }}
-          >
-            Save Map
-          </button>
-        )}
       </div>
     </Menu>
   );
