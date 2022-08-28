@@ -70,6 +70,12 @@ const MainMenu = ({
     //   icon: objects.camp.image,
     //   unlockCost: 75,
     // },
+    // TODO: The current BEST for the daily
+    // is your all time daily best score...
+    // Which KIND OF makes sense... but you
+    // probably actually usually want to see your
+    // best score for the current day and NOT
+    // your best ALL TIME daily high score.
     {
       mode: GAME_MODE_OPTIONS.SEEDED,
       label: `Daily ${getTodayString()}`,
