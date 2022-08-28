@@ -70,11 +70,12 @@ function App() {
       ...saveData,
       journal,
       highScores,
+      user,
       version: packageInfo.version,
     };
 
     setSaveData(newSaveData);
-  }, [journal, highScores]);
+  }, [journal, highScores, user]);
 
   const reGenerateGame = () => {
     rng.resetCurrentSeed();
