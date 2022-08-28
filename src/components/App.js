@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import packageInfo from "../../package.json";
 import "../style.css";
@@ -23,6 +24,12 @@ import createRandomString from "../utils/createRandomStringInternal";
 import trackEvent from "../utils/trackEvent";
 
 function App() {
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
+  const [user, setUser] = useState({});
+  const [session, setSession] = useState({
+    id: uuidv4(),
+  });
+
   const [scaleRef, scale] = useScaleRef();
   const [saveData, setSaveData] = useLocalStorage(LOCAL_STORAGE_KEY, {});
   const [view, setView] = useState("mainMenu");
@@ -37,9 +44,25 @@ function App() {
 
   // Load save data
   useEffect(() => {
+    if (isAppLoaded || !saveData) {
+      return;
+    }
+
+    const loadedUser = saveData.user ?? {
+      id: uuidv4(),
+    };
+
+    trackEvent({
+      eventName: "appLoaded",
+      userId: loadedUser.id,
+      sessionId: session.id,
+    });
+
+    setIsAppLoaded(true);
     setJournal(saveData.journal ?? {});
     setHighScores(saveData.highScores ?? {});
-  }, []);
+    setUser(loadedUser);
+  }, [saveData, isAppLoaded]);
 
   // Save save data
   useEffect(() => {
@@ -58,7 +81,10 @@ function App() {
     setGameId(gameId + 1);
   };
 
-  console.log(trackEvent);
+  // Events
+  // appLoaded, playerInteracted, levelStarted, levelEnded, journalEntryUnlocked, newHighScore
+  // { eventName: 'test event', userId: 'fakeUserId', sessionId: 'fakeSessionId', data: { hello: 'json blob' } }
+  // console.log(trackEvent);
 
   const views = {
     mainMenu: (

@@ -85,6 +85,9 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Allow from anywhere
+      },
       body: JSON.stringify(response),
     };
   } catch (err) {
@@ -96,6 +99,9 @@ exports.handler = async function (event, context) {
 
       return {
         statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "*", // Allow from anywhere
+        },
         body: JSON.stringify(error400),
       };
     }
@@ -109,6 +115,9 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Allow from anywhere
+      },
       body: JSON.stringify(error500),
     };
   }
