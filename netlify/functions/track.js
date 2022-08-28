@@ -31,6 +31,7 @@ const params = {
 // });
 
 exports.handler = async function (event, context) {
+  console.log("hello logs");
   // Call DynamoDB to add the item to the table
   db.putItem(params, function (err, data) {
     if (err) {
