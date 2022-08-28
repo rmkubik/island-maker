@@ -49,6 +49,12 @@ function validateBody(body) {
   }
 }
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "POST",
+};
+
 exports.handler = async function (event, context) {
   try {
     const { body: bodyString } = event;
@@ -85,9 +91,7 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*", // Allow from anywhere
-      },
+      headers,
       body: JSON.stringify(response),
     };
   } catch (err) {
@@ -99,9 +103,7 @@ exports.handler = async function (event, context) {
 
       return {
         statusCode: 400,
-        headers: {
-          "Access-Control-Allow-Origin": "*", // Allow from anywhere
-        },
+        headers,
         body: JSON.stringify(error400),
       };
     }
@@ -115,9 +117,7 @@ exports.handler = async function (event, context) {
 
     return {
       statusCode: 500,
-      headers: {
-        "Access-Control-Allow-Origin": "*", // Allow from anywhere
-      },
+      headers,
       body: JSON.stringify(error500),
     };
   }
