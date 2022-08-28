@@ -813,6 +813,7 @@ const objects = combineEntriesWithKeys(
       requireOverride: true,
       onOverride: ({ hex, neighbors, grid }) => {
         // Mine is special case handled in onPlace
+        // because it needs to grant the player cards
         if (hex.objectType !== "mine") {
           hex.objectImage = objects.grave.image;
           hex.objectType = "grave";
@@ -894,20 +895,30 @@ const objects = combineEntriesWithKeys(
       image: "87_pirate_ship-resize",
       validTileTypes: ["ocean", "oceanWave"],
       onPlace: ({ hex, neighbors, grid }) => {
-        const ships = neighbors.filter(
-          (neighbor) =>
-            neighbor.objectType === "ship1" ||
-            neighbor.objectType === "merchant"
-        );
-
-        ships.forEach((ship) => {
+        const sinkShip = (ship) => {
           ship.objectType = objects.shipwreck.key;
           ship.objectImage = objects.shipwreck.image;
 
           grid.set(ship, ship);
-        });
+        };
 
         let newCards = [];
+
+        const ships = neighbors.filter(
+          (neighbor) => neighbor.objectType === "ship1"
+        );
+        ships.forEach((ship) => {
+          sinkShip(ship);
+          newCards.push(["lighthouse", ship]);
+        });
+
+        const merchants = neighbors.filter(
+          (neighbor) => neighbor.objectType === "merchant"
+        );
+        merchants.forEach((merchant) => {
+          sinkShip(merchant);
+          newCards.push(["bounce", merchant]);
+        });
 
         const exes = neighbors.filter(
           (neighbor) => neighbor.objectType === "x"
@@ -925,7 +936,7 @@ const objects = combineEntriesWithKeys(
     kraken: {
       name: "Kraken",
       desc: "It looks hungry",
-      isInJournal: true,
+      isInJournal: false,
       image: "63_kraken-resize",
       validTileTypes: ["ocean", "oceanWave"],
       onPlace: ({ hex, neighbors, grid }) => {
@@ -968,6 +979,27 @@ const objects = combineEntriesWithKeys(
         // Use game object to set fish as score?
         // Or maybe we just hard code this into
         // the score checking logic?
+      },
+    },
+    bounce: {
+      name: "Bounce",
+      desc: "Return target to your deck",
+      isInJournal: true,
+      image: "icons_colored_20",
+      validTileTypes: ["grassland", "forest", "ocean", "oceanWave"],
+      validObjectOverrides: ["all"],
+      requireOverride: true,
+      onPlace: ({ hex, neighbors, grid }) => {
+        // This happens in onPlace instead of onOverride
+        // because we need to generate a card.
+        const cardType = hex.objectType;
+
+        hex.objectImage = undefined;
+        hex.objectType = undefined;
+
+        grid.set(hex, hex);
+
+        return [cardType, hex];
       },
     },
   })
