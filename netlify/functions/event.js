@@ -78,23 +78,38 @@ exports.handler = async function (event, context) {
 
     await write(eventParams);
 
+    const response = {
+      statusCode: 200,
+      message: "OK",
+    };
+
     return {
       statusCode: 200,
-      body: "200 OK",
+      body: JSON.stringify(response),
     };
   } catch (err) {
     if (err.name === "ValidationError") {
+      const error400 = {
+        statusCode: 400,
+        message: err.message,
+      };
+
       return {
         statusCode: 400,
-        body: err.message,
+        body: JSON.stringify(error400),
       };
     }
 
     console.error("Unexpected Error", err);
 
+    const error500 = {
+      statusCode: 500,
+      message: "ERROR",
+    };
+
     return {
       statusCode: 500,
-      body: "500 ERROR",
+      body: JSON.stringify(error500),
     };
   }
 };
