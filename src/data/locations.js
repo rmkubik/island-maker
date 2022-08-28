@@ -8,6 +8,7 @@ import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
 import constructArray from "../utils/constructArray";
 import { tilePaths } from "./tiles";
 import getHouseLevel from "../utils/getHouseLevel";
+import clamp from "../utils/clamp";
 
 const HOUSE_3_OPTIONS = ["inn", "church"];
 const SHIP_3_OPTIONS = ["merchant", "pirate"];
@@ -862,14 +863,20 @@ const objects = combineEntriesWithKeys(
       image: "85_trading_ship-resize",
       validTileTypes: ["ocean", "oceanWave"],
       onTargeted: ({ hex, selected, neighbors, grid, game }) => {
+        const merchants = grid.filter((hex) => hex.objectType === "merchant");
+        const merchantCount = merchants.length;
+
         if (
           !selected.validTileTypes.includes("ocean") &&
           !selected.validTileTypes.includes("oceanWave")
         ) {
           // This means selected item is a "land" item
+
+          const newFishKey = `fish${clamp(merchantCount, 1, 3)}`;
+
           return {
             skipPlacement: true,
-            newCards: [["fish3", hex]],
+            newCards: [[newFishKey, hex]],
           };
         }
 
