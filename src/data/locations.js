@@ -9,9 +9,14 @@ import constructArray from "../utils/constructArray";
 import { tilePaths } from "./tiles";
 import getHouseLevel from "../utils/getHouseLevel";
 import clamp from "../utils/clamp";
+import createPickRandomlyFromArrayRigged from "../utils/createPickRandomlyFromArrayRigged";
 
 const HOUSE_3_OPTIONS = ["inn", "church"];
 const SHIP_3_OPTIONS = ["merchant", "pirate"];
+
+const pickHouse3Outcome = createPickRandomlyFromArrayRigged(3);
+const pickShip3Outcome = createPickRandomlyFromArrayRigged(3);
+const pickShipLighthouseOutcome = createPickRandomlyFromArrayRigged(3);
 
 const objectImages = {
   ...locationImages,
@@ -20,13 +25,15 @@ const objectImages = {
   ...isleOfLore2Recolors,
 };
 
+const pickDungeonOutcome = createPickRandomlyFromArrayRigged(3);
+
 function getDungeonRandomOutcome(hex) {
   const options = ["grave", "skull"];
 
   return [
-    [pickRandomlyFromArray(options), hex],
-    [pickRandomlyFromArray(options), hex],
-    [pickRandomlyFromArray(options), hex],
+    [pickDungeonOutcome(options), hex],
+    [pickDungeonOutcome(options), hex],
+    [pickDungeonOutcome(options), hex],
   ];
 }
 
@@ -242,7 +249,7 @@ const objects = combineEntriesWithKeys(
               return ["nest", track];
             });
 
-            return [...nests, [pickRandomlyFromArray(options), hex]];
+            return [...nests, ["mill", hex]];
           }
           case "grassland": {
             const adjacentForests = neighbors.filter(
@@ -392,7 +399,7 @@ const objects = combineEntriesWithKeys(
         const houseLevel = parseInt(hex.objectType[hex.objectType.length - 1]);
 
         if (houseLevel === 3) {
-          return [[pickRandomlyFromArray(HOUSE_3_OPTIONS), hex]];
+          return [[pickHouse3Outcome(HOUSE_3_OPTIONS), hex]];
         }
       },
     },
@@ -410,7 +417,7 @@ const objects = combineEntriesWithKeys(
       image: "house_3",
       validTileTypes: ["grassland"],
       onPlace: ({ hex, neighbors, grid }) => {
-        return [[pickRandomlyFromArray(HOUSE_3_OPTIONS), hex]];
+        return [[pickHouse3Outcome(HOUSE_3_OPTIONS), hex]];
       },
     },
     house4: {
@@ -481,7 +488,7 @@ const objects = combineEntriesWithKeys(
               house.objectType = objects.house3.key;
               house.objectImage = objects.house3.image;
               game.unlockItem("house3");
-              newCards.push([pickRandomlyFromArray(HOUSE_3_OPTIONS), house]);
+              newCards.push([pickHouse3Outcome(HOUSE_3_OPTIONS), house]);
               break;
             case 2:
               house.objectType = objects.house2.key;
@@ -700,14 +707,17 @@ const objects = combineEntriesWithKeys(
         const lightHouseOptions = ["plant", "camp"];
 
         lighthouses.forEach((lighthouse) => {
-          newCards.push([pickRandomlyFromArray(lightHouseOptions), lighthouse]);
+          newCards.push([
+            pickShipLighthouseOutcome(lightHouseOptions),
+            lighthouse,
+          ]);
         });
 
         // Support ship stacking
         const shipLevel = parseInt(hex.objectType[hex.objectType.length - 1]);
 
         if (shipLevel === 3) {
-          newCards.push([pickRandomlyFromArray(SHIP_3_OPTIONS), hex]);
+          newCards.push([pickShip3Outcome(SHIP_3_OPTIONS), hex]);
         }
 
         return newCards;
