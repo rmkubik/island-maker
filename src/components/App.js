@@ -10,6 +10,7 @@ import {
   VISUAL_Y_OFFSET,
   GAME_MODE_OPTIONS,
   LOCAL_STORAGE_KEY,
+  SEED_LENGTH,
 } from "../data/config";
 import Game from "./Game";
 import MainMenu from "./MainMenu";
@@ -18,7 +19,7 @@ import rng from "../utils/rng";
 import JournalMenu from "./JournalMenu";
 import useJournal from "../hooks/useJournal";
 import useLocalStorage from "../hooks/useLocalStorage";
-import useIsDev from "../hooks/useIsDev";
+import createRandomString from "../utils/createRandomStringInternal";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
@@ -93,6 +94,11 @@ function App() {
         gameMode={gameMode}
         highScores={highScores}
         setHighScores={setHighScores}
+        replayWithNewSeed={() => {
+          rng.setSeed(createRandomString(SEED_LENGTH));
+          reGenerateGame();
+          setView("none");
+        }}
       />
     ),
     journal: <JournalMenu setView={setView} isUnlocked={isUnlocked} />,

@@ -16,6 +16,7 @@ const GameOverMenu = ({
   highScores,
   setHighScores,
   currentLevel,
+  replayWithNewSeed,
 }) => {
   const population = countPopulation(lastGrid);
   const stars = convertPopulationToStars(population);
@@ -161,10 +162,7 @@ const GameOverMenu = ({
             marginBottom: "16px",
           }}
           onClick={() => {
-            // TODO: We want this to change the seed
-            // maybe this should say "retry with new seed"
-            reGenerateGame();
-            setView("none");
+            replayWithNewSeed();
           }}
         >
           Retry
