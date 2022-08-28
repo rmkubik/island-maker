@@ -872,6 +872,8 @@ const objects = combineEntriesWithKeys(
         ) {
           // This means selected item is a "land" item
 
+          // TODO: This should maybe support greater than 3 fish count
+          // in the future?
           const newFishKey = `fish${clamp(merchantCount, 1, 3)}`;
 
           return {
@@ -988,6 +990,8 @@ const objects = combineEntriesWithKeys(
         // the score checking logic?
       },
     },
+    // TODO: We should create a better sprite for bounce than
+    // just using the zero like we are right now.
     bounce: {
       name: "Bounce",
       desc: "Return target to your deck",
