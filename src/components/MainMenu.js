@@ -33,7 +33,7 @@ const MainMenu = ({
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
-      label: "Urbanization",
+      label: "Stacks",
       level: "mid-island",
       icon: objects.house3.image,
       adjustIconOffset: 38,
@@ -55,7 +55,7 @@ const MainMenu = ({
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
-      label: "Islands",
+      label: "Archipelago",
       level: "islands",
       icon: objects.ship.image,
       unlockCost: 55,
@@ -69,8 +69,9 @@ const MainMenu = ({
     // },
     {
       mode: GAME_MODE_OPTIONS.SEEDED,
-      label: "Daily",
+      label: `Daily ${getTodayString()}`,
       level: "daily",
+      seed: getDailySeed(),
       icon: objects.crown.image,
       unlockCost: 75,
     },
@@ -89,7 +90,7 @@ const MainMenu = ({
     // },
     {
       mode: GAME_MODE_OPTIONS.EDITOR,
-      label: "All Water",
+      label: "Map Editor",
       level: "all-water",
       unlockCost: 0,
     },
@@ -119,10 +120,14 @@ const MainMenu = ({
       setGameMode(GAME_MODE_OPTIONS.SEEDED);
     }
 
-    debounceRef.current(() => {
-      rng.setSeed(seed);
-      reGenerateGame();
-    });
+    console.log({ level, seed });
+
+    rng.setSeed(seed);
+    reGenerateGame();
+    // debounceRef.current(() => {
+    //   rng.setSeed(seed);
+    //   reGenerateGame();
+    // });
   };
 
   const totalPopulation = Object.values(highScores).reduce(
@@ -325,7 +330,8 @@ const MainMenu = ({
                     }
 
                     pickLevel(level);
-                    setTimeout(() => setView("none"), 800);
+                    setView("none");
+                    // setTimeout(() => setView("none"), 800);
                   }}
                 >
                   {level.mode === GAME_MODE_OPTIONS.EDITOR ? "Edit" : "Play"}
