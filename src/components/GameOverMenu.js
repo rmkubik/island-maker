@@ -180,7 +180,7 @@ const GameOverMenu = ({
             reGenerateGame();
           }}
         >
-          Done
+          Leave Map
         </button>
       </div>
     </Menu>
