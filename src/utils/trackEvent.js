@@ -1,7 +1,7 @@
 import packageInfo from "../../package.json";
 import postData from "./postData";
 
-function trackEvent({ eventName, userId, sessionId, data = {} }) {
+function trackEvent({ eventName, userId, sessionId, data = {} } = {}) {
   const eventData = JSON.stringify(data);
 
   if (!eventName) {
@@ -11,10 +11,12 @@ function trackEvent({ eventName, userId, sessionId, data = {} }) {
 
   if (!userId) {
     console.error("No userId specified for track event.");
+    return;
   }
 
   if (!sessionId) {
     console.error("No sessionId specified for track event.");
+    return;
   }
 
   postData(

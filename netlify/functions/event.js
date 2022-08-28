@@ -20,10 +20,41 @@ async function write(params) {
   });
 }
 
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+function validateBody(body) {
+  if (!body.userId) {
+    throw new ValidationError("userId is not defined!");
+  }
+
+  if (!body.sessionId) {
+    throw new ValidationError("sessionId is not defined!");
+  }
+
+  if (!body.appVersion) {
+    throw new ValidationError("appVersion is not defined!");
+  }
+
+  if (!body.appName) {
+    throw new ValidationError("appName is not defined!");
+  }
+
+  if (!body.eventName) {
+    throw new ValidationError("eventName is not defined!");
+  }
+}
+
 exports.handler = async function (event, context) {
   try {
     const { body: bodyString } = event;
     const body = JSON.parse(bodyString);
+
+    validateBody(body);
 
     const eventGuid = uuidv4();
     const timestamp = getCurrentUnixEpochString();
@@ -52,7 +83,14 @@ exports.handler = async function (event, context) {
       body: "200 OK",
     };
   } catch (err) {
-    console.error("Error", err);
+    if (err.name === "ValidationError") {
+      return {
+        statusCode: 400,
+        body: err.message,
+      };
+    }
+
+    console.error("Unexpected Error", err);
 
     return {
       statusCode: 500,
