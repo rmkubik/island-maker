@@ -18,6 +18,7 @@ import rng from "../utils/rng";
 import JournalMenu from "./JournalMenu";
 import useJournal from "../hooks/useJournal";
 import useLocalStorage from "../hooks/useLocalStorage";
+import useIsDev from "../hooks/useIsDev";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();

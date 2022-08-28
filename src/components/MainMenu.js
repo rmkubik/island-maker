@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import { GAME_MODE_OPTIONS, SEED_LENGTH } from "../data/config";
 import { objects, objectImages } from "../data/locations";
+import useIsDev from "../hooks/useIsDev";
 import createRandomString from "../utils/createRandomString";
 import debounceTrailingEdge from "../utils/debounceTrailingEdge";
 import getDailySeed from "../utils/getDailySeed";
 import getTodayString from "../utils/getTodayString";
 import rng from "../utils/rng";
+import LevelListItem from "./LevelListItem";
 import Menu from "./Menu";
 
 const MainMenu = ({
@@ -22,6 +24,7 @@ const MainMenu = ({
 }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
+  const isDev = useIsDev();
 
   const levels = [
     {
@@ -88,13 +91,16 @@ const MainMenu = ({
     //   level: "ocean-hole",
     //   unlockCost: 50,
     // },
-    {
+  ];
+
+  if (isDev) {
+    levels.push({
       mode: GAME_MODE_OPTIONS.EDITOR,
       label: "Map Editor",
       level: "all-water",
       unlockCost: 0,
-    },
-  ];
+    });
+  }
 
   const pickLevel = (level) => {
     // Set seed
@@ -119,8 +125,6 @@ const MainMenu = ({
     } else {
       setGameMode(GAME_MODE_OPTIONS.SEEDED);
     }
-
-    console.log({ level, seed });
 
     rng.setSeed(seed);
     reGenerateGame();
@@ -246,97 +250,18 @@ const MainMenu = ({
           }}
         >
           {levels.map((level) => {
-            const isUnlocked = totalPopulation >= level.unlockCost;
-            const playButtonRef = useRef();
-
-            const levelStyle = {};
-
-            if (level.adjustIconOffset) {
-              levelStyle.marginTop = `-${level.adjustIconOffset}px`;
-            }
-
             return (
-              <li
+              <LevelListItem
                 key={level.label}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginBottom: "1rem",
+                isUnlocked={totalPopulation >= level.unlockCost}
+                highScore={highScores[level.level] ?? 0}
+                level={level}
+                onPlayClick={() => {
+                  pickLevel(level);
+                  setView("none");
+                  // setTimeout(() => setView("none"), 800);
                 }}
-              >
-                <img
-                  className="icon inline-offset"
-                  style={levelStyle}
-                  src={
-                    objectImages[
-                      isUnlocked
-                        ? level.icon ?? objects.circle.image
-                        : objects.question.image
-                    ]
-                  }
-                ></img>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "start",
-                    justifyContent: "center",
-                    marginLeft: "1.5rem",
-                    marginRight: "1.5rem",
-                    flex: 1,
-                  }}
-                >
-                  <h2
-                    style={{
-                      marginBottom: "0.3em",
-                      marginTop: "0.15em",
-                    }}
-                  >
-                    {isUnlocked ? level.label : "Locked"}
-                  </h2>
-                  <p
-                    style={{
-                      marginBottom: "0.3em",
-                      marginTop: "0.15em",
-                      fontSize: "0.8em",
-                    }}
-                  >
-                    {isUnlocked
-                      ? `Best: ${highScores[level.level] ?? 0} population`
-                      : `Unlocks at ${level.unlockCost} population`}
-                  </p>
-                </div>
-                <button
-                  ref={playButtonRef}
-                  className={isUnlocked ? "" : "locked"}
-                  style={{
-                    width: "fit-content",
-                    fontSize: "1em",
-                    borderRadius: "4px",
-                    border: "none",
-                    padding: "8px 12px",
-                    background: "white",
-                    cursor: "pointer",
-                    margin: "8px",
-                  }}
-                  onClick={() => {
-                    if (!isUnlocked) {
-                      playButtonRef.current.classList.remove("shake");
-                      // This triggers a document reflow in between class
-                      // assignments so the animation plays again.
-                      void playButtonRef.current.offsetWidth;
-                      playButtonRef.current.classList.add("shake");
-                      return;
-                    }
-
-                    pickLevel(level);
-                    setView("none");
-                    // setTimeout(() => setView("none"), 800);
-                  }}
-                >
-                  {level.mode === GAME_MODE_OPTIONS.EDITOR ? "Edit" : "Play"}
-                </button>
-              </li>
+              />
             );
           })}
         </ul>
