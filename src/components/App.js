@@ -20,6 +20,7 @@ import JournalMenu from "./JournalMenu";
 import useJournal from "../hooks/useJournal";
 import useLocalStorage from "../hooks/useLocalStorage";
 import createRandomString from "../utils/createRandomStringInternal";
+import trackEvent from "../utils/trackEvent";
 
 function App() {
   const [scaleRef, scale] = useScaleRef();
@@ -56,6 +57,8 @@ function App() {
     rng.resetCurrentSeed();
     setGameId(gameId + 1);
   };
+
+  console.log(trackEvent);
 
   const views = {
     mainMenu: (
