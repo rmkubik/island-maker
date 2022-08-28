@@ -36,7 +36,7 @@ const MainMenu = ({
     },
     {
       mode: GAME_MODE_OPTIONS.PREMADE,
-      label: "Stacks",
+      label: "Stacking",
       level: "mid-island",
       icon: objects.house3.image,
       adjustIconOffset: 38,
