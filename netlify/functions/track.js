@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 const db = require("../../functions/db");
 const getCurrentUnixEpochString = require("../../functions/getCurrentUnixEpochString");
 
-const params = {
+const testParams = {
   TableName: "island-maker-events",
   Item: {
     EVENT_ID: { S: uuidv4() },
@@ -22,27 +22,37 @@ const params = {
   },
 };
 
-// db.putItem(params, function (err, data) {
-//   if (err) {
-//     console.log("Error", err);
-//   } else {
-//     console.log("Success", data);
-//   }
-// });
+async function write(params) {
+  return new Promise((resolve, reject) => {
+    db.putItem(params, function (err, data) {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      resolve(data);
+    });
+  });
+}
 
 exports.handler = async function (event, context) {
-  console.log("hello logs");
-  // Call DynamoDB to add the item to the table
-  db.putItem(params, function (err, data) {
-    if (err) {
-      console.log("Error", err);
-    } else {
-      console.log("Success", data);
-    }
-  });
+  console.log("starting function invocation");
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ event, context }),
-  };
+  try {
+    const data = await write(testParams);
+
+    console.log("success", data);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ event, context, testParams, data }),
+    };
+  } catch (err) {
+    console.error("error", err);
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ event, context, testParams, err }),
+    };
+  }
 };
