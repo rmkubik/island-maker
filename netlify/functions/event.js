@@ -58,6 +58,9 @@ const headers = {
 exports.handler = async function (event, context) {
   try {
     const { body: bodyString } = event;
+
+    console.log({ bodyString });
+
     const body = JSON.parse(bodyString);
 
     validateBody(body);
