@@ -53,12 +53,12 @@ switch (process.env.CONTEXT) {
     break;
   default:
     console.error(
-      `This is a deploy context "${process.env.CONTEXT}" that does not have a NETLIFY_URL configured.`
+      `This is a deploy context "${process.env.CONTEXT}" that does not have a NETLIFY_URL configured. No network requests will be attempted to Netlify Functions.`
     );
     break;
 }
 
-const NETLIFY_FUNCTIONS_PATH = ".netlify/functions/";
+const NETLIFY_FUNCTIONS_PATH = "/.netlify/functions/";
 const API_BASE_URL = NETLIFY_URL + NETLIFY_FUNCTIONS_PATH;
 
 let EVENT_API_URL;
