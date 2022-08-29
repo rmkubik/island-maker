@@ -1,7 +1,14 @@
 import packageInfo from "../../package.json";
+import { EVENT_API_URL } from "../data/config";
 import postData from "./postData";
 
 function trackEvent({ eventName, userId, sessionId, data = {} } = {}) {
+  if (!EVENT_API_URL) {
+    // If current deploy context has no EVENT_API_URL then
+    // we should not try to track anything.
+    return;
+  }
+
   const eventData = JSON.stringify(data);
 
   if (!eventName) {
@@ -19,17 +26,14 @@ function trackEvent({ eventName, userId, sessionId, data = {} } = {}) {
     return;
   }
 
-  postData(
-    "https://deploy-preview-1--island-maker.netlify.app/.netlify/functions/event",
-    {
-      userId,
-      sessionId,
-      appVersion: packageInfo.version,
-      appName: packageInfo.name,
-      eventName,
-      eventData,
-    }
-  );
+  postData(EVENT_API_URL, {
+    userId,
+    sessionId,
+    appVersion: packageInfo.version,
+    appName: packageInfo.name,
+    eventName,
+    eventData,
+  });
 }
 
 export default trackEvent;
