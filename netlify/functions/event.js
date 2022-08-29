@@ -56,10 +56,17 @@ const headers = {
 };
 
 exports.handler = async function (event, context) {
-  try {
-    const { body: bodyString } = event;
+  console.log({ event });
 
-    console.log({ bodyString });
+  try {
+    if (event.httpMethod === "OPTIONS") {
+      return {
+        statusCode: 200,
+        headers,
+      };
+    }
+
+    const { body: bodyString } = event;
 
     const body = JSON.parse(bodyString);
 
