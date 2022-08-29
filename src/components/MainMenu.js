@@ -2,11 +2,14 @@ import React, { useRef, useState } from "react";
 import { GAME_MODE_OPTIONS, SEED_LENGTH } from "../data/config";
 import { objects, objectImages } from "../data/locations";
 import useIsDev from "../hooks/useIsDev";
+import useSession from "../hooks/useSession";
+import useUser from "../hooks/useUser";
 import createRandomString from "../utils/createRandomString";
 import debounceTrailingEdge from "../utils/debounceTrailingEdge";
 import getDailySeed from "../utils/getDailySeed";
 import getTodayString from "../utils/getTodayString";
 import rng from "../utils/rng";
+import trackEvent from "../utils/trackEvent";
 import LevelListItem from "./LevelListItem";
 import Menu from "./Menu";
 
@@ -24,6 +27,8 @@ const MainMenu = ({
 }) => {
   const [currentSeed, setCurrentSeed] = useState(rng.getSeed());
   const debounceRef = useRef(debounceTrailingEdge(500));
+  const [user] = useUser();
+  const [session] = useSession();
   const isDev = useIsDev();
 
   const levels = [
@@ -138,6 +143,19 @@ const MainMenu = ({
     //   rng.setSeed(seed);
     //   reGenerateGame();
     // });
+
+    trackEvent({
+      eventName: "levelPicked",
+      userId: user.id,
+      sessionId: session.id,
+      data: {
+        levelLabel: level.label,
+        level: level.level,
+        levelMode: level.mode,
+        levelUnlockCost: level.unlockCost,
+        seed,
+      },
+    });
   };
 
   const totalPopulation = Object.values(highScores).reduce(

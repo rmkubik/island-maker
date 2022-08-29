@@ -13,6 +13,11 @@ import levels from "../data/levels";
 import { GAME_MODE_OPTIONS } from "../data/config";
 import doesObjectHaveAnyValidPlacement from "../utils/doesObjectHaveAnyValidPlacement";
 import update from "../utils/update";
+import trackEvent from "../utils/trackEvent";
+import useUser from "../hooks/useUser";
+import useSession from "../hooks/useSession";
+import rng from "../utils/rng";
+import countPopulation from "../utils/countPopulation";
 
 function Game({
   scale,
@@ -22,7 +27,10 @@ function Game({
   commitUnlocks,
   gameMode,
   currentLevel,
+  highScores,
 }) {
+  const [user] = useUser();
+  const [session] = useSession();
   const [previewCount, setPreviewCount] = useState(1);
   const [banked, setBanked] = useState([objects.x]);
   const [newCards, setNewCards] = useState([]);
@@ -98,6 +106,27 @@ function Game({
     if (newIsGameOver && !hasShownInitialGameOverMenu) {
       showGameOver(grid);
       setHasShownInitialGameOverMenu(true);
+
+      const population = countPopulation(grid);
+
+      trackEvent({
+        eventName: "levelOver",
+        userId: user.id,
+        sessionId: session.id,
+        data: {
+          levelLabel: currentLevel.label,
+          level: currentLevel.level,
+          levelMode: currentLevel.mode,
+          levelUnlockCost: currentLevel.unlockCost,
+          seed: rng.getSeed(),
+          isForcedLevelOver: isForcedGameOver,
+          population,
+          highScores,
+          deck,
+          banked,
+          grid,
+        },
+      });
     }
 
     setIsGameOver(newIsGameOver);

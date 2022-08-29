@@ -56,8 +56,6 @@ const headers = {
 };
 
 exports.handler = async function (event, context) {
-  console.log({ event });
-
   try {
     if (event.httpMethod === "OPTIONS") {
       return {
@@ -67,7 +65,6 @@ exports.handler = async function (event, context) {
     }
 
     const { body: bodyString } = event;
-
     const body = JSON.parse(bodyString);
 
     validateBody(body);

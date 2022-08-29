@@ -20,15 +20,15 @@ import rng from "../utils/rng";
 import JournalMenu from "./JournalMenu";
 import useJournal from "../hooks/useJournal";
 import useLocalStorage from "../hooks/useLocalStorage";
-import createRandomString from "../utils/createRandomStringInternal";
+import createRandomString from "../utils/createRandomString";
 import trackEvent from "../utils/trackEvent";
+import useUser, { UserContextProvider } from "../hooks/useUser";
+import useSession, { SessionContextProvider } from "../hooks/useSession";
 
 function App() {
   const [isAppLoaded, setIsAppLoaded] = useState(false);
-  const [user, setUser] = useState({});
-  const [session, setSession] = useState({
-    id: uuidv4(),
-  });
+  const [user, setUser] = useUser();
+  const [session, setSession] = useSession();
 
   const [scaleRef, scale] = useScaleRef();
   const [saveData, setSaveData] = useLocalStorage(LOCAL_STORAGE_KEY, {});
@@ -48,9 +48,10 @@ function App() {
       return;
     }
 
-    const loadedUser = saveData.user ?? {
-      id: uuidv4(),
-    };
+    const loadedUser = saveData.user ?? {};
+    if (!loadedUser.id) {
+      loadedUser.id = uuidv4();
+    }
 
     trackEvent({
       eventName: "appLoaded",
@@ -62,7 +63,7 @@ function App() {
     setJournal(saveData.journal ?? {});
     setHighScores(saveData.highScores ?? {});
     setUser(loadedUser);
-  }, [saveData, isAppLoaded]);
+  }, [saveData, isAppLoaded, user, session]);
 
   // Save save data
   useEffect(() => {
@@ -81,11 +82,6 @@ function App() {
     rng.resetCurrentSeed();
     setGameId(gameId + 1);
   };
-
-  // Events
-  // appLoaded, playerInteracted, levelStarted, levelEnded, journalEntryUnlocked, newHighScore
-  // { eventName: 'test event', userId: 'fakeUserId', sessionId: 'fakeSessionId', data: { hello: 'json blob' } }
-  // console.log(trackEvent);
 
   const views = {
     mainMenu: (
@@ -125,7 +121,22 @@ function App() {
         highScores={highScores}
         setHighScores={setHighScores}
         replayWithNewSeed={() => {
-          rng.setSeed(createRandomString(SEED_LENGTH));
+          const seed = createRandomString(SEED_LENGTH);
+
+          trackEvent({
+            eventName: "levelRetried",
+            userId: user.id,
+            sessionId: session.id,
+            data: {
+              levelLabel: currentLevel.label,
+              level: currentLevel.level,
+              levelMode: currentLevel.mode,
+              levelUnlockCost: currentLevel.unlockCost,
+              seed,
+            },
+          });
+
+          rng.setSeed(seed);
           reGenerateGame();
           setView("none");
         }}
@@ -173,9 +184,20 @@ function App() {
         }}
         unlockItem={unlockItem}
         commitUnlocks={commitUnlocks}
+        highScores={highScores}
       />
     </div>
   );
 }
 
-export default App;
+const withProviders = (WrappedComponent) => () => {
+  return (
+    <SessionContextProvider>
+      <UserContextProvider>
+        <WrappedComponent />
+      </UserContextProvider>
+    </SessionContextProvider>
+  );
+};
+
+export default withProviders(App);
