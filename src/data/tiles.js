@@ -44,4 +44,12 @@ const tilesMap = new WeightedMap({
   oceanWave: 5,
 });
 
-export { tilePaths, tilesMap, tileImages, tileBorders };
+const tileNames = {
+  grassland: "Grassland",
+  forest: "Forest",
+  mountain: "Mountain",
+  ocean: "Ocean",
+  oceanWave: "Ocean with Wave",
+};
+
+export { tilePaths, tilesMap, tileImages, tileBorders, tileNames };
