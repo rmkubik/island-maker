@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Menu from "./Menu";
 import { objectImages, objects } from "../data/locations";
 import constructArray from "../utils/constructArray";
@@ -33,6 +33,7 @@ const JournalEntryList = ({
         >
           {objectsInJournal.map((object, index) => {
             const [className, setClassName] = useState("");
+            const buttonRef = useRef();
 
             let renderedObject = object;
 
@@ -50,6 +51,7 @@ const JournalEntryList = ({
                 onAnimationEnd={() => setClassName("")}
               >
                 <button
+                  ref={buttonRef}
                   className={isSelected ? "selected" : ""}
                   onClick={(e) => {
                     if (!isUnlocked(renderedObject.key)) {
@@ -63,13 +65,17 @@ const JournalEntryList = ({
                     }
 
                     setTimeout(
-                      () => e.target.scrollIntoView({ block: "nearest" }),
+                      () =>
+                        buttonRef.current.scrollIntoView({ block: "nearest" }),
                       50
                     );
                     setSelectedObject(object);
                   }}
                 >
-                  <img src={objectImages[renderedObject.image]} />
+                  <img
+                    src={objectImages[renderedObject.image]}
+                    draggable={false}
+                  />
                   <p style={{ fontSize: "1.25rem" }}>{renderedObject.name}</p>
                 </button>
               </li>
