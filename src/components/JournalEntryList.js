@@ -27,6 +27,8 @@ const JournalEntryList = ({
             listStyle: "none",
             display: "grid",
             gridTemplateColumns: constructArray(() => "1fr", 7).join(" "),
+            paddingLeft: "16px",
+            paddingRight: "16px",
           }}
         >
           {objectsInJournal.map((object, index) => {
@@ -38,6 +40,9 @@ const JournalEntryList = ({
               renderedObject = objects.question;
             }
 
+            const isSelected =
+              selectedObject && selectedObject.key === object.key;
+
             return (
               <li
                 key={index}
@@ -45,17 +50,22 @@ const JournalEntryList = ({
                 onAnimationEnd={() => setClassName("")}
               >
                 <button
-                  onClick={() => {
+                  className={isSelected ? "selected" : ""}
+                  onClick={(e) => {
                     if (!isUnlocked(renderedObject.key)) {
                       setClassName("shake");
                       return;
                     }
 
-                    if (selectedObject && selectedObject.key === object.key) {
+                    if (isSelected) {
                       setSelectedObject(undefined);
                       return;
                     }
 
+                    setTimeout(
+                      () => e.target.scrollIntoView({ block: "nearest" }),
+                      50
+                    );
                     setSelectedObject(object);
                   }}
                 >

@@ -45,7 +45,7 @@ const JournalMenu = ({ setView, isUnlocked }) => {
             fontSize: "1.25em",
             cursor: "pointer",
             marginRight: "8px",
-            marginTop: "32px",
+            marginTop: "64px",
           }}
           onClick={() => {
             setView("none");
