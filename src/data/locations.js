@@ -1386,7 +1386,7 @@ const objects = combineEntriesWithKeys(
         bounce: "Returns targeted object to your deck.",
       },
       isInJournal: true,
-      image: "icons_colored_20",
+      image: "bounce-icon",
       validTileTypes: ["grassland", "forest", "ocean", "oceanWave"],
       validObjectOverrides: ["all"],
       requireOverride: true,
