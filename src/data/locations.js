@@ -37,13 +37,17 @@ function getDungeonRandomOutcome(hex) {
   ];
 }
 
-function harvestFish({ neighbors, game }) {
+function harvestFish({ neighbors, grid, game }) {
   const fishes = neighbors.filter((neighbor) =>
     neighbor.objectType?.includes("fish")
   );
 
   if (fishes.length > 0) {
     game.unlockItem("fish3");
+    game.unlockRule("fish3", "harvest");
+    game.unlockRule("ship1", "fish");
+    game.unlockRule("ship2", "fish");
+    game.unlockRule("ship3", "fish");
   }
 
   fishes.forEach((fish) => {
@@ -74,10 +78,17 @@ function harvestFish({ neighbors, game }) {
   return fishes.map((fish) => ["house1", fish]);
 }
 
-function resupplyLighthouses({ hex, neighbors }) {
+function resupplyLighthouses({ hex, neighbors, game }) {
   const lighthouses = neighbors.filter((neighbor) =>
     neighbor.objectType?.includes("lighthouse")
   );
+
+  if (lighthouses.length > 0) {
+    game.unlockRule("lighthouse", "resupply");
+    game.unlockRule("ship1", "resupply");
+    game.unlockRule("ship2", "resupply");
+    game.unlockRule("ship3", "resupply");
+  }
 
   const lightHouseOptions = ["plant", "camp"];
 
@@ -86,10 +97,12 @@ function resupplyLighthouses({ hex, neighbors }) {
   });
 }
 
-function stackShips({ hex }) {
+function stackShips({ hex, game }) {
   const shipLevel = parseInt(hex.objectType[hex.objectType.length - 1]);
 
   if (shipLevel === 3) {
+    game.unlockRule("ship3", "stack3");
+
     return [pickShip3Outcome(SHIP_3_OPTIONS), hex];
   }
 
@@ -291,11 +304,14 @@ const objects = combineEntriesWithKeys(
         hex.tileType = "forest";
         hex.tileImage = tileImage;
 
+        game.unlockRule("plant", "forest");
+
         switch (hex.objectType) {
           case "house1":
             hex.objectImage = objects.witchHut.image;
             hex.objectType = "witchHut";
             game.unlockItem("witchHut");
+            game.unlockRule("plant", "witch");
 
             newCards.push(["skull", hex]);
             break;
@@ -319,9 +335,13 @@ const objects = combineEntriesWithKeys(
           hidden: true,
           desc: "Clears adjacent forests when placed on a grassland.",
         },
-        grow: {
+        turnip: {
           hidden: true,
           desc: "If an object in the forest is cleared, it becomes a Turnip.",
+        },
+        tracks: {
+          hidden: true,
+          desc: "Produces a Nest when placed next to Tracks.",
         },
       },
       isInJournal: true,
@@ -337,6 +357,8 @@ const objects = combineEntriesWithKeys(
             );
 
             if (tracks.length > 0) {
+              game.unlockRule("camp", "tracks");
+              game.unlockRule("tracks", "tracks");
               game.unlockItem("tracks");
             }
 
@@ -348,6 +370,8 @@ const objects = combineEntriesWithKeys(
 
               return ["nest", track];
             });
+
+            game.unlockRule("camp", "mill");
 
             return [...nests, ["mill", hex]];
           }
@@ -361,12 +385,15 @@ const objects = combineEntriesWithKeys(
               const tileImage = pickRandomlyFromArray(tileTypeImages);
 
               if (forest.objectType) {
+                game.unlockRule("camp", "turnip");
                 forest.objectType = objects.turnip3.key;
                 forest.objectImage = objects.turnip3.image;
               }
 
               forest.tileType = "grassland";
               forest.tileImage = tileImage;
+
+              game.unlockRule("camp", "chop");
 
               grid.set(forest, forest);
             });
@@ -399,6 +426,8 @@ const objects = combineEntriesWithKeys(
 
         if (turnips.length > 0) {
           game.unlockItem("turnip3");
+          game.unlockRule("turnip3", "harvest");
+          game.unlockRule("farm", "harvest");
         }
 
         turnips.forEach((turnip) => {
@@ -450,7 +479,7 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "locations_colored_19",
       validTileTypes: ["grassland", "forest"],
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         const mountains = neighbors.filter(
           (neighbor) => neighbor.tileType === "mountain"
         );
@@ -459,6 +488,14 @@ const objects = combineEntriesWithKeys(
 
           return [newObjectType, mountain];
         });
+
+        if (newQuarries.length >= 1) {
+          game.unlockRule("mine", "gatherOdd");
+        }
+
+        if (newQuarries.length >= 2) {
+          game.unlockRule("mine", "gatherEven");
+        }
 
         const ruins = neighbors.filter(
           (neighbor) => neighbor.objectType === "ruin"
@@ -472,6 +509,8 @@ const objects = combineEntriesWithKeys(
           // animation framework to make this clearer.
           ruin.objectType = undefined;
           ruin.objectImage = undefined;
+
+          game.unlockRule("mine", "gatherRuin");
 
           return ["skull", ruin];
         });
@@ -507,15 +546,20 @@ const objects = combineEntriesWithKeys(
 
         houseLevel += 1;
 
+        game.unlockRule("house1", "pop1");
+
         switch (houseLevel) {
           case 3:
             hex.objectType = objects.house3.key;
             hex.objectImage = objects.house3.image;
+            game.unlockRule("house1", "stack3");
+            game.unlockRule("house3", "stack3");
             game.unlockItem("house3");
             break;
           case 2:
             hex.objectType = objects.house2.key;
             hex.objectImage = objects.house2.image;
+            game.unlockRule("house1", "stack");
             game.unlockItem("house2");
             break;
           default:
@@ -582,12 +626,17 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "locations_colored_6",
       validTileTypes: ["grassland"],
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         const farms = neighbors.filter(
           (neighbor) => neighbor.objectType === "farm"
         );
 
         const newFarms = farms.map((farm) => ["farm", farm]);
+
+        if (newFarms.length > 1) {
+          game.unlockRule("farm", "mill");
+          game.unlockRule("mill", "farm");
+        }
 
         return newFarms;
       },
@@ -617,14 +666,18 @@ const objects = combineEntriesWithKeys(
       desc: "Upgrades each adjacent house",
       lore: "Man never knew the true gods, so they concocted their own.",
       rules: {
-        upgradeHouse: "Upgrades each adjacent house",
+        upgradeHouse: "Upgrades each adjacent house.",
         upgradeHouse4: {
           hidden: true,
-          desc: "Upgrades a Village to a Town, beyond the normal stack max",
+          desc: "Upgrades a Village to a Town, beyond the normal stack max.",
         },
         resurrect: {
           hidden: true,
-          desc: "Adjacent Graves are turned into a House",
+          desc: "Adjacent Graves turn into Houses.",
+        },
+        resurrectWitch: {
+          hidden: true,
+          desc: "Adjacent Graves on a Forest turn into Witch Huts.",
         },
       },
       isInJournal: true,
@@ -647,6 +700,7 @@ const objects = combineEntriesWithKeys(
             case 4:
               house.objectType = objects.house4.key;
               house.objectImage = objects.house4.image;
+              game.unlockRule("church", "upgradeHouse4");
               game.unlockItem("house4");
               break;
             case 3:
@@ -675,6 +729,7 @@ const objects = combineEntriesWithKeys(
               grave.objectType = "witchHut";
               grave.objectImage = objects.witchHut.image;
               game.unlockItem("witchHut");
+              game.unlockRule("church", "resurrectWitch");
 
               newCards.push(["skull", grave]);
               break;
@@ -682,6 +737,8 @@ const objects = combineEntriesWithKeys(
             default:
               grave.objectType = "house1";
               grave.objectImage = objects.house1.image;
+              game.unlockRule("church", "resurrect");
+              game.unlockRule("grave", "church");
               break;
           }
 
@@ -696,6 +753,7 @@ const objects = combineEntriesWithKeys(
       desc: "Something was here",
       image: "icons_colored_11",
       lore: "Man claimed the grassland, but something else claimed the forest.",
+      validTileTypes: ["forest"],
       rules: {
         tracks: {
           hidden: true,
@@ -784,10 +842,12 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "locations_colored_13",
       validTileTypes: ["grassland"],
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         const oceans = neighbors.filter((neighbor) =>
           neighbor.tileType?.includes("ocean")
         );
+
+        game.unlockRule("lighthouse", "shipBuilder");
 
         const ships = oceans.map((ocean) => ["ship1", ocean]);
 
@@ -840,11 +900,13 @@ const objects = combineEntriesWithKeys(
           case 3:
             hex.objectType = objects.ship3.key;
             hex.objectImage = objects.ship3.image;
+            game.unlockRule("ship1", "stack3");
             game.unlockItem("ship3");
             break;
           case 2:
             hex.objectType = objects.ship2.key;
             hex.objectImage = objects.ship2.image;
+            game.unlockRule("ship1", "stack");
             game.unlockItem("ship2");
             break;
           default:
@@ -860,6 +922,7 @@ const objects = combineEntriesWithKeys(
           hex.objectType = objects.shipwreck.key;
           hex.objectImage = objects.shipwreck.image;
 
+          game.unlockRule("ship1", "wreck");
           game.unlockItem("shipwreck");
 
           grid.set(hex, hex);
@@ -868,13 +931,13 @@ const objects = combineEntriesWithKeys(
 
         let newCards = [];
         // Start counting fishes and creating houses
-        newCards.push(...harvestFish({ neighbors, game }));
+        newCards.push(...harvestFish({ neighbors, grid, game }));
 
         // Add a random card for each adjacent lighthouse
-        newCards.push(...resupplyLighthouses({ hex, neighbors }));
+        newCards.push(...resupplyLighthouses({ hex, neighbors, game }));
 
         // Support ship stacking
-        newCards.push(...stackShips({ hex }));
+        newCards.push(...stackShips({ hex, game }));
 
         return newCards;
       },
@@ -897,10 +960,10 @@ const objects = combineEntriesWithKeys(
         let newCards = [];
 
         // Start counting fishes and creating houses
-        newCards.push(...harvestFish({ neighbors, game }));
+        newCards.push(...harvestFish({ neighbors, grid, game }));
 
         // Add a random card for each adjacent lighthouse
-        newCards.push(...resupplyLighthouses({ hex, neighbors }));
+        newCards.push(...resupplyLighthouses({ hex, neighbors, game }));
 
         return newCards;
       },
@@ -927,13 +990,13 @@ const objects = combineEntriesWithKeys(
         let newCards = [];
 
         // Start counting fishes and creating houses
-        newCards.push(...harvestFish({ neighbors, game }));
+        newCards.push(...harvestFish({ neighbors, grid, game }));
 
         // Add a random card for each adjacent lighthouse
-        newCards.push(...resupplyLighthouses({ hex, neighbors }));
+        newCards.push(...resupplyLighthouses({ hex, neighbors, game }));
 
         // Support ship stacking
-        newCards.push(...stackShips({ hex }));
+        newCards.push(...stackShips({ hex, game }));
 
         return newCards;
       },
@@ -967,7 +1030,7 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "locations_colored_17",
       validTileTypes: ["grassland", "forest", "ocean", "oceanWave"],
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         switch (hex.tileType) {
           case "grassland":
           case "forest": {
@@ -978,6 +1041,8 @@ const objects = combineEntriesWithKeys(
             hex.tileImage = tileImage;
             hex.objectImage = undefined;
             hex.objectType = undefined;
+
+            game.unlockRule("cave", "mountain");
             break;
           }
           case "ocean":
@@ -989,6 +1054,8 @@ const objects = combineEntriesWithKeys(
             hex.tileImage = tileImage;
             hex.objectImage = undefined;
             hex.objectType = undefined;
+
+            game.unlockRule("cave", "island");
             break;
           }
           default:
@@ -1013,12 +1080,15 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "locations_colored_18",
       validTileTypes: ["grassland", "forest"],
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         const mountains = neighbors.filter(
           (neighbor) => neighbor.tileType === "mountain"
         );
 
         const newObjects = mountains.map(getDungeonRandomOutcome).flat();
+
+        game.unlockRule("dungeon", "church");
+        game.unlockRule("dungeon", "graves");
 
         return [["church", hex], ...newObjects];
       },
@@ -1051,23 +1121,26 @@ const objects = combineEntriesWithKeys(
       validObjectOverrides: ["all"],
       notValidObjectOverrides: ["grave"],
       requireOverride: true,
-      onOverride: ({ hex, neighbors, grid }) => {
+      onOverride: ({ hex, neighbors, grid, game }) => {
         // Mine is special case handled in onPlace
         // because it needs to grant the player cards
         if (hex.objectType !== "mine") {
           hex.objectImage = objects.grave.image;
           hex.objectType = "grave";
+
+          game.unlockRule("skull", "grave");
         }
 
         grid.set(hex, hex);
       },
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         let newObjects = [];
 
         if (hex.objectType === "mine") {
           hex.objectImage = objects.dungeon.image;
           hex.objectType = "dungeon";
 
+          game.unlockRule("skull", "dungeon");
           newObjects = getDungeonRandomOutcome(hex);
         }
 
@@ -1084,7 +1157,9 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "locations_colored_7",
       validTileTypes: ["forest"],
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
+        game.unlockRule("witchHut", "curse");
+
         return [["skull", hex]];
       },
     },
@@ -1129,7 +1204,12 @@ const objects = combineEntriesWithKeys(
           !selected.validTileTypes.includes("ocean") &&
           !selected.validTileTypes.includes("oceanWave")
         ) {
+          game.unlockRule("merchant", "trade");
           // This means selected item is a "land" item
+
+          if (merchantCount > 1) {
+            game.unlockRule("merchant", "fishLevel");
+          }
 
           // TODO: This should maybe support greater than 3 fish count
           // in the future?
@@ -1146,12 +1226,14 @@ const objects = combineEntriesWithKeys(
           newCards: [],
         };
       },
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         const fleets = neighbors.filter(
           (neighbor) => neighbor.objectType === "ship3"
         );
 
         if (fleets.length > 0) {
+          game.unlockRule("merchant", "key");
+
           return ["key", hex];
         }
       },
@@ -1178,10 +1260,12 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "87_pirate_ship-resize",
       validTileTypes: ["ocean", "oceanWave"],
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         const sinkShip = (ship) => {
           ship.objectType = objects.shipwreck.key;
           ship.objectImage = objects.shipwreck.image;
+
+          game.unlockRule("pirate", "sinkShip");
 
           grid.set(ship, ship);
         };
@@ -1193,6 +1277,7 @@ const objects = combineEntriesWithKeys(
         );
         ships.forEach((ship) => {
           sinkShip(ship);
+          game.unlockRule("pirate", "plunderShip");
           newCards.push(["lighthouse", ship]);
         });
 
@@ -1201,6 +1286,7 @@ const objects = combineEntriesWithKeys(
         );
         merchants.forEach((merchant) => {
           sinkShip(merchant);
+          game.unlockRule("pirate", "plunderMerchant");
           newCards.push(["bounce", merchant]);
         });
 
@@ -1210,6 +1296,8 @@ const objects = combineEntriesWithKeys(
         exes.forEach((ex) => {
           ex.objectType = undefined;
           ex.objectImage = undefined;
+
+          game.unlockRule("pirate", "xMark");
 
           newCards.push(["treasure", ex]);
         });
@@ -1228,6 +1316,7 @@ const objects = combineEntriesWithKeys(
         return;
       },
     },
+    // TODO game.addRule below
     treasure: {
       name: "Treasure",
       desc: "What's inside?",
@@ -1245,6 +1334,9 @@ const objects = combineEntriesWithKeys(
         if (selected.key === "key") {
           hex.objectType = undefined;
           hex.objectImage = undefined;
+
+          game.unlockRule("treasure", "unlock");
+          game.unlockRule("key", "unlock");
 
           return { newCards: [["fishRelic", hex]], skipPlacement: true };
         }
@@ -1280,6 +1372,8 @@ const objects = combineEntriesWithKeys(
         // Use game object to set fish as score?
         // Or maybe we just hard code this into
         // the score checking logic?
+        game.unlockRule("fishRelic", "chosenOnes");
+        game.unlockRule("fish3", "pop");
       },
     },
     // TODO: We should create a better sprite for bounce than
@@ -1296,13 +1390,15 @@ const objects = combineEntriesWithKeys(
       validTileTypes: ["grassland", "forest", "ocean", "oceanWave"],
       validObjectOverrides: ["all"],
       requireOverride: true,
-      onPlace: ({ hex, neighbors, grid }) => {
+      onPlace: ({ hex, neighbors, grid, game }) => {
         // This happens in onPlace instead of onOverride
         // because we need to generate a card.
         const cardType = hex.objectType;
 
         hex.objectImage = undefined;
         hex.objectType = undefined;
+
+        game.unlockRule("bounce", "bounce");
 
         grid.set(hex, hex);
 

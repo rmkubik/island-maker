@@ -5,7 +5,7 @@ import { tileNames } from "../data/tiles";
 import constructArray from "../utils/constructArray";
 import joinWithOxfordComma from "../utils/joinWithOxfordComma";
 
-const JournalEntryItem = ({ onBack, object }) => {
+const JournalEntryItem = ({ onBack, object, isUnlocked }) => {
   const validTileTypeNames = object.validTileTypes.map(
     (tileType) => tileNames[tileType]
   );
@@ -83,11 +83,10 @@ const JournalEntryItem = ({ onBack, object }) => {
               }}
             >
               <li>{`Placeable on ${validTileTypeRuleText}.`}</li>
-              {Object.entries(object.rules).map(([key, rule], index) => {
+              {Object.entries(object.rules).map(([ruleKey, rule], index) => {
                 const desc = typeof rule === "string" ? rule : rule.desc;
 
-                // TODO: Check if rule has been unlocked yet
-                if (rule.hidden) {
+                if (rule.hidden && !isUnlocked(object.key, ruleKey)) {
                   return <li key={object.key + index}>???</li>;
                 }
 

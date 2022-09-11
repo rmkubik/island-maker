@@ -34,6 +34,7 @@ const JournalMenu = ({ setView, isUnlocked }) => {
         {selectedObject && (
           <JournalEntryItem
             object={selectedObject}
+            isUnlocked={isUnlocked}
             onBack={() => setSelectedObject()}
           />
         )}
@@ -44,6 +45,7 @@ const JournalMenu = ({ setView, isUnlocked }) => {
             fontSize: "1.25em",
             cursor: "pointer",
             marginRight: "8px",
+            marginTop: "32px",
           }}
           onClick={() => {
             setView("none");
