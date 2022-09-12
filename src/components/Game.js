@@ -24,6 +24,7 @@ function Game({
   setView,
   showGameOver,
   unlockItem,
+  unlockRule,
   commitUnlocks,
   gameMode,
   currentLevel,
@@ -160,6 +161,7 @@ function Game({
           addBankSlot,
           addPreviewSlot,
           unlockItem,
+          unlockRule,
           commitUnlocks,
         }}
         gameMode={gameMode}

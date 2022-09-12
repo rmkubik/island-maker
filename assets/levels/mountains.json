@@ -1,4 +1,5 @@
 {
+  "initialDeck": ["camp", "camp", "farm", "farm", "mine", "mine"],
   "grid": [
     {
       "x": 0,

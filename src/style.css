@@ -258,3 +258,17 @@ button:hover {
   animation-duration: 250ms;
   animation-fill-mode: both;
 }
+
+.journal-entry-list button {
+  background: none;
+  /* border: none; */
+  cursor: pointer;
+  color: white;
+  border: 6px transparent solid;
+  box-sizing: border-box;
+}
+
+.journal-entry-list button.selected {
+  border-radius: 6px;
+  border: 6px white solid;
+}

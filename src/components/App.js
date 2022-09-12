@@ -36,8 +36,14 @@ function App() {
   const [gameId, setGameId] = useState(0);
   const [lastGrid, setLastGrid] = useState();
   const [currentSeedLabel, setCurrentSeedLabel] = useState("Random");
-  const { journal, setJournal, isUnlocked, unlockItem, commitUnlocks } =
-    useJournal();
+  const {
+    journal,
+    setJournal,
+    isUnlocked,
+    unlockItem,
+    unlockRule,
+    commitUnlocks,
+  } = useJournal();
   const [gameMode, setGameMode] = useState(GAME_MODE_OPTIONS.SEEDED);
   const [currentLevel, setCurrentLevel] = useState();
   const [highScores, setHighScores] = useState({});
@@ -183,6 +189,7 @@ function App() {
           setView(newView);
         }}
         unlockItem={unlockItem}
+        unlockRule={unlockRule}
         commitUnlocks={commitUnlocks}
         highScores={highScores}
       />
