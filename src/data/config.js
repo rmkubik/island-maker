@@ -40,10 +40,12 @@ const SEED_LENGTH = 8;
 
 let NETLIFY_URL;
 
-// TODO: We need to set this up so when we build for production
-// locally that we hardcode the NETLIFY_URL to island-maker.netlify.app
-// since when we build locally to deploy ot itch.io we will not have
-// access to CONTEXT or URL on the env.
+// Parcel uses NODE_ENV for builds
+if (process.env.NODE_ENV === "production") {
+  NETLIFY_URL = "https://island-maker.netlify.app";
+}
+
+// Netlify sets CONTEXT and URL for builds
 switch (process.env.CONTEXT) {
   case "production":
     NETLIFY_URL = process.env.URL;
@@ -56,9 +58,11 @@ switch (process.env.CONTEXT) {
     NETLIFY_URL = process.env.DEPLOY_PRIME_URL;
     break;
   default:
-    console.error(
-      `This is a deploy context "${process.env.CONTEXT}" that does not have a NETLIFY_URL configured. No network requests will be attempted to Netlify Functions.`
-    );
+    if (!NETLIFY_URL) {
+      console.error(
+        `This is a deploy context "${process.env.CONTEXT}" that does not have a NETLIFY_URL configured. No network requests will be attempted to Netlify Functions.`
+      );
+    }
     break;
 }
 
