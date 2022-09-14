@@ -14,9 +14,6 @@ const JournalEntryItem = ({ onBack, object, isUnlocked }) => {
   return (
     <div
       style={{
-        flexShrink: "0",
-        flexGrow: "1",
-        flexBasis: "auto",
         marginLeft: "2rem",
         marginRight: "2rem",
         marginTop: "3rem",

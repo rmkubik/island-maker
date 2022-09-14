@@ -5,6 +5,7 @@ const Menu = ({
   maxWidth = "1200px",
   minWidth = "700px",
   maxHeight = "80%",
+  display = "block",
 }) => {
   return (
     <div
@@ -17,7 +18,7 @@ const Menu = ({
         alignItems: "center",
         width: "100%",
         height: "100%",
-        zIndex: 9999999999,
+        zIndex: 100000,
         cursor: "auto",
         backgroundColor: "rgba(69, 69, 69, 0.75)",
       }}
@@ -33,6 +34,7 @@ const Menu = ({
           maxWidth,
           minWidth,
           maxHeight,
+          display,
         }}
       >
         {children}

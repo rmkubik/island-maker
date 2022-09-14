@@ -13,7 +13,7 @@ const JournalMenu = ({ setView, isUnlocked }) => {
   );
 
   return (
-    <Menu maxWidth="1200px" maxHeight="80%">
+    <Menu maxWidth="1200px" maxHeight="80%" display="flex">
       <div
         style={{
           display: "flex",

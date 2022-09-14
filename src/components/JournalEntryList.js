@@ -14,17 +14,10 @@ const JournalEntryList = ({
     <>
       <h1 style={{ marginBottom: "64px" }}>Journal</h1>
       <div
-        // TODO: This is a hotfix to keep the journal in view on
-        // Firefox browser. We should figure out what's going
-        // wrong with flex and shrink before shipping.
         style={{
-          flexShrink: "1",
-          flexGrow: "0",
-          flexBasis: "auto",
           overflowY: "scroll",
           overflowX: "hidden",
           backgroundColor: "rgb(90, 90, 90)",
-          maxHeight: "50vh",
         }}
         className="journal-entry-list"
       >
