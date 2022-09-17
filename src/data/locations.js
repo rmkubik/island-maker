@@ -10,6 +10,7 @@ import { tilePaths } from "./tiles";
 import getHouseLevel from "../utils/getHouseLevel";
 import clamp from "../utils/clamp";
 import createPickRandomlyFromArrayRigged from "../utils/createPickRandomlyFromArrayRigged";
+import shuffle from "../utils/shuffle";
 
 const HOUSE_3_OPTIONS = ["inn", "church"];
 const SHIP_3_OPTIONS = ["merchant", "pirate"];
@@ -106,6 +107,25 @@ function stackShips({ hex, game }) {
     return [pickShip3Outcome(SHIP_3_OPTIONS), hex];
   }
 
+  return [];
+}
+
+function wreckShip({ hex, grid, game }) {
+  const existingWrecks = grid.filter((hex) => hex.objectType === "shipwreck");
+  const existingWreckCount = existingWrecks.length;
+
+  hex.objectType = objects.shipwreck.key;
+  hex.objectImage = objects.shipwreck.image;
+
+  grid.set(hex, hex);
+
+  const isMultipleOfFiveWreck = (existingWreckCount + 1) % 5 === 0;
+
+  if (isMultipleOfFiveWreck) {
+    return [["kraken", hex]];
+  }
+
+  // No new cards created
   return [];
 }
 
@@ -810,13 +830,19 @@ const objects = combineEntriesWithKeys(
             //
             // TODO: This still seems incredibly overpowered
             // right now!
+            //
             // ESPECIALLY: The way a quarry can directly copy
             // a house2, house3, or house4.
+            //
             // ESPECIALLY: The with the quantity of quarries a
             // mine can generate. It's a very odd feeling!
             // There's HELLA duping happening. This could be
             // an alright ability, but its feels so weirdly
             // distorting right now.
+            //
+            // I think this is correct, the fact that they can also
+            // copy themselves is pretty wildly overpowered
+            // I think.
             if (
               newObjects.every(
                 ([newObject]) => newObject !== neighbor.objectType
@@ -921,14 +947,11 @@ const objects = combineEntriesWithKeys(
         // If a ship is placed on a wave, turn it into a
         // shipwreck and don't generate any other tiles.
         if (hex.tileType === "oceanWave") {
-          hex.objectType = objects.shipwreck.key;
-          hex.objectImage = objects.shipwreck.image;
-
           game.unlockRule("ship1", "wreck");
           game.unlockItem("shipwreck");
 
-          grid.set(hex, hex);
-          return;
+          const newCards = wreckShip({ hex, grid, game });
+          return newCards;
         }
 
         let newCards = [];
@@ -1050,12 +1073,15 @@ const objects = combineEntriesWithKeys(
             hex.objectType = undefined;
 
             game.unlockRule("cave", "mountain");
-            break;
+            grid.set(hex, hex);
+            return;
           }
           case "ocean":
           case "oceanWave": {
             const tileTypeImages = tilePaths.grassland;
             const tileImage = pickRandomlyFromArray(tileTypeImages);
+
+            game.unlockRule("cave", "island");
 
             hex.tileType = "grassland";
             hex.tileImage = tileImage;
@@ -1067,24 +1093,24 @@ const objects = combineEntriesWithKeys(
             ) {
               game.unlockRule("cave", "islandShipWreck");
 
-              hex.objectImage = objects.shipwreck.image;
-              hex.objectType = "shipwreck";
-            } else {
-              hex.objectImage = undefined;
-              hex.objectType = undefined;
+              const newCards = wreckShip({ hex, grid, game });
+
+              return newCards;
             }
 
-            game.unlockRule("cave", "island");
-            break;
+            hex.objectImage = undefined;
+            hex.objectType = undefined;
+
+            grid.set(hex, hex);
+            return;
           }
-          default:
+          default: {
             console.error(
               `Invalid tileType "${hex.tileType}" for "cave" onPlace.`
             );
-            break;
+            return;
+          }
         }
-
-        grid.set(hex, hex);
       },
     },
     dungeon: {
@@ -1280,16 +1306,16 @@ const objects = combineEntriesWithKeys(
       image: "87_pirate_ship-resize",
       validTileTypes: ["ocean", "oceanWave"],
       onPlace: ({ hex, neighbors, grid, game }) => {
-        const sinkShip = (ship) => {
-          ship.objectType = objects.shipwreck.key;
-          ship.objectImage = objects.shipwreck.image;
+        let newCards = [];
 
+        const sinkShip = (ship) => {
           game.unlockRule("pirate", "sinkShip");
 
+          let newWreckCards = wreckShip({ hex: ship, grid, game });
+
+          newCards.push(...newWreckCards);
           grid.set(ship, ship);
         };
-
-        let newCards = [];
 
         const ships = neighbors.filter(
           (neighbor) => neighbor.objectType === "ship1"
@@ -1327,12 +1353,45 @@ const objects = combineEntriesWithKeys(
     kraken: {
       name: "Kraken",
       desc: "It looks hungry",
-      isInJournal: false,
+      lore: "There are unfathomable creatures hidden beneath The Salt.",
+      rules: {
+        givesFish: {
+          hidden: false,
+          desc: "Gives three random Fish when placed.",
+        },
+        sinkShips: {
+          hidden: true,
+          desc: "Turns adjacent lone Ships, Merchants, and Pirates into Shipwrecks when placed.",
+        },
+      },
+      isInJournal: true,
       image: "63_kraken-resize",
       validTileTypes: ["ocean", "oceanWave"],
-      onPlace: ({ hex, neighbors, grid }) => {
-        // Does nothing on place right now
-        return;
+      onPlace: ({ hex, neighbors, grid, game }) => {
+        const fish = [
+          ["fish1", hex],
+          ["fish2", hex],
+          ["fish3", hex],
+        ];
+        const newCards = shuffle(fish);
+
+        game.unlockRule("kraken", "givesFish");
+
+        const ships = neighbors.filter(
+          (neighbor) =>
+            neighbor.objectType === "ship1" ||
+            neighbor.objectType === "merchant" ||
+            neighbor.objectType === "pirate"
+        );
+        ships.forEach((ship) => {
+          const newWreckCards = wreckShip({ hex: ship, grid, game });
+
+          game.unlockRule("kraken", "sinkShips");
+
+          newCards.push(...newWreckCards);
+        });
+
+        return newCards;
       },
     },
     treasure: {
