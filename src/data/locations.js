@@ -238,7 +238,7 @@ const objects = combineEntriesWithKeys(
     fish3: {
       name: "Fish",
       desc: "Swims in the sea",
-      lore: "Old sailors whisper that fish are the true chosen of Sal.",
+      lore: "Old sailors whisper that fish are the true chosen of The Salt.",
       rules: {
         harvest: {
           hidden: true,
@@ -266,7 +266,7 @@ const objects = combineEntriesWithKeys(
     turnip3: {
       name: "Turnip",
       desc: "Grows in the ground",
-      lore: "The last gift of Limus before they left the world behind.",
+      lore: "The last gift of The Loam before they left the world behind.",
       rules: {
         harvest: {
           hidden: true,
@@ -279,8 +279,8 @@ const objects = combineEntriesWithKeys(
     },
     plant: {
       name: "Grow",
-      desc: "Creates a Forest",
-      lore: "Some power left behind by Limus can be wielded by man.",
+      desc: "The trees will rise",
+      lore: "Some power left behind by The Loam can be wielded by man.",
       rules: {
         forest: {
           hidden: false,
@@ -327,17 +327,17 @@ const objects = combineEntriesWithKeys(
     },
     camp: {
       name: "Camp",
-      desc: "Gives a mill when placed on a forest",
-      lore: "Man learned to exploit forests in the name of Agriculture.",
+      desc: "Hunts in the forest",
+      lore: "The forests can serve Agriculture too.",
       rules: {
-        mill: { hidden: false, desc: "Gives a mill when placed on a forest." },
+        mill: { hidden: false, desc: "Gives a Mill when placed on a Forest." },
         chop: {
           hidden: true,
-          desc: "Clears adjacent forests when placed on a grassland.",
+          desc: "Clears adjacent Forests when placed on a Grassland.",
         },
         turnip: {
           hidden: true,
-          desc: "If an object in the forest is cleared, it becomes a Turnip.",
+          desc: "If an object in the Forest is cleared, it becomes a Turnip.",
         },
         tracks: {
           hidden: true,
@@ -408,7 +408,7 @@ const objects = combineEntriesWithKeys(
     farm: {
       name: "Farm",
       desc: "Harvests adjacent turnips",
-      lore: "Agriculture - the study of using Limus's gifts.",
+      lore: "Agriculture - the study of The Loam's gifts.",
       rules: {
         harvest: "Gives a House when placed next to a Turnip.",
         mill: {
@@ -463,17 +463,17 @@ const objects = combineEntriesWithKeys(
     },
     mine: {
       name: "Mine",
-      desc: "Mines adjacent mountains",
-      lore: "Not content with Limus's gifts, man harvested their body. Why would a dead god care?",
+      desc: "Extracts from adjacent mountains",
+      lore: "Fragments of The Loam's body can create impressive replicas.",
       rules: {
-        gatherOdd: "Gives a Rocky Seed when placed next to a mountain",
+        gatherOdd: "Gives a Rock Shard when placed next to a Mountain.",
         gatherEven: {
           hidden: true,
-          desc: "Gives a Quarry for every other mountain adjacent on place, after the first one",
+          desc: "Gives a Quarry for every other Mountain adjacent on place, after the first one.",
         },
         gatherRuin: {
           hidden: true,
-          desc: "Gives a curse when placed next to a Ruin",
+          desc: "Gives a Curse when placed next to a Ruin.",
         },
       },
       isInJournal: true,
@@ -527,14 +527,14 @@ const objects = combineEntriesWithKeys(
     },
     house1: {
       name: "House",
-      desc: "Counts for 1 population",
-      lore: "Even though the world started to die, man had need for shelter.",
+      desc: "A nice place to live",
+      lore: "Even if the world is dying, people still need a place to live.",
       rules: {
-        pop1: "Counts for 1 population",
+        pop1: "Counts for 1 population.",
         stack: { hidden: true, desc: "Can be stacked on other Houses." },
         stack3: {
           hidden: true,
-          desc: "Gives a random Inn or Church when stacked to 3",
+          desc: "Gives a random Inn or Church when stacked to 3.",
         },
       },
       isInJournal: true,
@@ -578,10 +578,10 @@ const objects = combineEntriesWithKeys(
     },
     house2: {
       name: "Hamlet",
-      desc: "Counts for 2 population",
-      lore: "Man learned that there was safety in numbers.",
+      desc: "Two is company",
+      lore: "There is safety in numbers.",
       rules: {
-        pop2: "Counts for 2 population",
+        pop2: "Counts for 2 population.",
       },
       isInJournal: true,
       image: "house_2",
@@ -589,13 +589,13 @@ const objects = combineEntriesWithKeys(
     },
     house3: {
       name: "Village",
-      desc: "Counts for 3 population",
-      lore: "In larger communities, man needed more than just shelter.",
+      desc: "Three's a crowd",
+      lore: "People need more than just shelter.",
       rules: {
-        pop3: "Counts for 3 population",
+        pop3: "Counts for 3 population.",
         stack3: {
           hidden: true,
-          desc: "Gives a random Inn or Church when stacked to 3",
+          desc: "Gives a random Inn or Church when stacked to 3.",
         },
       },
       isInJournal: true,
@@ -607,8 +607,8 @@ const objects = combineEntriesWithKeys(
     },
     house4: {
       name: "Town",
-      desc: "Counts for 4 population",
-      lore: "Belief, even in false gods, can still accomplish impressive things.",
+      desc: "Bustling",
+      lore: "Belief, even in false gods, can accomplish impressive things.",
       rules: {
         pop4: "Counts for 4 population",
       },
@@ -618,10 +618,10 @@ const objects = combineEntriesWithKeys(
     },
     mill: {
       name: "Mill",
-      desc: "Harvests adjacent farms",
-      lore: "Agriculture advanced alongside man's domain.",
+      desc: "Farms the farms",
+      lore: "Larger settlements require more and more food to sustain.",
       rules: {
-        farm: "Gives a farm for each adjacent farm",
+        farm: "Gives a Farm for each adjacent Farm",
       },
       isInJournal: true,
       image: "locations_colored_6",
@@ -643,10 +643,10 @@ const objects = combineEntriesWithKeys(
     },
     inn: {
       name: "Inn",
-      desc: "Gives a house for each adjacent house",
-      lore: "Religion could not satisfy all of man's needs.",
+      desc: "Gives adjacent homes happiness",
+      lore: "Religion does not satisfy all of man's needs.",
       rules: {
-        house: "Gives a house for each adjacent hex with houses",
+        house: "Gives a House for each adjacent hex with Houses.",
       },
       isInJournal: true,
       image: "locations_colored_12",
@@ -663,8 +663,8 @@ const objects = combineEntriesWithKeys(
     },
     church: {
       name: "Church",
-      desc: "Upgrades each adjacent house",
-      lore: "Man never knew the true gods, so they concocted their own.",
+      desc: "Brings adjacent homes faith",
+      lore: "Man never knew the old gods, so they concoct their own.",
       rules: {
         upgradeHouse: "Upgrades each adjacent house.",
         upgradeHouse4: {
@@ -752,7 +752,7 @@ const objects = combineEntriesWithKeys(
       name: "Tracks",
       desc: "Something was here",
       image: "icons_colored_11",
-      lore: "Man claimed the grassland, but something else claimed the forest.",
+      lore: "People claim the grassland, but something else claims the forest.",
       validTileTypes: ["forest"],
       rules: {
         tracks: {
@@ -764,10 +764,10 @@ const objects = combineEntriesWithKeys(
     },
     nest: {
       name: "Nest",
-      desc: "Adds another bank slot",
-      lore: "Man was not alone after the gods died.",
+      desc: "Room for one more?",
+      lore: "People are not alone after the gods died.",
       rules: {
-        storage: "Gives you another bank slot",
+        storage: "Gives you another bank slot.",
       },
       isInJournal: true,
       image: "locations_colored_20",
@@ -789,11 +789,11 @@ const objects = combineEntriesWithKeys(
       },
     },
     quarry: {
-      name: "Quarry",
-      desc: "Gives a copy of each type of adjacent buildings",
-      lore: "Man used Limus's body to build more and more and more.",
+      name: "Sculptor",
+      desc: "Fashions a copy of adjacent buildings",
+      lore: "With enough practice, fragments of The Loam's body can be shaped.",
       rules: {
-        copy: "Gives a copy of each type of adjacent buildings",
+        copy: "Gives a copy of each type of adjacent buildings.",
       },
       isInJournal: true,
       image: "locations_colored_4",
@@ -830,13 +830,13 @@ const objects = combineEntriesWithKeys(
     },
     lighthouse: {
       name: "Lighthouse",
-      desc: "Gives a ship for each adjacent ocean",
-      lore: "After draining Limus's body, man turned their gaze to Sal's domain.",
+      desc: "Lights the way across the seas",
+      lore: "After conquering the land, people turned toward The Salt's domain.",
       rules: {
-        shipBuilder: "Gives a Ship for each adjacent ocean",
+        shipBuilder: "Gives a Ship for each adjacent Ocean.",
         resupply: {
           hidden: true,
-          desc: "Placing a Ship adjacent gives a random Camp or Plant",
+          desc: "Placing a Ship adjacent gives a random Camp or Grow",
         },
       },
       isInJournal: true,
@@ -870,16 +870,16 @@ const objects = combineEntriesWithKeys(
     ship1: {
       name: "Ship",
       desc: "Harvests adjacent fish",
-      lore: undefined,
+      lore: "It can be dangerous to sail the seas alone.",
       rules: {
-        fish: "Gives a house when placed adjacent to fish.",
+        fish: "Gives a House when placed adjacent to Fish.",
         wreck: {
           hidden: true,
           desc: "Turns into a Shipwreck when placed on an Ocean with Waves.",
         },
         resupply: {
           hidden: true,
-          desc: "Gives a Camp or Plant when placed adjacent to a Lighthouse.",
+          desc: "Gives a Camp or Grow when placed adjacent to a Lighthouse.",
         },
         stack: { hidden: true, desc: "Can be stacked on other Ships." },
         stack3: {
@@ -945,12 +945,12 @@ const objects = combineEntriesWithKeys(
     ship2: {
       name: "Flotilla",
       desc: "Harvests adjacent fish",
-      lore: undefined,
+      lore: "Grouping with other ships offers additional protection.",
       rules: {
-        fish: "Gives a house when placed adjacent to fish.",
+        fish: "Gives a House when placed adjacent to Fish.",
         resupply: {
           hidden: true,
-          desc: "Gives a Camp or Plant when placed adjacent to a Lighthouse.",
+          desc: "Gives a Camp or Grow when placed adjacent to a Lighthouse.",
         },
       },
       isInJournal: true,
@@ -971,12 +971,12 @@ const objects = combineEntriesWithKeys(
     ship3: {
       name: "Fleet",
       desc: "Harvests adjacent fish",
-      lore: undefined,
+      lore: "As the seas get busier more specialized vessels are required.",
       rules: {
-        fish: "Gives a house when placed adjacent to fish.",
+        fish: "Gives a House when placed adjacent to Fish.",
         resupply: {
           hidden: true,
-          desc: "Gives a Camp or Plant when placed adjacent to a Lighthouse.",
+          desc: "Gives a Camp or Grow when placed adjacent to a Lighthouse.",
         },
         stack3: {
           hidden: true,
@@ -1010,16 +1010,16 @@ const objects = combineEntriesWithKeys(
     shipwreck: {
       name: "Shipwreck",
       desc: "To the bottom of the sea",
-      lore: undefined,
+      lore: "It is unknown how many sailors lie beneath The Salt.",
       rules: {},
       isInJournal: true,
       image: "locations_colored_29",
       validTileTypes: ["ocean", "oceanWave"],
     },
     cave: {
-      name: "Rock Fragment",
-      desc: "Creates a Mountain",
-      lore: "Fragments of Limus's body, chipped from the Mountains.",
+      name: "Rock Shard",
+      desc: "Creates rock where there is none",
+      lore: "A fragment of The Loam's body twinkling with possibility.",
       rules: {
         mountain: "Creates a Mountain.",
         island: {
@@ -1070,8 +1070,8 @@ const objects = combineEntriesWithKeys(
     },
     dungeon: {
       name: "Dungeon",
-      desc: "Creates graves and curses for each adjacent mountain",
-      lore: undefined,
+      desc: "Danger comes from the mountains",
+      lore: "The body of a dead god produces dangerous things.",
       rules: {
         church: "Gives a Church when placed.",
         graves:
@@ -1096,7 +1096,7 @@ const objects = combineEntriesWithKeys(
     grave: {
       name: "Grave",
       desc: "Rest in peace",
-      lore: undefined,
+      lore: "The dead will become part of The Loam's body in time.",
       rules: {
         church: {
           hidden: true,
@@ -1109,8 +1109,8 @@ const objects = combineEntriesWithKeys(
     },
     skull: {
       name: "Curse",
-      desc: "Turns target into a grave",
-      lore: undefined,
+      desc: "All things must pass",
+      lore: "There is power in defiling The Loam's body.",
       rules: {
         grave: "Turns target into a Grave.",
         dungeon: { hidden: true, desc: "Turns a Mine into a Dungeon." },
@@ -1149,8 +1149,8 @@ const objects = combineEntriesWithKeys(
     },
     witchHut: {
       name: "Witch Hut",
-      desc: "Gives a curse",
-      lore: undefined,
+      desc: "Not so friendly",
+      lore: "The Loam's body can be used to destroy as well as create.",
       rules: {
         curse: "Gives a Curse.",
       },
@@ -1165,8 +1165,8 @@ const objects = combineEntriesWithKeys(
     },
     ruin: {
       name: "Ruin",
-      desc: "Gives a curse when mined",
-      lore: undefined,
+      desc: "Contains a trace of deadly power",
+      lore: "Old ruins from before the gods died contain traces of their power.",
       rules: {
         curse: "Gives a Curse when mined.",
       },
@@ -1180,10 +1180,10 @@ const objects = combineEntriesWithKeys(
     },
     merchant: {
       name: "Merchant",
-      desc: "Use a resource on this to trade",
-      lore: undefined,
+      desc: "Trades for fish",
+      lore: "Mercantilism rules the waves.",
       rules: {
-        trade: "Use an object on the Merchant to trade for a Fish.",
+        trade: "Use a land-bound object on the Merchant to trade for a Fish.",
         fishLevel: {
           hidden: true,
           desc: "Traded Fish will be higher quantity per Merchant, up to 3.",
@@ -1241,7 +1241,7 @@ const objects = combineEntriesWithKeys(
     pirate: {
       name: "Pirate",
       desc: "Sinks adjacent lone ships",
-      lore: undefined,
+      lore: "Unprotected riches are just asking to be plundered.",
       rules: {
         sinkShip: "Turns adjacent lone Ships into Shipwrecks when placed.",
         plunderShip: {
@@ -1316,11 +1316,10 @@ const objects = combineEntriesWithKeys(
         return;
       },
     },
-    // TODO game.addRule below
     treasure: {
       name: "Treasure",
       desc: "What's inside?",
-      lore: undefined,
+      lore: "An ancient chest that appears to date back from before the gods died.",
       rules: {
         unlock: {
           hidden: true,
@@ -1347,11 +1346,11 @@ const objects = combineEntriesWithKeys(
     key: {
       name: "Key",
       desc: "Opens something",
-      lore: undefined,
+      lore: "An ancient corroded key that appears to have tooth marks on it.",
       rules: {
         unlock: {
           hidden: true,
-          desc: "Gives Sal's Tooth when used on a Treasure.",
+          desc: "Gives The Salt's Tooth when used on a Treasure.",
         },
       },
       isInJournal: true,
@@ -1359,11 +1358,12 @@ const objects = combineEntriesWithKeys(
       validTileTypes: ["grassland", "forest"],
     },
     fishRelic: {
-      name: "Sal's Tooth",
-      desc: "Fish count as population",
-      lore: undefined,
+      name: "The Salt's Tooth",
+      desc: "The chosen ones will reign",
+      lore: "An enormous tooth fallen from The Salt's maw. It radiates an ominous energy.",
       rules: {
-        chosenOnes: "Fish count as population while Sal's Tooth is placed.",
+        chosenOnes:
+          "Fish count as population while The Salt's Tooth is placed.",
       },
       isInJournal: true,
       image: "locations_colored_23",
@@ -1376,12 +1376,10 @@ const objects = combineEntriesWithKeys(
         game.unlockRule("fish3", "pop");
       },
     },
-    // TODO: We should create a better sprite for bounce than
-    // just using the zero like we are right now.
     bounce: {
       name: "Bounce",
-      desc: "Return target to your deck",
-      lore: undefined,
+      desc: "Shifts the target's location",
+      lore: "Merchants have learned interesting secrets while out in the waves.",
       rules: {
         bounce: "Returns targeted object to your deck.",
       },
