@@ -37,7 +37,11 @@ function Game({
   const [newCards, setNewCards] = useState([]);
   const { GridDataRef, grid } = useHexGrid({
     initializeGrid: (initialGrid, state) => {
-      state.biome = "oceanic";
+      const biomes = Object.keys(biomeSettings);
+
+      state.biome = pickRandomlyFromArray(biomes);
+
+      console.log(`Generating with biome: "${state.biome}"`);
     },
     initializeHex: (hex, state) => {
       switch (gameMode) {

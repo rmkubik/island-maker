@@ -9,6 +9,7 @@ import * as oceanWaveTiles from "../../assets/Tiles Oceans with Waves/*.png";
 import tileCorners from "../../assets/Overlays Hex Corners/hex_corner_overlay.png";
 import tileBorders from "../../assets/Overlays Hex Borders/hex_border_overlay.png";
 import reduceEntries from "../utils/reduceEntries";
+import combineEntriesWithKeys from "../utils/combineEntriesWithKeys";
 
 const tilePaths = {
   grassland: Object.keys(grassLandTiles).map((key) => `grassland.${key}`),
@@ -52,7 +53,7 @@ const tileNames = {
   oceanWave: "Ocean with Wave",
 };
 
-const biomeSettings = {
+const _biomeSettings = {
   plains: {
     tileWeights: new WeightedMap({
       grassland: 73,
@@ -134,6 +135,7 @@ const biomeSettings = {
     },
   },
 };
+const biomeSettings = combineEntriesWithKeys(Object.entries(_biomeSettings));
 
 export {
   tilePaths,

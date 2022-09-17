@@ -9,6 +9,7 @@ const useHexGrid = ({
   premadeGrid,
 }) => {
   const GridDataRef = useRef();
+  const stateRef = useRef();
   const [grid, setGrid] = useState();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const useHexGrid = ({
 
     GridDataRef.current = defineGrid(Hex);
 
-    let state = { ...initialState };
+    stateRef.current = { ...initialState };
     let initialGrid;
 
     if (premadeGrid) {
@@ -32,9 +33,9 @@ const useHexGrid = ({
       initialGrid = GridDataRef.current.rectangle(dimensions);
     }
 
-    initializeGrid(initialGrid, state);
+    initializeGrid(initialGrid, stateRef.current);
 
-    initialGrid.forEach((hex) => initializeHex(hex, state));
+    initialGrid.forEach((hex) => initializeHex(hex, stateRef.current));
 
     setGrid(initialGrid);
   }, []);
