@@ -257,11 +257,13 @@ const objects = combineEntriesWithKeys(
       name: "Turnip",
       desc: "Grows in the ground",
       image: "turnip_1",
+      validTileTypes: ["grassland"],
     },
     turnip2: {
       name: "Turnip",
       desc: "Grows in the ground",
       image: "turnip_2",
+      validTileTypes: ["grassland"],
     },
     turnip3: {
       name: "Turnip",
