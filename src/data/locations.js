@@ -1024,12 +1024,17 @@ const objects = combineEntriesWithKeys(
         mountain: "Creates a Mountain.",
         island: {
           hidden: true,
-          desc: "Creates a Grassland when placed on an Ocean.",
+          desc: "Creates a Grassland when used on an Ocean.",
+        },
+        islandShipWreck: {
+          hidden: true,
+          desc: "Creates a Shipwreck on Grassland when used on a Ship, Merchant, or Pirate.",
         },
       },
       isInJournal: true,
       image: "locations_colored_17",
       validTileTypes: ["grassland", "forest", "ocean", "oceanWave"],
+      validObjectOverrides: ["ship1", "merchant", "pirate"],
       onPlace: ({ hex, neighbors, grid, game }) => {
         switch (hex.tileType) {
           case "grassland":
@@ -1052,8 +1057,20 @@ const objects = combineEntriesWithKeys(
 
             hex.tileType = "grassland";
             hex.tileImage = tileImage;
-            hex.objectImage = undefined;
-            hex.objectType = undefined;
+
+            if (
+              hex.objectType === "ship1" ||
+              hex.objectType === "merchant" ||
+              hex.objectType === "pirate"
+            ) {
+              game.unlockRule("cave", "islandShipWreck");
+
+              hex.objectImage = objects.shipwreck.image;
+              hex.objectType = "shipwreck";
+            } else {
+              hex.objectImage = undefined;
+              hex.objectType = undefined;
+            }
 
             game.unlockRule("cave", "island");
             break;
