@@ -19,7 +19,7 @@ const getResource = (tileType, chances) => {
         return objects.tracks;
       }
       if (randInt(1, 100) <= chances.ruins) {
-        return objects.ruins;
+        return objects.ruin;
       }
       break;
     case "ocean":
