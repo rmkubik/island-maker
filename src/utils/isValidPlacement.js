@@ -1,3 +1,4 @@
+import { objects } from "../data/locations";
 import shouldOverrideObject from "./shouldOverrideObject";
 
 function isValidPlacement({ hex, selected }) {
@@ -15,10 +16,17 @@ function isValidPlacement({ hex, selected }) {
     return false;
   }
 
-  if (!isOverridingObject && hex.objectType) {
+  const hexObject = objects[hex.objectType];
+  const isValidTargeter =
+    hexObject &&
+    hexObject.isTargeterValid &&
+    !hexObject.isTargeterValid({ targeter: selected });
+
+  if (!isOverridingObject && !isValidTargeter && hex.objectType) {
     // We only do this check if we're not overriding this object
     // If there is already an object on this tile
-    // can't place here.
+    // can't place here unless it's our selected is a valid targeter
+    // for the targeted hex.
     return false;
   }
 

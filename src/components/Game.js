@@ -5,7 +5,7 @@ import "../style.css";
 import useHexGrid from "../hooks/useHexGrid";
 import useDeck from "../hooks/useDeck";
 import pickRandomlyFromArray from "../utils/pickRandomlyFromArray";
-import { tilePaths, tilesMap } from "../data/tiles";
+import { tilePaths, biomeSettings } from "../data/tiles";
 import TopBar from "./TopBar";
 import getResource from "../utils/getResource";
 import { objects } from "../data/locations";
@@ -36,14 +36,28 @@ function Game({
   const [banked, setBanked] = useState([objects.x]);
   const [newCards, setNewCards] = useState([]);
   const { GridDataRef, grid } = useHexGrid({
-    initializeHex: (hex) => {
+    initializeGrid: (initialGrid, state) => {
+      state.biome = "oceanic";
+    },
+    initializeHex: (hex, state) => {
       switch (gameMode) {
         case GAME_MODE_OPTIONS.SEEDED:
-          const tileType = tilesMap.pickRandom();
+          const biome = biomeSettings[state.biome];
+          const tileWeights = biome.tileWeights;
+          const tileType = tileWeights.pickRandom();
           const tileTypeImages = tilePaths[tileType];
           const tileImage = pickRandomlyFromArray(tileTypeImages);
 
-          const resource = getResource(tileType);
+          let resource = getResource(tileType, biome.resourceWeights);
+
+          if (resource?.key === "x") {
+            // We can only generate ONE xmark
+            if (state.hasGeneratedXMark) {
+              resource = undefined;
+            }
+
+            state.hasGeneratedXMark = true;
+          }
 
           if (resource) {
             hex.objectType = resource.key;
@@ -58,6 +72,10 @@ function Game({
           // Do nothing here
           break;
       }
+    },
+    initialState: {
+      biome: "classic",
+      hasGeneratedXMark: false,
     },
     premadeGrid:
       (gameMode === GAME_MODE_OPTIONS.PREMADE ||

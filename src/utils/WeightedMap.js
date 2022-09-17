@@ -22,7 +22,7 @@ export default class WeightedMap {
    */
   constructor(map) {
     if (!WeightedMap.isMapValid(map)) {
-      console.warn(
+      console.error(
         "WeightedMap is not valid! Weights must total 100 percent! Out of range values will not get picked."
       );
     }

@@ -212,6 +212,19 @@ const editObjects = combineEntriesWithKeys(
         grid.set(hex, hex);
       },
     },
+    fillHouses: {
+      name: "Fill Villages",
+      image: "icons_colored_1",
+      desc: "Fill map with villages",
+      onEditOverride: ({ hex, neighbors, grid }) => {
+        grid.forEach((hex) => {
+          if (!hex.objectType) {
+            hex.objectType = "house4";
+            hex.objectImage = "house_4";
+          }
+        });
+      },
+    },
   })
 );
 
@@ -815,7 +828,7 @@ const objects = combineEntriesWithKeys(
       desc: "Fashions a copy of adjacent buildings",
       lore: "With enough practice, fragments of The Loam's body can be shaped.",
       rules: {
-        copy: "Gives a copy of each type of adjacent buildings.",
+        copy: "Gives a copy of each type of adjacent object except Sculptor.",
       },
       isInJournal: true,
       image: "locations_colored_4",
@@ -827,28 +840,20 @@ const objects = combineEntriesWithKeys(
           if (neighbor.objectType !== undefined) {
             // Ensure an object of neighbor's type is not
             // already in the newObjects array.
-            //
-            // TODO: This still seems incredibly overpowered
-            // right now!
-            //
-            // ESPECIALLY: The way a quarry can directly copy
-            // a house2, house3, or house4.
-            //
-            // ESPECIALLY: The with the quantity of quarries a
-            // mine can generate. It's a very odd feeling!
-            // There's HELLA duping happening. This could be
-            // an alright ability, but its feels so weirdly
-            // distorting right now.
-            //
-            // I think this is correct, the fact that they can also
-            // copy themselves is pretty wildly overpowered
-            // I think.
             if (
               newObjects.every(
                 ([newObject]) => newObject !== neighbor.objectType
               )
             ) {
-              newObjects.push([neighbor.objectType, neighbor]);
+              // Copy any object type except for quarries to prevent
+              // infinite quarry chaining.
+              //
+              // TODO: This feels a little lame, to hard code an
+              // exception like this, but I think it is a good nerf for
+              // now until quarry gets reworked more.
+              if (neighbor.objectType !== "quarry") {
+                newObjects.push([neighbor.objectType, neighbor]);
+              }
             }
           }
         });
@@ -1241,6 +1246,14 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "85_trading_ship-resize",
       validTileTypes: ["ocean", "oceanWave"],
+      isTargeterValid: ({ targeter }) => {
+        // Only an object without ocean or oceanWave
+        // can be traded to the merchant.
+        return (
+          !targeter.validTileTypes.includes("ocean") &&
+          !targeter.validTileTypes.includes("oceanWave")
+        );
+      },
       onTargeted: ({ hex, selected, neighbors, grid, game }) => {
         const merchants = grid.filter((hex) => hex.objectType === "merchant");
         const merchantCount = merchants.length;
@@ -1407,6 +1420,9 @@ const objects = combineEntriesWithKeys(
       isInJournal: true,
       image: "icons_colored_18",
       validTileTypes: ["grassland", "forest"],
+      isTargeterValid: ({ targeter }) => {
+        return targeter.objectType === "key";
+      },
       onTargeted: ({ hex, selected, neighbors, grid, game }) => {
         if (selected.key === "key") {
           hex.objectType = undefined;

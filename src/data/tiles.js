@@ -52,4 +52,94 @@ const tileNames = {
   oceanWave: "Ocean with Wave",
 };
 
-export { tilePaths, tilesMap, tileImages, tileBorders, tileNames };
+const biomeSettings = {
+  plains: {
+    tileWeights: new WeightedMap({
+      grassland: 73,
+      forest: 15,
+      mountain: 4,
+      ocean: 5,
+      oceanWave: 3,
+    }),
+    resourceWeights: {
+      turnip: 10,
+      fish: 0,
+      tracks: 3,
+      ruins: 0,
+      xMark: 0,
+    },
+  },
+  classic: {
+    tileWeights: new WeightedMap({
+      grassland: 50,
+      forest: 15,
+      mountain: 5,
+      ocean: 25,
+      oceanWave: 5,
+    }),
+    resourceWeights: {
+      turnip: 8,
+      fish: 6,
+      tracks: 3,
+      ruins: 0,
+      xMark: 0,
+    },
+  },
+  oceanic: {
+    tileWeights: new WeightedMap({
+      grassland: 34,
+      forest: 3,
+      mountain: 3,
+      ocean: 50,
+      oceanWave: 10,
+    }),
+    resourceWeights: {
+      turnip: 1,
+      fish: 10,
+      tracks: 2,
+      ruins: 0,
+      xMark: 5,
+    },
+  },
+  forested: {
+    tileWeights: new WeightedMap({
+      grassland: 35,
+      forest: 35,
+      mountain: 5,
+      ocean: 23,
+      oceanWave: 2,
+    }),
+    resourceWeights: {
+      turnip: 5,
+      fish: 4,
+      tracks: 5,
+      ruins: 4,
+      xMark: 0,
+    },
+  },
+  rugged: {
+    tileWeights: new WeightedMap({
+      grassland: 45,
+      forest: 20,
+      mountain: 15,
+      ocean: 15,
+      oceanWave: 5,
+    }),
+    resourceWeights: {
+      turnip: 6,
+      fish: 0,
+      tracks: 2,
+      ruins: 6,
+      xMark: 0,
+    },
+  },
+};
+
+export {
+  tilePaths,
+  tilesMap,
+  tileImages,
+  tileBorders,
+  tileNames,
+  biomeSettings,
+};

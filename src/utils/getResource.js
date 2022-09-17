@@ -1,24 +1,29 @@
 import { objects } from "../data/locations";
 import randInt from "../utils/randInt";
 
-const getResource = (tileType) => {
-  const turnipChance = 8;
-  const fishChance = 6;
-  const tracksChance = 3;
-
+const getResource = (tileType, chances) => {
   switch (tileType) {
     case "grassland":
-      if (randInt(1, 100) <= turnipChance) {
+      if (randInt(1, 100) <= chances.turnip) {
         return objects.turnip3;
+      }
+      if (randInt(1, 100) <= chances.ruins) {
+        return objects.ruins;
+      }
+      if (randInt(1, 100) <= chances.xMark) {
+        return objects.x;
       }
       break;
     case "forest":
-      if (randInt(1, 100) <= tracksChance) {
+      if (randInt(1, 100) <= chances.tracks) {
         return objects.tracks;
+      }
+      if (randInt(1, 100) <= chances.ruins) {
+        return objects.ruins;
       }
       break;
     case "ocean":
-      if (randInt(1, 100) <= fishChance) {
+      if (randInt(1, 100) <= chances.fish) {
         return objects.fish3;
       }
       break;
