@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import packageInfo from "../../package.json";
 import "../style.css";
@@ -10,6 +11,7 @@ import {
   VISUAL_Y_OFFSET,
   GAME_MODE_OPTIONS,
   LOCAL_STORAGE_KEY,
+  SEED_LENGTH,
 } from "../data/config";
 import Game from "./Game";
 import MainMenu from "./MainMenu";
@@ -18,28 +20,69 @@ import rng from "../utils/rng";
 import JournalMenu from "./JournalMenu";
 import useJournal from "../hooks/useJournal";
 import useLocalStorage from "../hooks/useLocalStorage";
+import createRandomString from "../utils/createRandomString";
+import trackEvent from "../utils/trackEvent";
+import useUser, { UserContextProvider } from "../hooks/useUser";
+import useSession, { SessionContextProvider } from "../hooks/useSession";
 
 function App() {
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
+  const [user, setUser] = useUser();
+  const [session, setSession] = useSession();
+
   const [scaleRef, scale] = useScaleRef();
   const [saveData, setSaveData] = useLocalStorage(LOCAL_STORAGE_KEY, {});
   const [view, setView] = useState("mainMenu");
   const [gameId, setGameId] = useState(0);
   const [lastGrid, setLastGrid] = useState();
   const [currentSeedLabel, setCurrentSeedLabel] = useState("Random");
-  const { journal, setJournal, isUnlocked, unlockItem, commitUnlocks } =
-    useJournal();
+  const {
+    journal,
+    setJournal,
+    isUnlocked,
+    unlockItem,
+    unlockRule,
+    commitUnlocks,
+  } = useJournal();
   const [gameMode, setGameMode] = useState(GAME_MODE_OPTIONS.SEEDED);
   const [currentLevel, setCurrentLevel] = useState();
+  const [highScores, setHighScores] = useState({});
 
+  // Load save data
   useEffect(() => {
+    if (isAppLoaded || !saveData) {
+      return;
+    }
+
+    const loadedUser = saveData.user ?? {};
+    if (!loadedUser.id) {
+      loadedUser.id = uuidv4();
+    }
+
+    trackEvent({
+      eventName: "appLoaded",
+      userId: loadedUser.id,
+      sessionId: session.id,
+    });
+
+    setIsAppLoaded(true);
     setJournal(saveData.journal ?? {});
-  }, []);
+    setHighScores(saveData.highScores ?? {});
+    setUser(loadedUser);
+  }, [saveData, isAppLoaded, user, session]);
 
+  // Save save data
   useEffect(() => {
-    const newSaveData = { ...saveData, journal, version: packageInfo.version };
+    const newSaveData = {
+      ...saveData,
+      journal,
+      highScores,
+      user,
+      version: packageInfo.version,
+    };
 
     setSaveData(newSaveData);
-  }, [journal]);
+  }, [journal, highScores, user]);
 
   const reGenerateGame = () => {
     rng.resetCurrentSeed();
@@ -70,6 +113,7 @@ function App() {
         }}
         setGameMode={setGameMode}
         setCurrentLevel={setCurrentLevel}
+        highScores={highScores}
       />
     ),
     gameOver: (
@@ -77,8 +121,31 @@ function App() {
         setView={setView}
         reGenerateGame={reGenerateGame}
         lastGrid={lastGrid}
+        currentLevel={currentLevel}
         currentSeedLabel={currentSeedLabel}
         gameMode={gameMode}
+        highScores={highScores}
+        setHighScores={setHighScores}
+        replayWithNewSeed={() => {
+          const seed = createRandomString(SEED_LENGTH);
+
+          trackEvent({
+            eventName: "levelRetried",
+            userId: user.id,
+            sessionId: session.id,
+            data: {
+              levelLabel: currentLevel.label,
+              level: currentLevel.level,
+              levelMode: currentLevel.mode,
+              levelUnlockCost: currentLevel.unlockCost,
+              seed,
+            },
+          });
+
+          rng.setSeed(seed);
+          reGenerateGame();
+          setView("none");
+        }}
       />
     ),
     journal: <JournalMenu setView={setView} isUnlocked={isUnlocked} />,
@@ -122,10 +189,22 @@ function App() {
           setView(newView);
         }}
         unlockItem={unlockItem}
+        unlockRule={unlockRule}
         commitUnlocks={commitUnlocks}
+        highScores={highScores}
       />
     </div>
   );
 }
 
-export default App;
+const withProviders = (WrappedComponent) => () => {
+  return (
+    <SessionContextProvider>
+      <UserContextProvider>
+        <WrappedComponent />
+      </UserContextProvider>
+    </SessionContextProvider>
+  );
+};
+
+export default withProviders(App);

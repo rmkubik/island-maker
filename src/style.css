@@ -15,11 +15,55 @@ body {
     sans-serif;
 }
 
+h1 {
+  font-size: 2.2em;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+img.inline-offset {
+  margin-top: -48px;
+}
+
+img.icon {
+  height: 100%;
+}
+
+* {
+  /* Foreground, Background */
+  scrollbar-color: #fff #333;
+}
+::-webkit-scrollbar {
+  width: 12px; /* Mostly for vertical scrollbars */
+  height: 10px; /* Mostly for horizontal scrollbars */
+}
+::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: #fff;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  /* Background */
+  background: #333;
+}
+
 input,
 button {
   color: rgb(69, 69, 69);
   font-family: "Honeyblot Caps", "Franklin Gothic Medium", "Arial Narrow", Arial,
     sans-serif;
+}
+
+button.secondary {
+  color: white;
+  border: 6px solid white;
+  background-color: rgb(69, 69, 69);
+}
+
+.locked {
+  opacity: 0.4;
 }
 
 img {
@@ -196,4 +240,35 @@ button:hover {
   transform-origin: center bottom;
   animation-duration: 250ms;
   animation-fill-mode: both;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInUp {
+  animation-name: slideInUp;
+  animation-duration: 250ms;
+  animation-fill-mode: both;
+}
+
+.journal-entry-list button {
+  background: none;
+  /* border: none; */
+  cursor: pointer;
+  color: white;
+  border: 6px transparent solid;
+  box-sizing: border-box;
+}
+
+.journal-entry-list button.selected {
+  border-radius: 6px;
+  border: 6px white solid;
 }

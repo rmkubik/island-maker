@@ -11,6 +11,8 @@ const defaultDeck = [
   objects.mine,
   objects.farm,
   objects.farm,
+  objects.lighthouse,
+  objects.lighthouse,
 ];
 
 const useDeck = ({ gameMode, initialDeck: unShuffledDeck = defaultDeck }) => {

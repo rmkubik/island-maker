@@ -30,6 +30,51 @@ const LOCAL_STORAGE_KEY = "com.ryankubik.island-maker";
 
 const SEED_LENGTH = 8;
 
+/**
+ * Change the NETLIFY_URL based on our deploy context (what environment are we running in:)
+ * https://docs.netlify.com/site-deploys/overview/#deploy-contexts
+ *
+ * These are set to the CONTEXT env var in builds (and functions):
+ * https://docs.netlify.com/configure-builds/environment-variables/#build-metadata
+ */
+
+let NETLIFY_URL;
+
+// Parcel uses NODE_ENV for builds
+if (process.env.NODE_ENV === "production") {
+  NETLIFY_URL = "https://island-maker.netlify.app";
+}
+
+// Netlify sets CONTEXT and URL for builds
+switch (process.env.CONTEXT) {
+  case "production":
+    NETLIFY_URL = process.env.URL;
+    break;
+  case "deploy-preview":
+    /**
+     * Get the current deploy preview URL:
+     * https://docs.netlify.com/configure-builds/environment-variables/#deploy-urls-and-metadata
+     */
+    NETLIFY_URL = process.env.DEPLOY_PRIME_URL;
+    break;
+  default:
+    if (!NETLIFY_URL) {
+      console.error(
+        `This is a deploy context "${process.env.CONTEXT}" that does not have a NETLIFY_URL configured. No network requests will be attempted to Netlify Functions.`
+      );
+    }
+    break;
+}
+
+const NETLIFY_FUNCTIONS_PATH = "/.netlify/functions/";
+const API_BASE_URL = NETLIFY_URL + NETLIFY_FUNCTIONS_PATH;
+
+let EVENT_API_URL;
+if (NETLIFY_URL) {
+  const EVENT_API_PATH = "event";
+  EVENT_API_URL = API_BASE_URL + EVENT_API_PATH;
+}
+
 export {
   TILE_WIDTH,
   TILE_HEIGHT,
@@ -46,4 +91,5 @@ export {
   GAME_MODE_OPTIONS,
   LOCAL_STORAGE_KEY,
   SEED_LENGTH,
+  EVENT_API_URL,
 };

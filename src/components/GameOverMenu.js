@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Menu from "./Menu";
 import countPopulation from "../utils/countPopulation";
 import rng from "../utils/rng";
@@ -13,27 +13,62 @@ const GameOverMenu = ({
   lastGrid,
   currentSeedLabel,
   gameMode,
+  highScores,
+  setHighScores,
+  currentLevel,
+  replayWithNewSeed,
 }) => {
   const population = countPopulation(lastGrid);
   const stars = convertPopulationToStars(population);
 
+  const existingHighScore = highScores[currentLevel.level] ?? 0;
+  const isNewHighScore = population > existingHighScore;
+
+  if (isNewHighScore) {
+    setHighScores({
+      ...highScores,
+      [currentLevel.level]: population,
+    });
+  }
+
+  useEffect(() => {
+    // TODO:
+    // determine if new population is greater than high score
+    // show "NEW HIGH SCORE" message
+    // setHighScore with the current population
+  }, []);
+
   return (
     <Menu>
       <h1 style={{ marginBottom: "64px" }}>Run Complete!</h1>
-      <div>
-        <p style={{ margin: 0, marginBottom: "0.25em" }}>Population:</p>
-        <p
-          style={{
-            fontSize: "2em",
-            margin: 0,
-            marginBottom: "0.85em",
-          }}
-        >
-          {population}
-        </p>
-      </div>
-      <div style={{ marginBottom: "64px" }}>
-        <p style={{ margin: 0, marginBottom: "-12px" }}>Rating:</p>
+      <h2>Population</h2>
+      {isNewHighScore ? <p>New High Score!</p> : null}
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <div>
+          <p style={{ margin: 0, marginBottom: "0.25em" }}>Current</p>
+          <p
+            style={{
+              fontSize: "2em",
+              margin: 0,
+              marginBottom: "0.85em",
+            }}
+          >
+            {population}
+          </p>
+        </div>
+        <div style={{ marginBottom: "64px" }}>
+          <p style={{ margin: 0, marginBottom: "0.25em" }}>High Score</p>
+          <p
+            style={{
+              fontSize: "2em",
+              margin: 0,
+              marginBottom: "0.85em",
+            }}
+          >
+            {highScores[currentLevel.level] ?? 0}
+          </p>
+        </div>
+        {/* <p style={{ margin: 0, marginBottom: "-12px" }}>Rating:</p>
         <div style={{ display: "flex", flexDirection: "row" }}>
           {constructArray((index) => {
             let image;
@@ -57,7 +92,7 @@ const GameOverMenu = ({
               />
             );
           }, 5)}
-        </div>
+        </div> */}
       </div>
       <div
         style={{
@@ -67,7 +102,7 @@ const GameOverMenu = ({
           alignItems: "center",
         }}
       >
-        <label htmlFor="seed">Seed:</label>
+        <label htmlFor="seed">Seed</label>
         <input
           style={{
             width: "fit-content",
@@ -84,51 +119,70 @@ const GameOverMenu = ({
         />
         <p>{`"${currentSeedLabel}"`}</p>
       </div>
-      <button
-        style={{
-          padding: "16px 32px",
-          borderRadius: "8px",
-          fontSize: "1.25em",
-          cursor: "pointer",
-          marginRight: "8px",
-        }}
-        onClick={() => {
-          setView("none");
-        }}
-      >
-        Back to Map
-      </button>
-      <button
-        style={{
-          padding: "16px 32px",
-          borderRadius: "8px",
-          fontSize: "1.25em",
-          cursor: "pointer",
-        }}
-        onClick={() => {
-          setView("mainMenu");
-          reGenerateGame();
-        }}
-      >
-        Done
-      </button>
-      {gameMode === GAME_MODE_OPTIONS.EDITOR && (
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {gameMode === GAME_MODE_OPTIONS.EDITOR && (
+          <button
+            style={{
+              padding: "16px 32px",
+              borderRadius: "8px",
+              fontSize: "1.25em",
+              cursor: "pointer",
+              marginBottom: "16px",
+            }}
+            onClick={() => {
+              console.log(lastGrid);
+              console.log(JSON.stringify(lastGrid));
+            }}
+          >
+            Save Map
+          </button>
+        )}
+        <button
+          className="secondary"
+          style={{
+            padding: "16px 32px",
+            borderRadius: "8px",
+            fontSize: "1.25em",
+            cursor: "pointer",
+            marginBottom: "16px",
+          }}
+          onClick={() => {
+            setView("none");
+          }}
+        >
+          Back to Map
+        </button>
+        <button
+          className="secondary"
+          style={{
+            padding: "16px 32px",
+            borderRadius: "8px",
+            fontSize: "1.25em",
+            cursor: "pointer",
+            marginBottom: "16px",
+          }}
+          onClick={() => {
+            replayWithNewSeed();
+          }}
+        >
+          Retry
+        </button>
         <button
           style={{
             padding: "16px 32px",
             borderRadius: "8px",
             fontSize: "1.25em",
             cursor: "pointer",
-            marginLeft: "8px",
+            marginBottom: "16px",
           }}
           onClick={() => {
-            console.log(lastGrid);
-            console.log(JSON.stringify(lastGrid));
+            setView("mainMenu");
+            reGenerateGame();
           }}
         >
-          Save Map
+          Leave Map
         </button>
-      )}
+      </div>
     </Menu>
   );
 };

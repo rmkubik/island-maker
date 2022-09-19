@@ -1,13 +1,16 @@
 {
-  "name": "parcel-react-starter",
+  "name": "com.ryankubik.island-maker",
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "",
   "dependencies": {
+    "aws-sdk": "^2.1204.0",
+    "dotenv": "^16.0.1",
     "honeycomb-grid": "^3.1.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -31,6 +34,6 @@
     "deploy": "npm run build && npm run deploy:itch",
     "deploy:itch": "butler push dist rmkubik/island-maker:html"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Ryan Kubik",
+  "license": "UNLICENSED"
 }
