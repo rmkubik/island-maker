@@ -1429,6 +1429,7 @@ const objects = combineEntriesWithKeys(
           hex.objectImage = undefined;
 
           game.unlockRule("treasure", "unlock");
+          game.unlockItem("key");
           game.unlockRule("key", "unlock");
 
           return { newCards: [["fishRelic", hex]], skipPlacement: true };
