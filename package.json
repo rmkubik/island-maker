@@ -1,7 +1,7 @@
 {
   "name": "com.ryankubik.island-maker",
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "",
   "dependencies": {
     "aws-sdk": "^2.1204.0",
